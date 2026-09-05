@@ -3,2025 +3,558 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SecureCode — Context-Aware AI Security Analyzer</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Cybersecurity Innovation Demos — Select Problem Statement</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Space+Grotesk:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-space: #060812;
+      --bg-card: rgba(13, 18, 34, 0.85);
+      --border-color: rgba(255, 255, 255, 0.1);
+      --cyan: #00f0ff;
+      --cyan-glow: rgba(0, 240, 255, 0.4);
+      --violet: #8b5cf6;
+      --violet-glow: rgba(139, 92, 246, 0.4);
+      --emerald: #10b981;
+      --emerald-glow: rgba(16, 185, 129, 0.4);
+      --danger: #ff2a5f;
+      --danger-glow: rgba(255, 42, 95, 0.4);
+      --font-display: "Space Grotesk", -apple-system, sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg-space);
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(0, 240, 255, 0.08), transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(139, 92, 246, 0.08), transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(255, 42, 95, 0.04), transparent 60%);
+    }
+
+    /* Cyber grid overlay */
+    .cyber-grid {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    }
+
+    /* Top Nav */
+    .portal-nav {
+      height: 72px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 36px;
+      background: rgba(6, 8, 18, 0.9);
+      backdrop-filter: blur(16px);
+      z-index: 10;
+    }
+
+    .portal-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon-box {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(139, 92, 246, 0.25));
+      border: 1px solid var(--cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cyan);
+      box-shadow: 0 0 16px var(--cyan-glow);
+    }
+
+    .portal-brand h1 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+
+    .portal-brand p {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: #94a3b8;
+      letter-spacing: 0.06em;
+    }
+
+    .portal-tag-badge {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--cyan);
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 5px 14px;
+      border-radius: 20px;
+    }
+
+    /* Main Container */
+    .portal-main {
+      flex: 1;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 40px 32px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      z-index: 1;
+    }
+
+    .portal-header {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--emerald);
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--emerald);
+      padding: 4px 16px;
+      border-radius: 20px;
+      letter-spacing: 0.08em;
+    }
+
+    .portal-header h2 {
+      font-family: var(--font-display);
+      font-size: 2.35rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .portal-header p {
+      font-size: 1rem;
+      color: #94a3b8;
+      max-width: 780px;
+      line-height: 1.5;
+    }
+
+    /* PS Cards Grid */
+    .ps-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+
+    .ps-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .ps-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.6);
+    }
+
+    .ps-card-1 {
+      border-top: 4px solid var(--cyan);
+    }
+    .ps-card-1:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 0 32px var(--cyan-glow);
+    }
+
+    .ps-card-2 {
+      border-top: 4px solid var(--violet);
+    }
+    .ps-card-2:hover {
+      border-color: var(--violet);
+      box-shadow: 0 0 32px var(--violet-glow);
+    }
+
+    .ps-card-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .ps-badge {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      padding: 4px 12px;
+      border-radius: 6px;
+    }
+
+    .ps1-badge { background: rgba(0, 240, 255, 0.15); border: 1px solid var(--cyan); color: var(--cyan); }
+    .ps2-badge { background: rgba(139, 92, 246, 0.15); border: 1px solid var(--violet); color: var(--violet); }
+
+    .ps-acts-pill {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: #94a3b8;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .ps-target-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--emerald);
+      letter-spacing: 0.05em;
+    }
+
+    .ps-title {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 800;
+      line-height: 1.25;
+      color: #fff;
+    }
+
+    /* 3-Second Explainer Box */
+    .ps-simplified-explainer {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .explainer-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.84rem;
+      line-height: 1.45;
+    }
+
+    .explainer-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .explainer-text strong {
+      color: #fff;
+    }
+
+    .explainer-text {
+      color: #cbd5e1;
+    }
+
+    /* Key Features Pills */
+    .features-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .feature-pill {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #94a3b8;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .btn-launch {
+      margin-top: auto;
+      padding: 14px 24px;
+      border-radius: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      border: none;
+    }
+
+    .btn-launch-ps1 {
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.9), rgba(16, 185, 129, 0.9));
+      color: #040914;
+      box-shadow: 0 0 20px var(--cyan-glow);
+    }
+
+    .btn-launch-ps1:hover {
+      box-shadow: 0 0 32px var(--cyan-glow);
+      transform: scale(1.02);
+    }
+
+    .btn-launch-ps2 {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.9), rgba(0, 240, 255, 0.9));
+      color: #040914;
+      box-shadow: 0 0 20px var(--violet-glow);
+    }
+
+    .btn-launch-ps2:hover {
+      box-shadow: 0 0 32px var(--violet-glow);
+      transform: scale(1.02);
+    }
+
+    /* Comparison Table Box */
+    .comparison-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .comp-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    .comp-table th {
+      text-align: left;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border-color);
+      color: #94a3b8;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+    }
+
+    .comp-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: #cbd5e1;
+    }
+
+    .comp-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Footer */
+    .portal-footer {
+      border-top: 1px solid var(--border-color);
+      padding: 18px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: #64748b;
+      font-family: var(--font-mono);
+      background: rgba(6, 8, 18, 0.85);
+    }
+  </style>
 </head>
-<body class="dark-theme">
-  <!-- Ambient Cyber Background -->
-  <div class="cyber-bg">
-    <div class="grid-overlay"></div>
-    <div class="glow-orb orb-1"></div>
-    <div class="glow-orb orb-2"></div>
-    <div class="scanline-overlay"></div>
-  </div>
+<body>
+  <div class="cyber-grid"></div>
 
-  <!-- Main Application Wrapper -->
-  <div class="app-container">
-    
-    <!-- Top Cyber Header Navigation -->
-    <header class="top-nav">
-      <div class="nav-left">
-        <div class="brand-badge">
-          <div class="brand-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              <path d="m9 12 2 2 4-4"/>
-            </svg>
+  <!-- Top Navigation Header -->
+  <header class="portal-nav">
+    <div class="portal-brand">
+      <div class="brand-icon-box">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+      </div>
+      <div>
+        <h1>CyberDefense Innovation Demos</h1>
+        <p>HACKATHON &bull; DUAL PROBLEM STATEMENT PRESENTATION HUB</p>
+      </div>
+    </div>
+    <div class="portal-tag-badge">100% OFFLINE &bull; 0 EXTERNAL DEPENDENCIES</div>
+  </header>
+
+  <!-- Main Presentation Selection Hub -->
+  <main class="portal-main">
+    <div class="portal-header">
+      <span class="hero-badge">SELECT PRESENTATION DEMO</span>
+      <h2>Which Problem Statement do you want to watch?</h2>
+      <p>Both demonstrations feature complete continuous storytelling, interactive controls, live audio synthesis, and clear step-by-step problem &amp; solution walkthroughs.</p>
+    </div>
+
+    <!-- Dual PS Cards -->
+    <div class="ps-grid">
+      <!-- PS 1 Card: ScamShield 2.0 -->
+      <div class="ps-card ps-card-1">
+        <div class="ps-card-top-row">
+          <span class="ps-badge ps1-badge">PROBLEM STATEMENT 1</span>
+          <span class="ps-acts-pill">17 Scenes &bull; ~2:45 min</span>
+        </div>
+        <span class="ps-target-tag">FOR CITIZENS, BANKS &amp; CYBER CRIME INVESTIGATORS</span>
+
+        <h3 class="ps-title">ScamShield 2.0: Multi-Channel Scam Intelligence</h3>
+
+        <!-- 3-Second Clear Summary -->
+        <div class="ps-simplified-explainer">
+          <div class="explainer-row">
+            <span class="explainer-icon">🚨</span>
+            <div class="explainer-text"><strong>The Problem:</strong> Scammers don't stick to one channel—they send an SMS, make a phone call, host a fake bank website, and send a UPI request. Because tools check each clue in silos, the scam gang escapes.</div>
           </div>
-          <div class="brand-text">
-            <span class="brand-name">Secure<span class="brand-highlight">Code</span></span>
-            <span class="brand-tag">AI SECURITY ANALYZER</span>
+          <div class="explainer-row">
+            <span class="explainer-icon">💡</span>
+            <div class="explainer-text"><strong>The Solution:</strong> ScamShield connects all clues (Phone + Website + UPI ID + Email) into an interactive network graph. It discovers that 4 different victims in 4 cities are targeted by the exact same gang (#SCM-2048)!</div>
+          </div>
+          <div class="explainer-row">
+            <span class="explainer-icon">🎯</span>
+            <div class="explainer-text"><strong>Final Outcome:</strong> Shows plain-English warnings, blocks fraudulent UPI payments before money is lost, and maps the whole criminal syndicate on a live dashboard.</div>
           </div>
         </div>
+
+        <div class="features-pill-row">
+          <span class="feature-pill">7 Communication Channels</span>
+          <span class="feature-pill">Hero Relationship Graph</span>
+          <span class="feature-pill">Campaign #SCM-2048</span>
+          <span class="feature-pill">Payment Block Shield</span>
+        </div>
+
+        <a href="scamshield.html" class="btn-launch btn-launch-ps1">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+          <span>LAUNCH PS 1: SCAMSHIELD 2.0 DEMO (17 ACTS)</span>
+        </a>
       </div>
 
-      <div class="nav-center">
-        <div class="scene-indicator">
-          <span class="indicator-badge" id="sceneBadge">SCENE 1 / 13</span>
-          <span class="scene-title-display" id="sceneTitleDisplay">The Problem — Hidden Vulnerabilities</span>
+      <!-- PS 2 Card: SecureCode -->
+      <div class="ps-card ps-card-2">
+        <div class="ps-card-top-row">
+          <span class="ps-badge ps2-badge">PROBLEM STATEMENT 2</span>
+          <span class="ps-acts-pill">13 Scenes &bull; ~2:15 min</span>
         </div>
+        <span class="ps-target-tag">FOR SOFTWARE DEVELOPERS &amp; DEVSECOPS</span>
+
+        <h3 class="ps-title">SecureCode: AI Security Analyzer for Codebases</h3>
+
+        <!-- 3-Second Clear Summary -->
+        <div class="ps-simplified-explainer">
+          <div class="explainer-row">
+            <span class="explainer-icon">🚨</span>
+            <div class="explainer-text"><strong>The Problem:</strong> Developers accidentally leave dangerous security flaws (SQL injection, hardcoded AWS keys, XSS) in source code. Traditional tools dump hundreds of confusing alerts.</div>
+          </div>
+          <div class="explainer-row">
+            <span class="explainer-icon">💡</span>
+            <div class="explainer-text"><strong>The Solution:</strong> SecureCode traces how bad user input flows into the database, calculates a real-world risk score (91/100), and provides an AI Copilot that explains the bug in simple English.</div>
+          </div>
+          <div class="explainer-row">
+            <span class="explainer-icon">🎯</span>
+            <div class="explainer-text"><strong>Final Outcome:</strong> Generates the exact line-by-line code fix (Line 42 parameterized query) and re-scans the uploaded patch to verify the flaw is 100% resolved.</div>
+          </div>
+        </div>
+
+        <div class="features-pill-row">
+          <span class="feature-pill">Unified 6-Error Codebase</span>
+          <span class="feature-pill">Copilot Explanation</span>
+          <span class="feature-pill">Line Gutters 41–43</span>
+          <span class="feature-pill">Re-Upload Re-Scan</span>
+        </div>
+
+        <a href="securecode.html" class="btn-launch btn-launch-ps2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+          <span>LAUNCH PS 2: SECURECODE DEMO (13 ACTS)</span>
+        </a>
       </div>
-
-      <div class="nav-right">
-        <button class="nav-btn" id="audioToggleBtn" title="Toggle Cyber Audio SFX (Procedural Web Audio)">
-          <svg id="audioOnIcon" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
-          </svg>
-          <svg id="audioOffIcon" class="icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-            <line x1="23" y1="9" x2="17" y2="15"/>
-            <line x1="17" y1="9" x2="23" y2="15"/>
-          </svg>
-          <span id="audioLabel">Sound: OFF</span>
-        </button>
-
-        <div class="speed-selector" title="Playback Speed">
-          <button class="speed-btn active" data-speed="1">1x</button>
-          <button class="speed-btn" data-speed="1.5">1.5x</button>
-          <button class="speed-btn" data-speed="2">2x</button>
-        </div>
-
-        <button class="nav-btn" id="fullscreenBtn" title="Toggle Fullscreen (F)">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
-          </svg>
-        </button>
-      </div>
-    </header>
-
-    <!-- Stage Viewport (Dynamic Scenes Container) -->
-    <main class="stage-viewport" id="stageViewport">
-
-      <!-- ================= SCENE 1: THE PROBLEM ================= -->
-      <section class="scene" id="scene-1" data-scene="1">
-        <div class="scene-header-box">
-          <div class="scene-tag warning-tag">ACT I &bull; THE HIDDEN VULNERABILITY CRISIS</div>
-          <h1 class="scene-headline">Modern applications can contain <span class="text-danger glow-danger">hidden security vulnerabilities.</span></h1>
-          <p class="scene-subline">A developer builds rapid features across a modern microservice codebase, unaware of latent security traps lurking in common code patterns.</p>
-        </div>
-
-        <div class="scene1-split-layout">
-          <!-- Code Editor Mockup -->
-          <div class="editor-window glass-panel">
-            <div class="editor-titlebar">
-              <div class="window-dots">
-                <span class="dot dot-red"></span>
-                <span class="dot dot-yellow"></span>
-                <span class="dot dot-green"></span>
-              </div>
-              <div class="editor-tabs" id="scene1Tabs">
-                <div class="tab active" data-file="database.py">database.py <span class="tab-error-dot danger">●</span></div>
-                <div class="tab" data-file="config.js">config.js <span class="tab-error-dot danger">●</span></div>
-                <div class="tab" data-file="app.js">app.js <span class="tab-error-dot warning">●</span></div>
-                <div class="tab" data-file="auth.js">auth.js <span class="tab-error-dot warning">●</span></div>
-                <div class="tab" data-file="login.py">login.py <span class="tab-error-dot danger">●</span></div>
-                <div class="tab" data-file="package.json">package.json <span class="tab-error-dot info">●</span></div>
-              </div>
-
-              <!-- View Mode Switcher for Judges Clarity -->
-              <div class="editor-view-mode-tabs" id="scene1ViewModes">
-                <button class="view-mode-btn active" id="btnSingleFile" title="Inspect individual files">
-                  <span>📄 Active File</span>
-                </button>
-                <button class="view-mode-btn mode-unified" id="btnUnifiedCodebase" title="Show all errors in one codebase simultaneously">
-                  <span class="btn-pulse-dot"></span>
-                  <span>🗂️ All Errors in One Codebase</span>
-                </button>
-              </div>
-
-              <div class="editor-status">
-                <span class="status-badge git-branch">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3v12"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
-                  main
-                </span>
-              </div>
-            </div>
-
-            <div class="editor-body">
-              <!-- Mode 1: Single File View -->
-              <div class="single-file-view" id="scene1SingleFileView">
-                <div class="code-gutter" id="scene1CodeGutter">
-                  <span>38</span><span>39</span><span>40</span><span>41</span><span class="gutter-alert">42</span><span>43</span><span>44</span><span>45</span><span>46</span><span>47</span>
-                </div>
-                <div class="code-content" id="scene1CodeContent">
-                  <div class="code-line"><span class="c-keyword">def</span> <span class="c-func">getUserAccountData</span>(request):</div>
-                  <div class="code-line indent-1">user_id = request.args.<span class="c-func">get</span>(<span class="c-str">'id'</span>)</div>
-                  <div class="code-line indent-1"><span class="c-comment"># Fetch user profile and banking records</span></div>
-                  <div class="code-line indent-1 code-flaw-line flaw-sqli" id="s1-sqli-line">
-                    raw_query = <span class="c-str">"SELECT * FROM users WHERE user_id = '"</span> + user_id + <span class="c-str">"'"</span>
-                    <div class="inline-squiggle squiggle-danger"></div>
-                    <div class="inline-threat-badge fade-in-badge" id="s1-badge-1">
-                      <span class="threat-icon">⚠️</span>
-                      <span id="s1-badge-text">Unsafe SQL query concatenation</span>
-                    </div>
-                  </div>
-                  <div class="code-line indent-1">cursor = db.<span class="c-func">cursor</span>()</div>
-                  <div class="code-line indent-1">cursor.<span class="c-func">execute</span>(raw_query)</div>
-                  <div class="code-line indent-1"><span class="c-keyword">return</span> cursor.<span class="c-func">fetchall</span>()</div>
-                </div>
-              </div>
-
-              <!-- Mode 2: Unified Codebase Master View (All Errors in One Codebase) -->
-              <div class="unified-codebase-view hidden" id="scene1UnifiedCodebaseView">
-                <div class="unified-codebase-header">
-                  <div class="unified-repo-title">
-                    <span>📁 enterprise/fintech-payment-service</span>
-                    <span class="git-branch-tag">🌿 branch: main</span>
-                  </div>
-                  <span class="unified-repo-badge">6 CRITICAL SECURITY FLAWS IN ONE CODEBASE</span>
-                </div>
-
-                <div class="unified-codebase-grid">
-                  <!-- File 1: database.py -->
-                  <div class="unified-file-card has-critical" data-file="database.py" id="unifiedCard-database">
-                    <div class="unified-card-titlebar">
-                      <span class="unified-filename">🐍 src/database.py</span>
-                      <span class="unified-line-badge severity-tag critical">Line 42 &bull; CWE-89</span>
-                    </div>
-                    <div class="unified-flaw-desc">⚠️ SQL Injection: Unsafe string query concatenation</div>
-                    <div class="unified-code-snippet">
-                      <div class="unified-code-line">40: <span class="c-comment"># Query without parameterized binding</span></div>
-                      <div class="unified-code-line is-target">42: raw_query = <span class="c-str">"SELECT * FROM users WHERE id = '"</span> + id + <span class="c-str">"'"</span></div>
-                      <div class="unified-code-line">43: cursor.<span class="c-func">execute</span>(raw_query)</div>
-                    </div>
-                    <div class="unified-inspect-action"><span>Click to Inspect File in Editor ➔</span></div>
-                  </div>
-
-                  <!-- File 2: config.js -->
-                  <div class="unified-file-card has-critical" data-file="config.js" id="unifiedCard-config">
-                    <div class="unified-card-titlebar">
-                      <span class="unified-filename">⚙️ config/config.js</span>
-                      <span class="unified-line-badge severity-tag critical">Line 18 &bull; CWE-798</span>
-                    </div>
-                    <div class="unified-flaw-desc">⚠️ Hardcoded Secret: Plaintext AWS production credentials</div>
-                    <div class="unified-code-snippet">
-                      <div class="unified-code-line">17: <span class="c-comment">// Production S3 storage credentials</span></div>
-                      <div class="unified-code-line is-target">18: <span class="c-keyword">const</span> AWS_SECRET_KEY = <span class="c-str">"AKIAIOSFODNN7EXAMPLE_SECRET_PROD"</span>;</div>
-                      <div class="unified-code-line">19: <span class="c-keyword">const</span> S3_BUCKET = <span class="c-str">"production-financial-vault"</span>;</div>
-                    </div>
-                    <div class="unified-inspect-action"><span>Click to Inspect File in Editor ➔</span></div>
-                  </div>
-
-                  <!-- File 3: app.js -->
-                  <div class="unified-file-card has-high" data-file="app.js" id="unifiedCard-app">
-                    <div class="unified-card-titlebar">
-                      <span class="unified-filename">📜 src/app.js</span>
-                      <span class="unified-line-badge severity-tag high">Line 89 &bull; CWE-79</span>
-                    </div>
-                    <div class="unified-flaw-desc">⚠️ Stored XSS: Direct user HTML injection into DOM</div>
-                    <div class="unified-code-snippet">
-                      <div class="unified-code-line">88: <span class="c-comment">// Render user bio without HTML escaping</span></div>
-                      <div class="unified-code-line is-target">89: profileDiv.innerHTML = <span class="c-str">"&lt;div&gt;"</span> + user.bio + <span class="c-str">"&lt;/div&gt;"</span>;</div>
-                      <div class="unified-code-line">90: container.<span class="c-func">appendChild</span>(profileDiv);</div>
-                    </div>
-                    <div class="unified-inspect-action"><span>Click to Inspect File in Editor ➔</span></div>
-                  </div>
-
-                  <!-- File 4: auth.js -->
-                  <div class="unified-file-card has-high" data-file="auth.js" id="unifiedCard-auth">
-                    <div class="unified-card-titlebar">
-                      <span class="unified-filename">📜 src/auth.js</span>
-                      <span class="unified-line-badge severity-tag high">Line 64 &bull; CWE-78</span>
-                    </div>
-                    <div class="unified-flaw-desc">⚠️ Command Injection: Unsanitized host executed in subshell</div>
-                    <div class="unified-code-snippet">
-                      <div class="unified-code-line">63: <span class="c-comment">// System diagnostic ping tool</span></div>
-                      <div class="unified-code-line is-target">64: <span class="c-func">exec</span>(<span class="c-str">"ping -c 4 "</span> + req.body.host, (err, stdout) =&gt; {</div>
-                      <div class="unified-code-line">65:   <span class="c-keyword">if</span> (err) <span class="c-keyword">return</span> res.<span class="c-func">status</span>(500).<span class="c-func">send</span>(err);</div>
-                    </div>
-                    <div class="unified-inspect-action"><span>Click to Inspect File in Editor ➔</span></div>
-                  </div>
-
-                  <!-- File 5: login.py -->
-                  <div class="unified-file-card has-critical" data-file="login.py" id="unifiedCard-login">
-                    <div class="unified-card-titlebar">
-                      <span class="unified-filename">🐍 src/login.py</span>
-                      <span class="unified-line-badge severity-tag critical">Line 88 &bull; CWE-502</span>
-                    </div>
-                    <div class="unified-flaw-desc">⚠️ Insecure Deserialization: Unsafe pickle object loading</div>
-                    <div class="unified-code-snippet">
-                      <div class="unified-code-line">87: <span class="c-comment">// Decode client session cookie</span></div>
-                      <div class="unified-code-line is-target">88: user_session = pickle.<span class="c-func">loads</span>(base64.<span class="c-func">b64decode</span>(token))</div>
-                      <div class="unified-code-line">89: <span class="c-keyword">if</span> user_session.is_authenticated:</div>
-                    </div>
-                    <div class="unified-inspect-action"><span>Click to Inspect File in Editor ➔</span></div>
-                  </div>
-
-                  <!-- File 6: package.json -->
-                  <div class="unified-file-card has-medium" data-file="package.json" id="unifiedCard-package">
-                    <div class="unified-card-titlebar">
-                      <span class="unified-filename">📦 package.json</span>
-                      <span class="unified-line-badge severity-tag medium">Line 27 &bull; CVE-2024-39338</span>
-                    </div>
-                    <div class="unified-flaw-desc">⚠️ Vulnerable Dependency: Unpatched Axios SSRF vulnerability</div>
-                    <div class="unified-code-snippet">
-                      <div class="unified-code-line">26: <span class="c-str">"dependencies"</span>: {</div>
-                      <div class="unified-code-line is-target">27:   <span class="c-str">"axios"</span>: <span class="c-str">"^0.21.1"</span>,  <span class="c-comment">// CVE-2024-39338</span></div>
-                      <div class="unified-code-line">34:   <span class="c-str">"lodash"</span>: <span class="c-str">"4.17.15"</span>   <span class="c-comment">// Prototype Pollution</span></div>
-                    </div>
-                    <div class="unified-inspect-action"><span>Click to Inspect File in Editor ➔</span></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="editor-status-bar" id="scene1StatusBar">
-              <span class="item" id="scene1StatusCount"><span class="dot-sm dot-warning"></span> 6 Latent Vulnerabilities in Codebase</span>
-              <span class="item" id="scene1StatusLang">Python 3.12</span>
-              <span class="item">UTF-8</span>
-              <span class="item" id="scene1StatusPos">Ln 42, Col 18</span>
-            </div>
-          </div>
-
-          <!-- Weakness Cards & Cascade of Consequences -->
-          <div class="scene1-sidebar">
-            <div class="card-list-container">
-              <div class="sidebar-header">
-                <span class="pulse-radar"></span>
-                <span>Latent Flaws In Codebase (fintech-payment-service)</span>
-              </div>
-              
-              <div class="flaw-cards" id="scene1FlawCards">
-                <div class="flaw-card active-flaw" id="flaw-card-1" data-file="database.py">
-                  <div class="flaw-icon-box danger">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
-                  </div>
-                  <div class="flaw-meta">
-                    <span class="flaw-title">Unsafe SQL Query</span>
-                    <span class="flaw-sub">database.py &bull; Line 42</span>
-                  </div>
-                  <span class="severity-tag critical">CRITICAL</span>
-                </div>
-
-                <div class="flaw-card" id="flaw-card-2" data-file="config.js">
-                  <div class="flaw-icon-box danger">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                  </div>
-                  <div class="flaw-meta">
-                    <span class="flaw-title">Hardcoded API Secret</span>
-                    <span class="flaw-sub">config.js &bull; Line 18</span>
-                  </div>
-                  <span class="severity-tag critical">CRITICAL</span>
-                </div>
-
-                <div class="flaw-card" id="flaw-card-3" data-file="app.js">
-                  <div class="flaw-icon-box warning">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
-                  </div>
-                  <div class="flaw-meta">
-                    <span class="flaw-title">Unsanitized User Input (XSS)</span>
-                    <span class="flaw-sub">app.js &bull; Line 89</span>
-                  </div>
-                  <span class="severity-tag high">HIGH</span>
-                </div>
-
-                <div class="flaw-card" id="flaw-card-4" data-file="auth.js">
-                  <div class="flaw-icon-box warning">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                  </div>
-                  <div class="flaw-meta">
-                    <span class="flaw-title">Remote Command Injection</span>
-                    <span class="flaw-sub">auth.js &bull; Line 64</span>
-                  </div>
-                  <span class="severity-tag high">HIGH</span>
-                </div>
-
-                <div class="flaw-card" id="flaw-card-5" data-file="login.py">
-                  <div class="flaw-icon-box danger">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                  </div>
-                  <div class="flaw-meta">
-                    <span class="flaw-title">Insecure Deserialization</span>
-                    <span class="flaw-sub">login.py &bull; Line 88</span>
-                  </div>
-                  <span class="severity-tag critical">CRITICAL</span>
-                </div>
-
-                <div class="flaw-card" id="flaw-card-6" data-file="package.json">
-                  <div class="flaw-icon-box info">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m16.5 9.4-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                  </div>
-                  <div class="flaw-meta">
-                    <span class="flaw-title">Vulnerable Dependency</span>
-                    <span class="flaw-sub">package.json &bull; Line 27</span>
-                  </div>
-                  <span class="severity-tag medium">MEDIUM</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Cascade Impact Banner -->
-            <div class="consequence-cascade glass-panel" id="s1-cascade">
-              <div class="cascade-label">Downstream Blast Radius</div>
-              <div class="cascade-steps">
-                <div class="cascade-item" id="cas-1">
-                  <div class="cas-icon">🔓</div>
-                  <div class="cas-text">Unauthorized Access</div>
-                </div>
-                <div class="cas-arrow">➔</div>
-                <div class="cascade-item" id="cas-2">
-                  <div class="cas-icon">📂</div>
-                  <div class="cas-text">Data Breach</div>
-                </div>
-                <div class="cas-arrow">➔</div>
-                <div class="cascade-item" id="cas-3">
-                  <div class="cas-icon">💸</div>
-                  <div class="cas-text">Financial Loss</div>
-                </div>
-                <div class="cas-arrow">➔</div>
-                <div class="cascade-item" id="cas-4">
-                  <div class="cas-icon">💥</div>
-                  <div class="cas-text">System Compromise</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================= SCENE 2: THE EXISTING CHALLENGE ================= -->
-      <section class="scene" id="scene-2" data-scene="2">
-        <div class="scene-header-box">
-          <div class="scene-tag danger-tag">ACT II &bull; THE TRIAGE BOTTLENECK</div>
-          <h1 class="scene-headline">“Finding vulnerabilities is only the first step.<br><span class="text-warning glow-warning">Understanding and prioritizing them is the real challenge.”</span></h1>
-          <p class="scene-subline">Developers are bombarded by disconnected security tools producing massive walls of alerts, false alarms, and dense cryptic PDFs.</p>
-        </div>
-
-        <div class="scene2-container">
-          <div class="alert-storm-stage">
-            <!-- Central Overwhelmed Developer Avatar -->
-            <div class="developer-center-card glass-panel">
-              <div class="dev-avatar-pulse">
-                <div class="avatar-icon">🧑‍💻</div>
-                <div class="alert-cloud-bubble">
-                  <span class="alert-counter-number" id="alertCounter">384</span>
-                  <span class="alert-counter-sub">UNRESOLVED FINDINGS</span>
-                </div>
-              </div>
-              <h3 class="dev-card-title">Developer Dilemma</h3>
-              <p class="dev-card-desc">“Which alert is truly exploitable? Which should I fix before today's release?”</p>
-              
-              <div class="dilemma-tags">
-                <span class="dilemma-pill">SAST Flaws: 214</span>
-                <span class="dilemma-pill">SCA CVEs: 112</span>
-                <span class="dilemma-pill">Secrets: 58</span>
-              </div>
-            </div>
-
-            <!-- Floating Tool Alert Cards Around Developer -->
-            <div class="tool-alert-badge badge-sast" style="top: 8%; left: 6%;">
-              <span class="badge-tool">SAST SCANNER v4.1</span>
-              <span class="badge-msg">Alert #2940: Taint sink detected without sanitizer</span>
-            </div>
-
-            <div class="tool-alert-badge badge-dast" style="top: 12%; right: 8%;">
-              <span class="badge-tool">DAST DYNAMIC AUDIT</span>
-              <span class="badge-msg">Heuristic Anomaly: HTTP 500 on fuzz payload</span>
-            </div>
-
-            <div class="tool-alert-badge badge-sca" style="bottom: 22%; left: 8%;">
-              <span class="badge-tool">SCA DEPENDENCY BOT</span>
-              <span class="badge-msg">CVE-2024-8819: Prototype pollution in dev-dep</span>
-            </div>
-
-            <div class="tool-alert-badge badge-sec" style="bottom: 18%; right: 7%;">
-              <span class="badge-tool">SECRET SNIFFER</span>
-              <span class="badge-msg">Regex Matched: Possible staging token found</span>
-            </div>
-          </div>
-
-          <!-- 5 Core Pain Point Pillars -->
-          <div class="pain-pillars-grid">
-            <div class="pain-pillar-card glass-panel" id="pain-1">
-              <div class="pillar-icon">🚨</div>
-              <h4>Too Many Alerts</h4>
-              <p>Hundreds of noisy findings flood CI/CD pipelines, causing notification fatigue.</p>
-            </div>
-
-            <div class="pain-pillar-card glass-panel" id="pain-2">
-              <div class="pillar-icon">🎯</div>
-              <h4>False Positives</h4>
-              <p>Theoretical vulnerabilities that can never be reached by actual external users.</p>
-            </div>
-
-            <div class="pain-pillar-card glass-panel" id="pain-3">
-              <div class="pillar-icon">📑</div>
-              <h4>Difficult Reports</h4>
-              <p>Dense 150-page compliance PDFs written for auditors, not for software engineers.</p>
-            </div>
-
-            <div class="pain-pillar-card glass-panel" id="pain-4">
-              <div class="pillar-icon">⚖️</div>
-              <h4>Hard to Prioritize</h4>
-              <p>Everything is labeled "Critical" with CVSS 9.8, leaving teams with no clear roadmap.</p>
-            </div>
-
-            <div class="pain-pillar-card glass-panel" id="pain-5">
-              <div class="pillar-icon">🧩</div>
-              <h4>Difficult to Understand</h4>
-              <p>Abstract CVE descriptions lack source-code context or actionable remediation steps.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================= SCENE 3: INTRODUCING SECURECODE ================= -->
-      <section class="scene" id="scene-3" data-scene="3">
-        <div class="scene-header-box">
-          <div class="scene-tag cyan-tag">ACT III &bull; THE PARADIGM SHIFT</div>
-          <h1 class="scene-headline">Meet <span class="text-cyan glow-cyan">SecureCode</span></h1>
-          <p class="scene-subline text-gradient-cyber">Context-Aware AI Security Analyzer for Developer-Friendly Vulnerability Detection and Remediation</p>
-        </div>
-
-        <div class="scene3-card-container">
-          <div class="hero-product-card glass-panel">
-            <div class="card-hero-glow"></div>
-            
-            <div class="product-banner">
-              <div class="cyber-shield-big">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                  <path d="m9 12 2 2 4-4" stroke-width="2"/>
-                </svg>
-              </div>
-              <div class="product-title-group">
-                <h2>SecureCode Engine 3.0</h2>
-                <span class="engine-tag">NEXT-GEN CONTEXT-AWARE SAST &amp; AI REMEDIATION</span>
-              </div>
-            </div>
-
-            <!-- Repository Ingestion Widget -->
-            <div class="repo-upload-box glass-card">
-              <div class="repo-meta-row">
-                <div class="repo-icon-badge">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-                </div>
-                <div class="repo-info">
-                  <div class="repo-name">enterprise/fintech-payment-service</div>
-                  <div class="repo-stats">142 source files &bull; Python &amp; Node.js &bull; main branch</div>
-                </div>
-                <div class="repo-status" id="uploadStatusBadge">
-                  <span class="status-dot"></span>
-                  <span class="status-txt">Ready for Analysis</span>
-                </div>
-              </div>
-
-              <div class="upload-action-center">
-                <button class="btn-cyber-primary" id="uploadProjectBtn">
-                  <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                  <span>UPLOAD PROJECT</span>
-                </button>
-                <div class="upload-confirmation hidden" id="uploadConfirmedBadge">
-                  <span class="check-icon">✓</span>
-                  <span class="confirm-text">Repository Uploaded &amp; Indexed Successfully</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Core Value Propositions Grid -->
-            <div class="feature-strip">
-              <div class="strip-item">
-                <span class="strip-num">01</span>
-                <div><strong>Full Taint Analysis</strong><br><small>End-to-end data flow tracing</small></div>
-              </div>
-              <div class="strip-item">
-                <span class="strip-num">02</span>
-                <div><strong>Contextual Risk Engine</strong><br><small>Severity calculated from reachability</small></div>
-              </div>
-              <div class="strip-item">
-                <span class="strip-num">03</span>
-                <div><strong>AI Guided Fixes</strong><br><small>One-click verified code patches</small></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================= SCENE 4: REPOSITORY ANALYSIS ================= -->
-      <section class="scene" id="scene-4" data-scene="4">
-        <div class="scene-header-box">
-          <div class="scene-tag cyan-tag">ACT IV &bull; MULTI-STAGE ANALYSIS PIPELINE</div>
-          <h1 class="scene-headline">Deep Multidimensional <span class="text-cyan glow-cyan">Codeflow Scanning</span></h1>
-          <p class="scene-subline">SecureCode evaluates AST syntax trees, dependency supply chains, token secrets, and inter-procedural call graphs simultaneously.</p>
-        </div>
-
-        <div class="scene4-layout">
-          <!-- Animated Pipeline Flow -->
-          <div class="pipeline-bar glass-panel">
-            <div class="pipe-node active-node" id="pipe-1">
-              <div class="node-circle"><span class="pipe-icon">📄</span></div>
-              <span class="node-label">Source Code</span>
-            </div>
-            <div class="pipe-connector" id="conn-1"><div class="beam"></div></div>
-            <div class="pipe-node" id="pipe-2">
-              <div class="node-circle"><span class="pipe-icon">⚙️</span></div>
-              <span class="node-label">Preprocessing</span>
-            </div>
-            <div class="pipe-connector" id="conn-2"><div class="beam"></div></div>
-            <div class="pipe-node" id="pipe-3">
-              <div class="node-circle"><span class="pipe-icon">🔍</span></div>
-              <span class="node-label">Static Analysis</span>
-            </div>
-            <div class="pipe-connector" id="conn-3"><div class="beam"></div></div>
-            <div class="pipe-node" id="pipe-4">
-              <div class="node-circle"><span class="pipe-icon">📦</span></div>
-              <span class="node-label">Dependency Analysis</span>
-            </div>
-            <div class="pipe-connector" id="conn-4"><div class="beam"></div></div>
-            <div class="pipe-node" id="pipe-5">
-              <div class="node-circle"><span class="pipe-icon">🔑</span></div>
-              <span class="node-label">Secret Detection</span>
-            </div>
-          </div>
-
-          <!-- Active File Scanner View -->
-          <div class="scanning-inspection-grid">
-            <div class="file-sweep-card glass-panel">
-              <div class="card-head">
-                <span class="radar-ping"></span>
-                <span>Active Target Scanner</span>
-                <span class="file-counter" id="filesScannedCounter">File 6 of 6</span>
-              </div>
-              <div class="file-list-preview" id="scanFileList">
-                <div class="scan-file-row done"><span class="f-icon">🐍</span> login.py <span class="f-status">Scanned ✓</span></div>
-                <div class="scan-file-row active-scan"><span class="f-icon">🐍</span> database.py <span class="f-status">Inspecting AST Taint...</span></div>
-                <div class="scan-file-row"><span class="f-icon">📜</span> app.js <span class="f-status">Queued</span></div>
-                <div class="scan-file-row"><span class="f-icon">📜</span> auth.js <span class="f-status">Queued</span></div>
-                <div class="scan-file-row"><span class="f-icon">⚙️</span> config.js <span class="f-status">Queued</span></div>
-                <div class="scan-file-row"><span class="f-icon">📦</span> package.json <span class="f-status">Queued</span></div>
-              </div>
-              <div class="laser-scanner-line"></div>
-            </div>
-
-            <!-- Progress & Activity Stream -->
-            <div class="progress-stream-card glass-panel">
-              <div class="circular-progress-wrap">
-                <svg class="progress-ring" width="160" height="160">
-                  <circle class="ring-bg" stroke="rgba(255,255,255,0.08)" stroke-width="10" fill="transparent" r="68" cx="80" cy="80"/>
-                  <circle class="ring-fill" id="pipelineProgressCircle" stroke="var(--cyan)" stroke-width="10" stroke-dasharray="427" stroke-dashoffset="427" stroke-linecap="round" fill="transparent" r="68" cx="80" cy="80"/>
-                </svg>
-                <div class="progress-ring-text">
-                  <span class="ring-number" id="scanPercentText">0%</span>
-                  <span class="ring-label">PIPELINE</span>
-                </div>
-              </div>
-
-              <div class="activity-ticker">
-                <div class="ticker-step" id="ticker-1"><span class="pulse-dot"></span> Analyzing Source Code...</div>
-                <div class="ticker-step" id="ticker-2"><span class="pulse-dot"></span> Analyzing Dependencies...</div>
-                <div class="ticker-step" id="ticker-3"><span class="pulse-dot"></span> Searching for Exposed Secrets...</div>
-                <div class="ticker-step" id="ticker-4"><span class="pulse-dot"></span> Analyzing Code Flow &amp; Call Graph...</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================= SCENE 5: VULNERABILITY DETECTION ================= -->
-      <section class="scene" id="scene-5" data-scene="5">
-        <div class="scene-header-box">
-          <div class="scene-tag danger-tag">ACT V &bull; CODE-AWARE DETECTION</div>
-          <h1 class="scene-headline">Visual Detection: <span class="text-danger glow-danger">Connecting Findings to Code</span></h1>
-          <p class="scene-subline">SecureCode goes far beyond abstract issue lists by anchoring each security finding directly into its exact source file and line context.</p>
-        </div>
-
-        <div class="scene5-container">
-          <!-- Vulnerability Findings Column -->
-          <div class="findings-deck glass-panel">
-            <div class="deck-header">
-              <div class="deck-title-row">
-                <span class="deck-title">Identified Vulnerabilities (27)</span>
-                <span class="deck-badge">All 27 Findings Prioritized</span>
-              </div>
-              <div class="vuln-filter-tabs" id="vulnFilterTabs">
-                <button class="vuln-filter-btn active" data-filter="all">All (27)</button>
-                <button class="vuln-filter-btn filter-critical" data-filter="critical">Critical (5)</button>
-                <button class="vuln-filter-btn filter-high" data-filter="high">High (9)</button>
-                <button class="vuln-filter-btn filter-medium" data-filter="medium">Medium (10)</button>
-                <button class="vuln-filter-btn filter-low" data-filter="low">Low (3)</button>
-              </div>
-            </div>
-
-            <div class="finding-items-scroll" id="findingItemsScroll">
-              <!-- Critical 1-5 -->
-              <div class="vuln-item active-finding" id="v-find-1" data-severity="critical" data-file="database.py" data-line="42" data-cwe="CWE-89">
-                <div class="vuln-severity critical">CRITICAL</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">SQL Injection</div>
-                  <div class="vuln-file">database.py &bull; Line 42 &bull; CWE-89</div>
-                </div>
-                <div class="vuln-link-indicator">ANCHORED 🔗</div>
-              </div>
-
-              <div class="vuln-item" id="v-find-2" data-severity="critical" data-file="config.js" data-line="18" data-cwe="CWE-798">
-                <div class="vuln-severity critical">CRITICAL</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Hardcoded Cloud API Secret</div>
-                  <div class="vuln-file">config.js &bull; Line 18 &bull; CWE-798</div>
-                </div>
-              </div>
-
-              <div class="vuln-item" id="v-find-3" data-severity="critical" data-file="auth.js" data-line="64" data-cwe="CWE-78">
-                <div class="vuln-severity critical">CRITICAL</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Remote Command Injection</div>
-                  <div class="vuln-file">auth.js &bull; Line 64 &bull; CWE-78</div>
-                </div>
-              </div>
-
-              <div class="vuln-item" id="v-find-4" data-severity="critical" data-file="login.py" data-line="88" data-cwe="CWE-502">
-                <div class="vuln-severity critical">CRITICAL</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Insecure Deserialization</div>
-                  <div class="vuln-file">login.py &bull; Line 88 &bull; CWE-502</div>
-                </div>
-              </div>
-
-              <div class="vuln-item" id="v-find-5" data-severity="critical" data-file="app.js" data-line="142" data-cwe="CWE-918">
-                <div class="vuln-severity critical">CRITICAL</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Server-Side Request Forgery (SSRF)</div>
-                  <div class="vuln-file">app.js &bull; Line 142 &bull; CWE-918</div>
-                </div>
-              </div>
-
-              <!-- High 6-14 -->
-              <div class="vuln-item" id="v-find-6" data-severity="high" data-file="app.js" data-line="89" data-cwe="CWE-79">
-                <div class="vuln-severity high">HIGH</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Stored Cross-Site Scripting (XSS)</div>
-                  <div class="vuln-file">app.js &bull; Line 89 &bull; CWE-79</div>
-                </div>
-              </div>
-
-              <div class="vuln-item" id="v-find-7" data-severity="high" data-file="database.py" data-line="118" data-cwe="CWE-285">
-                <div class="vuln-severity high">HIGH</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Broken Object-Level Auth (BOLA)</div>
-                  <div class="vuln-file">database.py &bull; Line 118 &bull; CWE-285</div>
-                </div>
-              </div>
-
-              <div class="vuln-item" id="v-find-8" data-severity="high" data-file="auth.js" data-line="31" data-cwe="CWE-347">
-                <div class="vuln-severity high">HIGH</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Weak JWT Verification (None Alg)</div>
-                  <div class="vuln-file">auth.js &bull; Line 31 &bull; CWE-347</div>
-                </div>
-              </div>
-
-              <div class="vuln-item" id="v-find-9" data-severity="high" data-file="app.js" data-line="204" data-cwe="CWE-22">
-                <div class="vuln-severity high">HIGH</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Path Traversal File Disclosure</div>
-                  <div class="vuln-file">app.js &bull; Line 204 &bull; CWE-22</div>
-                </div>
-              </div>
-
-              <div class="vuln-item" id="v-find-10" data-severity="high" data-file="database.py" data-line="76" data-cwe="CWE-915">
-                <div class="vuln-severity high">HIGH</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Mass Assignment Vulnerability</div>
-                  <div class="vuln-file">database.py &bull; Line 76 &bull; CWE-915</div>
-                </div>
-              </div>
-
-              <div class="vuln-item" id="v-find-11" data-severity="high" data-file="app.js" data-line="165" data-cwe="CWE-611">
-                <div class="vuln-severity high">HIGH</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">XML External Entity (XXE)</div>
-                  <div class="vuln-file">app.js &bull; Line 165 &bull; CWE-611</div>
-                </div>
-              </div>
-
-              <div class="vuln-item" id="v-find-12" data-severity="high" data-file="login.py" data-line="15" data-cwe="CWE-352">
-                <div class="vuln-severity high">HIGH</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Cross-Site Request Forgery (CSRF)</div>
-                  <div class="vuln-file">login.py &bull; Line 15 &bull; CWE-352</div>
-                </div>
-              </div>
-
-              <div class="vuln-item" id="v-find-13" data-severity="high" data-file="database.py" data-line="210" data-cwe="CWE-362">
-                <div class="vuln-severity high">HIGH</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Race Condition in Balance Transfer</div>
-                  <div class="vuln-file">database.py &bull; Line 210 &bull; CWE-362</div>
-                </div>
-              </div>
-
-              <div class="vuln-item" id="v-find-14" data-severity="high" data-file="auth.js" data-line="95" data-cwe="CWE-269">
-                <div class="vuln-severity high">HIGH</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Privilege Escalation via Header</div>
-                  <div class="vuln-file">auth.js &bull; Line 95 &bull; CWE-269</div>
-                </div>
-              </div>
-
-              <!-- Medium 15-24 -->
-              <div class="vuln-item" id="v-find-15" data-severity="medium" data-file="login.py" data-line="112" data-cwe="CWE-327">
-                <div class="vuln-severity medium">MEDIUM</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Weak Cryptography (MD5)</div>
-                  <div class="vuln-file">login.py &bull; Line 112 &bull; CWE-327</div>
-                </div>
-              </div>
-
-              <div class="vuln-item" id="v-find-16" data-severity="medium" data-file="package.json" data-line="27" data-cwe="CVE-2024-39338">
-                <div class="vuln-severity medium">MEDIUM</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Vulnerable Dependency: axios</div>
-                  <div class="vuln-file">package.json &bull; Line 27 &bull; CVE-2024-39338</div>
-                </div>
-              </div>
-
-              <div class="vuln-item" id="v-find-17" data-severity="medium" data-file="login.py" data-line="24" data-cwe="CWE-307">
-                <div class="vuln-severity medium">MEDIUM</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Missing Rate Limiting on Login</div>
-                  <div class="vuln-file">login.py &bull; Line 24 &bull; CWE-307</div>
-                </div>
-              </div>
-
-              <div class="vuln-item" id="v-find-18" data-severity="medium" data-file="package.json" data-line="34" data-cwe="CVE-2021-23337">
-                <div class="vuln-severity medium">MEDIUM</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Vulnerable Dependency: lodash</div>
-                  <div class="vuln-file">package.json &bull; Line 34 &bull; CVE-2021-23337</div>
-                </div>
-              </div>
-
-              <div class="vuln-item" id="v-find-19" data-severity="medium" data-file="app.js" data-line="310" data-cwe="CWE-209">
-                <div class="vuln-severity medium">MEDIUM</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Verbose Stack Trace Leakage</div>
-                  <div class="vuln-file">app.js &bull; Line 310 &bull; CWE-209</div>
-                </div>
-              </div>
-
-              <div class="vuln-item" id="v-find-20" data-severity="medium" data-file="config.js" data-line="45" data-cwe="CWE-942">
-                <div class="vuln-severity medium">MEDIUM</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Insecure CORS Wildcard (*)</div>
-                  <div class="vuln-file">config.js &bull; Line 45 &bull; CWE-942</div>
-                </div>
-              </div>
-
-              <div class="vuln-item" id="v-find-21" data-severity="medium" data-file="config.js" data-line="52" data-cwe="CWE-319">
-                <div class="vuln-severity medium">MEDIUM</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Missing HSTS Security Header</div>
-                  <div class="vuln-file">config.js &bull; Line 52 &bull; CWE-319</div>
-                </div>
-              </div>
-
-              <div class="vuln-item" id="v-find-22" data-severity="medium" data-file="requirements.txt" data-line="12" data-cwe="CVE-2020-14343">
-                <div class="vuln-severity medium">MEDIUM</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Vulnerable Dependency: pyyaml</div>
-                  <div class="vuln-file">requirements.txt &bull; Line 12 &bull; CVE-2020-14343</div>
-                </div>
-              </div>
-
-              <div class="vuln-item" id="v-find-23" data-severity="medium" data-file="auth.js" data-line="140" data-cwe="CWE-614">
-                <div class="vuln-severity medium">MEDIUM</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Cookie Missing HttpOnly Flag</div>
-                  <div class="vuln-file">auth.js &bull; Line 140 &bull; CWE-614</div>
-                </div>
-              </div>
-
-              <div class="vuln-item" id="v-find-24" data-severity="medium" data-file="app.js" data-line="12" data-cwe="CWE-200">
-                <div class="vuln-severity medium">MEDIUM</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Information Disclosure Header</div>
-                  <div class="vuln-file">app.js &bull; Line 12 &bull; CWE-200</div>
-                </div>
-              </div>
-
-              <!-- Low 25-27 -->
-              <div class="vuln-item" id="v-find-25" data-severity="low" data-file="index.html" data-line="14" data-cwe="CWE-353">
-                <div class="vuln-severity low">LOW</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Missing SRI on CDN Script</div>
-                  <div class="vuln-file">index.html &bull; Line 14 &bull; CWE-353</div>
-                </div>
-              </div>
-
-              <div class="vuln-item" id="v-find-26" data-severity="low" data-file="config.js" data-line="70" data-cwe="CWE-525">
-                <div class="vuln-severity low">LOW</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Cache-Control Missing on Sensitive Data</div>
-                  <div class="vuln-file">config.js &bull; Line 70 &bull; CWE-525</div>
-                </div>
-              </div>
-
-              <div class="vuln-item" id="v-find-27" data-severity="low" data-file="config.js" data-line="84" data-cwe="CWE-326">
-                <div class="vuln-severity low">LOW</div>
-                <div class="vuln-info">
-                  <div class="vuln-name">Deprecated TLS 1.0/1.1 Configuration</div>
-                  <div class="vuln-file">config.js &bull; Line 84 &bull; CWE-326</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Dynamic SVG Laser Connection Canvas -->
-          <svg class="tether-canvas" id="tetherCanvas" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path id="laserTether" d="M 0 35 C 50 35, 50 48, 100 48" fill="none" stroke="url(#laserGrad)" stroke-width="3" stroke-dasharray="6 4" class="tether-laser"/>
-            <defs>
-              <linearGradient id="laserGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#ef4444"/>
-                <stop offset="100%" stop-color="#ff0055"/>
-              </linearGradient>
-            </defs>
-          </svg>
-
-          <!-- Code Inspection Focus Window (Showing Top 3 Anchors) -->
-          <div class="editor-window code-focus-view glass-panel">
-            <div class="editor-titlebar">
-              <div class="window-dots">
-                <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
-              </div>
-              <div class="editor-tabs" id="scene5FocusTabs">
-                <div class="tab active" id="focusTab1" data-id="v-find-1" data-file="database.py" data-line="42" data-cwe="CWE-89" data-title="SQL Injection">database.py:42 (SQLi)</div>
-                <div class="tab" id="focusTab2" data-id="v-find-2" data-file="config.js" data-line="18" data-cwe="CWE-798" data-title="Hardcoded Cloud API Secret">config.js:18 (Secret)</div>
-                <div class="tab" id="focusTab3" data-id="v-find-6" data-file="app.js" data-line="89" data-cwe="CWE-79" data-title="Stored XSS">app.js:89 (XSS)</div>
-              </div>
-
-              <div class="focus-view-toggles" id="scene5ViewToggles">
-                <button class="focus-mode-btn active" id="btnFocusSingle" title="Inspect active anchor">Single Anchor</button>
-                <button class="focus-mode-btn mode-multi" id="btnFocusMulti" title="Show all 3 critical anchors simultaneously">All 3 Anchors</button>
-              </div>
-
-              <div class="editor-tag-pinned" id="focusPinnedBadge">3 CRITICAL FLAWS ANCHORED</div>
-            </div>
-
-            <div class="editor-body">
-              <!-- Single Focused Anchor View -->
-              <div class="focus-single-container" id="focusSingleContainer">
-                <div class="code-gutter" id="focusCodeGutter">
-                  <span>39</span><span>40</span><span>41</span><span class="gutter-alert">42</span><span>43</span><span>44</span><span>45</span>
-                </div>
-                <div class="code-content" id="focusCodeContent">
-                  <div class="code-line">user_id = request.args.<span class="c-func">get</span>(<span class="c-str">'id'</span>)</div>
-                  <div class="code-line"><span class="c-comment"># Query without parameterized binding</span></div>
-                  <div class="code-line code-target-highlighted" id="targetCodeLine42">
-                    <span class="c-keyword">raw_query</span> = <span class="c-str">"SELECT * FROM users WHERE user_id = '"</span> + user_id + <span class="c-str">"'"</span>
-                    <div class="pulse-laser-ring"></div>
-                  </div>
-                  <div class="code-line">cursor = db.<span class="c-func">cursor</span>()</div>
-                  <div class="code-line">cursor.<span class="c-func">execute</span>(raw_query)</div>
-                  <div class="code-line"><span class="c-keyword">return</span> cursor.<span class="c-func">fetchall</span>()</div>
-                </div>
-              </div>
-
-              <!-- Multi-Anchor Stack View (Shows 3 Security Findings Simultaneously) -->
-              <div class="focus-multi-container hidden" id="focusMultiContainer">
-                <!-- Anchor 1 -->
-                <div class="multi-anchor-card border-critical active-card" data-id="v-find-1" data-file="database.py" data-line="42" data-cwe="CWE-89" data-title="SQL Injection">
-                  <div class="multi-anchor-header">
-                    <span class="multi-anchor-title">🐍 1. database.py:42</span>
-                    <span class="multi-anchor-badge severity-tag critical">CRITICAL &bull; CWE-89</span>
-                  </div>
-                  <div class="multi-anchor-code">
-                    <div class="code-target-highlighted">
-                      <span class="c-keyword">raw_query</span> = <span class="c-str">"SELECT * FROM users WHERE user_id = '"</span> + user_id + <span class="c-str">"'"</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Anchor 2 -->
-                <div class="multi-anchor-card border-critical" data-id="v-find-2" data-file="config.js" data-line="18" data-cwe="CWE-798" data-title="Hardcoded Cloud API Secret">
-                  <div class="multi-anchor-header">
-                    <span class="multi-anchor-title">⚙️ 2. config.js:18</span>
-                    <span class="multi-anchor-badge severity-tag critical">CRITICAL &bull; CWE-798</span>
-                  </div>
-                  <div class="multi-anchor-code">
-                    <div class="code-target-highlighted">
-                      <span class="c-keyword">const</span> AWS_SECRET_KEY = <span class="c-str">"AKIAIOSFODNN7EXAMPLE_SECRET_PROD"</span>;
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Anchor 3 -->
-                <div class="multi-anchor-card border-high" data-id="v-find-6" data-file="app.js" data-line="89" data-cwe="CWE-79" data-title="Stored XSS">
-                  <div class="multi-anchor-header">
-                    <span class="multi-anchor-title">📜 3. app.js:89</span>
-                    <span class="multi-anchor-badge severity-tag high">HIGH &bull; CWE-79</span>
-                  </div>
-                  <div class="multi-anchor-code">
-                    <div class="code-target-highlighted">
-                      profileDiv.innerHTML = <span class="c-str">"&lt;div&gt;"</span> + user.bio + <span class="c-str">"&lt;/div&gt;"</span>;
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="code-focus-footer">
-              <div class="code-anchor-badge" id="focusAnchorBadge">
-                <span class="anchor-dot"></span>
-                <span id="focusAnchorText">Anchor 1 of 3: <code>database.py:42:18</code> &bull; CWE-89 &bull; Source Sink Mapped</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================= SCENE 6: CONTEXT-AWARE ANALYSIS ================= -->
-      <section class="scene" id="scene-6" data-scene="6">
-        <div class="scene-header-box">
-          <div class="scene-tag warning-tag">ACT VI &bull; DATA-FLOW TAINT ANALYSIS</div>
-          <h1 class="scene-headline"><span class="text-danger glow-danger">Potential Attack Path Detected</span></h1>
-          <p class="scene-subline">SecureCode analyzes the full runtime context: untrusted user input journeys through parameters and logic directly into the database query sink.</p>
-        </div>
-
-        <div class="scene6-container">
-          <!-- Flowchart Stages -->
-          <div class="attack-path-flow">
-            <!-- Step 1 -->
-            <div class="path-node node-danger" id="path-1">
-              <div class="node-tag">ENTRYPOINT</div>
-              <div class="node-icon-box">🌐</div>
-              <div class="node-title">User Input</div>
-              <div class="node-code-snippet"><code>req.query['id']</code></div>
-              <div class="node-status text-danger">Untrusted Ingress</div>
-            </div>
-
-            <div class="path-connector-anim"><div class="particle-stream"></div>➔</div>
-
-            <!-- Step 2 -->
-            <div class="path-node" id="path-2">
-              <div class="node-tag">VARIABLE</div>
-              <div class="node-icon-box">📥</div>
-              <div class="node-title">Request Parameter</div>
-              <div class="node-code-snippet"><code>user_id = param</code></div>
-              <div class="node-status text-warning">Zero Sanitization</div>
-            </div>
-
-            <div class="path-connector-anim"><div class="particle-stream"></div>➔</div>
-
-            <!-- Step 3 -->
-            <div class="path-node" id="path-3">
-              <div class="node-tag">CONTROLLER</div>
-              <div class="node-icon-box">⚙️</div>
-              <div class="node-title">Application Function</div>
-              <div class="node-code-snippet"><code>getUserAccountData()</code></div>
-              <div class="node-status text-warning">Taint Propagated</div>
-            </div>
-
-            <div class="path-connector-anim"><div class="particle-stream"></div>➔</div>
-
-            <!-- Step 4 -->
-            <div class="path-node node-danger" id="path-4">
-              <div class="node-tag">DANGER SINK</div>
-              <div class="node-icon-box">⚠️</div>
-              <div class="node-title">SQL Query</div>
-              <div class="node-code-snippet"><code>"SELECT ... '" + id</code></div>
-              <div class="node-status text-danger">String Concatenation</div>
-            </div>
-
-            <div class="path-connector-anim"><div class="particle-stream"></div>➔</div>
-
-            <!-- Step 5 -->
-            <div class="path-node node-compromised" id="path-5">
-              <div class="node-tag">DATA STORE</div>
-              <div class="node-icon-box">🗄️</div>
-              <div class="node-title">Database</div>
-              <div class="node-code-snippet"><code>PostgreSQL DB</code></div>
-              <div class="node-status text-danger">Arbitrary Query Exec</div>
-            </div>
-          </div>
-
-          <!-- Context Explanation Banner -->
-          <div class="context-explanation-card glass-panel">
-            <div class="context-badge-lead">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-              <span>Contextual Intelligence vs Simple Regex</span>
-            </div>
-            <p>
-              Traditional scanners trigger merely on string concatenation patterns. <strong>SecureCode proves actual exploitability</strong> by validating that <code>user_id</code> originates from an unauthenticated external HTTP route and flows unfiltered into an active database query execution sink.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================= SCENE 7: CONTEXTUAL RISK ASSESSMENT ================= -->
-      <section class="scene" id="scene-7" data-scene="7">
-        <div class="scene-header-box">
-          <div class="scene-tag danger-tag">ACT VII &bull; CONTEXTUAL RISK SCORING</div>
-          <h1 class="scene-headline">Prioritize based on <span class="text-danger glow-danger">real-world context and impact.</span></h1>
-          <p class="scene-subline">The SecureCode Multi-Vector Risk Engine weighs environmental factors, reachability, and business criticality to compute a true risk score.</p>
-        </div>
-
-        <div class="scene7-grid">
-          <!-- Risk Factor Bars -->
-          <div class="risk-factors-card glass-panel">
-            <div class="card-head">
-              <span>Dynamic Evaluation Vectors</span>
-              <div class="card-head-actions">
-                <button class="recalc-btn" id="btnRecalcRisk" title="Re-simulate vector convergence">⚡ Re-run Convergence</button>
-                <span class="weight-label">Weighted Convergence</span>
-              </div>
-            </div>
-
-            <div class="vector-list">
-              <div class="vector-row" id="vecRow1">
-                <div class="vec-header">
-                  <span class="v-name">Severity (Base CVSS)</span>
-                  <span class="v-val" id="vVal1" data-val="9.8" data-suffix=" / 10">9.8 / 10</span>
-                </div>
-                <div class="v-bar-track">
-                  <div class="v-bar-fill fill-danger" id="vFill1" data-target="98" style="width: 98%;"></div>
-                </div>
-              </div>
-
-              <div class="vector-row" id="vecRow2">
-                <div class="vec-header">
-                  <span class="v-name">Exploitability (Public POC &amp; Network Reachable)</span>
-                  <span class="v-val" id="vVal2" data-val="95" data-suffix="%">High (95%)</span>
-                </div>
-                <div class="v-bar-track">
-                  <div class="v-bar-fill fill-danger" id="vFill2" data-target="95" style="width: 95%;"></div>
-                </div>
-              </div>
-
-              <div class="vector-row" id="vecRow3">
-                <div class="vec-header">
-                  <span class="v-name">User Input (Unauthenticated External Route)</span>
-                  <span class="v-val" id="vVal3" data-val="90" data-suffix="%">Verified (90%)</span>
-                </div>
-                <div class="v-bar-track">
-                  <div class="v-bar-fill fill-danger" id="vFill3" data-target="90" style="width: 90%;"></div>
-                </div>
-              </div>
-
-              <div class="vector-row" id="vecRow4">
-                <div class="vec-header">
-                  <span class="v-name">Data Sensitivity (Customer PII &amp; Financials)</span>
-                  <span class="v-val" id="vVal4" data-val="94" data-suffix="%">Critical Tier (94%)</span>
-                </div>
-                <div class="v-bar-track">
-                  <div class="v-bar-fill fill-danger" id="vFill4" data-target="94" style="width: 94%;"></div>
-                </div>
-              </div>
-
-              <div class="vector-row" id="vecRow5">
-                <div class="vec-header">
-                  <span class="v-name">Application Exposure (Public Edge API Gateway)</span>
-                  <span class="v-val" id="vVal5" data-val="88" data-suffix="%">Public (88%)</span>
-                </div>
-                <div class="v-bar-track">
-                  <div class="v-bar-fill fill-warning" id="vFill5" data-target="88" style="width: 88%;"></div>
-                </div>
-              </div>
-
-              <div class="vector-row" id="vecRow6">
-                <div class="vec-header">
-                  <span class="v-name">Code Context (No Middleware Sanitizer/WAF)</span>
-                  <span class="v-val" id="vVal6" data-val="85" data-suffix="%">Unprotected (85%)</span>
-                </div>
-                <div class="v-bar-track">
-                  <div class="v-bar-fill fill-warning" id="vFill6" data-target="85" style="width: 85%;"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Dynamic SVG Convergence Energy Canvas -->
-          <svg class="convergence-tether" id="convergenceTether" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path class="conv-beam" id="convBeam1" d="M 0 16 C 50 16, 50 48, 100 48" />
-            <path class="conv-beam" id="convBeam2" d="M 0 30 C 50 30, 50 48, 100 48" />
-            <path class="conv-beam" id="convBeam3" d="M 0 44 C 50 44, 50 48, 100 48" />
-            <path class="conv-beam" id="convBeam4" d="M 0 58 C 50 58, 50 48, 100 48" />
-            <path class="conv-beam" id="convBeam5" d="M 0 72 C 50 72, 50 48, 100 48" />
-            <path class="conv-beam" id="convBeam6" d="M 0 86 C 50 86, 50 48, 100 48" />
-            <defs>
-              <linearGradient id="beamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#ff7a00" stop-opacity="0.3"/>
-                <stop offset="50%" stop-color="#ff2a5f" stop-opacity="0.9"/>
-                <stop offset="100%" stop-color="#ff0055" stop-opacity="1"/>
-              </linearGradient>
-            </defs>
-          </svg>
-
-          <!-- Final Score Dial Presentation -->
-          <div class="risk-score-presentation glass-panel">
-            <div class="score-dial-box">
-              <div class="dial-radial" id="dialRadialCircle">
-                <!-- SVG Radial Progress Meter Ring -->
-                <svg class="dial-svg-gauge" viewBox="0 0 160 160">
-                  <circle class="dial-gauge-track" cx="80" cy="80" r="66" />
-                  <circle class="dial-gauge-meter" id="riskDialGauge" cx="80" cy="80" r="66" stroke-dasharray="415" stroke-dashoffset="415" />
-                  <defs>
-                    <linearGradient id="dialMeterGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-                      <stop offset="0%" stop-color="#f59e0b" />
-                      <stop offset="60%" stop-color="#ff2a5f" />
-                      <stop offset="100%" stop-color="#ff0044" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-                <div class="dial-glow" id="dialGlowEffect"></div>
-                <div class="dial-shockwave" id="dialShockwave"></div>
-                <div class="dial-content">
-                  <span class="dial-label">RISK SCORE</span>
-                  <span class="dial-number text-danger" id="riskScoreNumber">0</span>
-                  <span class="dial-max">/ 100</span>
-                </div>
-              </div>
-              <div class="score-verdict-badge badge-critical" id="riskVerdictBadge">CRITICAL RISK</div>
-            </div>
-
-            <div class="risk-summary-bullet">
-              <div class="bullet-item" id="riskBullet1"><span class="b-icon">🔴</span> <strong>Immediate Action Required:</strong> High likelihood of automated external exploitation within 24h.</div>
-              <div class="bullet-item" id="riskBullet2"><span class="b-icon">🎯</span> <strong>Prioritization Index #1:</strong> Ranked highest among all 6 codebase findings.</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================= SCENE 8: AI-POWERED EXPLANATION ================= -->
-      <section class="scene" id="scene-8" data-scene="8">
-        <div class="scene-header-box">
-          <div class="scene-tag ai-tag">ACT VIII &bull; DEVELOPER-FRIENDLY AI COPILOT</div>
-          <h1 class="scene-headline">AI-Powered Explanation: <span class="text-violet glow-violet">All Codebase Vulnerabilities</span></h1>
-          <p class="scene-subline">No cryptographic jargon. SecureCode translates every identified vulnerability across the codebase into clear, actionable engineering insight.</p>
-        </div>
-
-        <!-- Scene 8 Codebase Error Navigation Tabs -->
-        <div class="scene8-nav-header">
-          <div class="scene8-tabs-bar" id="scene8ErrorTabs">
-            <button class="scene8-tab active" data-err="0">
-              <span class="tab-icon">🐍</span> database.py:42 <span class="tab-pill crit">SQLi</span>
-            </button>
-            <button class="scene8-tab" data-err="1">
-              <span class="tab-icon">⚙️</span> config.js:18 <span class="tab-pill crit">Secret</span>
-            </button>
-            <button class="scene8-tab" data-err="2">
-              <span class="tab-icon">📜</span> app.js:89 <span class="tab-pill high">XSS</span>
-            </button>
-            <button class="scene8-tab" data-err="3">
-              <span class="tab-icon">🛡️</span> auth.js:64 <span class="tab-pill crit">RCE</span>
-            </button>
-            <button class="scene8-tab" data-err="4">
-              <span class="tab-icon">🔐</span> login.py:88 <span class="tab-pill crit">Pickle</span>
-            </button>
-            <button class="scene8-tab" data-err="5">
-              <span class="tab-icon">📦</span> package.json:27 <span class="tab-pill med">CVE</span>
-            </button>
-          </div>
-
-          <div class="scene8-view-toggles" id="scene8ViewToggles">
-            <button class="scene8-mode-btn active" id="btnScene8Single">🤖 Copilot Inspector</button>
-            <button class="scene8-mode-btn mode-grid" id="btnScene8Grid">🗂️ All 6 Errors Codebase Grid</button>
-          </div>
-        </div>
-
-        <div class="scene8-layout">
-          <!-- AI Assistant Single Inspector Panel -->
-          <div class="ai-assistant-card glass-panel" id="scene8SingleView">
-            <div class="ai-header">
-              <div class="ai-avatar">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2 2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M9 13v2"/><path d="M15 13v2"/></svg>
-              </div>
-              <div class="ai-title">
-                <h3>SecureCode Copilot</h3>
-                <span>AI Security Explainer &bull; Context Model v3</span>
-              </div>
-              <div class="ai-badge-status" id="scene8ActiveFlawBadge">Error 1/6: database.py:42 &bull; Critical SQLi</div>
-            </div>
-
-            <!-- Main Explanation Speech Bubble -->
-            <div class="ai-bubble">
-              <p class="ai-text-lead" id="aiExplanationText">
-                “The application directly inserts user-controlled input into an SQL query without parameterized binding. An attacker may manipulate this input to modify the query logic and access unauthorized database information.”
-              </p>
-            </div>
-
-            <!-- Structured Developer Breakdown Cards -->
-            <div class="ai-breakdown-grid">
-              <div class="ai-subcard glass-card" id="aiSubcardWhy">
-                <div class="sub-head"><span class="sub-icon">⚠️</span> Why is this dangerous?</div>
-                <p id="aiWhyText">Because input is concatenated directly, special characters like <code>' OR 1=1 --</code> rewrite the query logic, bypassing authentication checks.</p>
-              </div>
-
-              <div class="ai-subcard glass-card" id="aiSubcardImpact">
-                <div class="sub-head"><span class="sub-icon">💥</span> Potential Impact</div>
-                <p id="aiImpactText">Full database exfiltration (passwords, emails, transactions) or data destruction via injected <code>DROP TABLE</code> statements.</p>
-              </div>
-
-              <div class="ai-subcard glass-card" id="aiSubcardAffected">
-                <div class="sub-head"><span class="sub-icon">📍</span> Affected Code &amp; Target Line</div>
-                <p id="aiAffectedText"><strong>File:</strong> <code>database.py</code> &bull; <strong>Line to Modify:</strong> <span class="badge-line-num">Line 42</span><br><span class="sub-note">Inside <code>getUserAccountData()</code>: Direct concatenation must be replaced with parameterized placeholders.</span></p>
-              </div>
-
-              <div class="ai-subcard glass-card" id="aiSubcardContext">
-                <div class="sub-head"><span class="sub-icon">🌐</span> Attack Context</div>
-                <p id="aiContextText">Route is mounted on public endpoint <code>GET /api/v1/user/account</code>. No rate limiting or input filtering is active.</p>
-              </div>
-
-              <div class="ai-subcard glass-card fix-guidance-card" id="aiSubcardFix">
-                <div class="sub-head"><span class="sub-icon">💡</span> Remediation Strategy</div>
-                <p id="aiFixText">Execute query using parameterized tuples: <code>cursor.execute("SELECT * FROM users WHERE user_id = %s", (user_id,))</code></p>
-              </div>
-            </div>
-          </div>
-
-          <!-- All 6 Errors Codebase Grid View (Displays All Errors in Codebase Side-by-Side) -->
-          <div class="scene8-all-grid glass-panel hidden" id="scene8GridView">
-            <div class="grid-header-row">
-              <div class="grid-title">All Identified Vulnerabilities in Codebase (6 Core Findings)</div>
-              <div class="grid-subtitle">Select any finding card to open deep AI Copilot explanation</div>
-            </div>
-            <div class="grid-cards-container" id="scene8GridCards">
-              <!-- Grid cards populated dynamically -->
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================= SCENE 9: AI REMEDIATION ================= -->
-      <section class="scene" id="scene-9" data-scene="9">
-        <div class="scene-header-box">
-          <div class="scene-tag emerald-tag">ACT IX &bull; AUTOMATED REMEDIATION GUIDANCE</div>
-          <h1 class="scene-headline">AI Remediation: <span class="text-emerald glow-emerald">Transforming Vulnerable to Secure</span></h1>
-          <p class="scene-subline">SecureCode pinpoints the exact line numbers to modify and generates battle-tested, framework-native code fixes across the entire codebase.</p>
-        </div>
-
-        <!-- Scene 9 Codebase Fix Navigation Tabs & Mode Switcher -->
-        <div class="scene9-nav-header">
-          <div class="scene9-tabs-bar" id="scene9FixTabs">
-            <button class="scene9-tab active" data-fix="0">
-              <span class="tab-icon">🐍</span> database.py:42 <span class="tab-pill crit">SQLi Fix</span>
-            </button>
-            <button class="scene9-tab" data-fix="1">
-              <span class="tab-icon">⚙️</span> config.js:18 <span class="tab-pill crit">Secret Fix</span>
-            </button>
-            <button class="scene9-tab" data-fix="2">
-              <span class="tab-icon">📜</span> app.js:89 <span class="tab-pill high">XSS Fix</span>
-            </button>
-            <button class="scene9-tab" data-fix="3">
-              <span class="tab-icon">🛡️</span> auth.js:64 <span class="tab-pill crit">RCE Fix</span>
-            </button>
-            <button class="scene9-tab" data-fix="4">
-              <span class="tab-icon">🔐</span> login.py:88 <span class="tab-pill crit">Pickle Fix</span>
-            </button>
-            <button class="scene9-tab" data-fix="5">
-              <span class="tab-icon">📦</span> package.json:27 <span class="tab-pill med">Axios Fix</span>
-            </button>
-          </div>
-
-          <div class="scene9-view-toggles" id="scene9ViewToggles">
-            <button class="scene9-mode-btn active" id="btnScene9Single">🔍 Single Diff Inspector</button>
-            <button class="scene9-mode-btn mode-grid" id="btnScene9Grid">🗂️ All 6 Fixes Codebase Matrix</button>
-          </div>
-        </div>
-
-        <div class="scene9-container">
-          <!-- Single Focused Diff View -->
-          <div class="scene9-single-view" id="scene9SingleView">
-            <!-- Target Line Indicator Banner -->
-            <div class="target-line-callout glass-panel">
-              <div class="target-pill-left">
-                <span class="pill-label">REMEDIATION TARGET</span>
-                <span class="target-filepath" id="scene9TargetFile">database.py</span>
-              </div>
-              <div class="target-pill-center">
-                <span class="arrow-sym">➔</span>
-                <div class="exact-line-badge">
-                  <span class="line-pin-icon">📍</span>
-                  <span class="line-text" id="scene9TargetLineText">EXACT LINE TO MODIFY: LINE 42</span>
-                </div>
-                <span class="line-scope" id="scene9TargetScope">(Scope: Lines 41–43)</span>
-              </div>
-              <div class="target-pill-right">
-                <span class="action-tag">ACTION</span>
-                <span class="action-desc" id="scene9TargetAction">Replace string concatenation at Line 42 with parameterized <code>%s</code></span>
-              </div>
-            </div>
-
-            <!-- Recommendation Banner -->
-            <div class="remediation-banner glass-panel">
-              <div class="rem-icon">💡</div>
-              <div class="rem-text" id="scene9RecommendationText">
-                <strong>Recommended Remediation:</strong> “Use parameterized queries or prepared statements at <strong>Line 42</strong> instead of directly concatenating user input into SQL queries.”
-              </div>
-            </div>
-
-            <!-- Side-by-Side Diff Comparison with Line Numbers -->
-            <div class="diff-split-container">
-              <!-- Left: Vulnerable Code -->
-              <div class="diff-box diff-vulnerable glass-panel">
-                <div class="diff-titlebar">
-                  <span class="diff-badge badge-vulnerable">VULNERABLE CODE (BEFORE)</span>
-                  <span class="diff-file" id="scene9VulnFileLabel">database.py:41-43</span>
-                </div>
-                <div class="diff-code-body-with-gutter">
-                  <div class="diff-gutter" id="scene9VulnGutter">
-                    <span class="gutter-num">41</span>
-                    <span class="gutter-num gutter-target-line">42</span>
-                    <span class="gutter-num">43</span>
-                  </div>
-                  <div class="diff-code-lines" id="scene9VulnLines">
-                    <div class="diff-line diff-del"><span class="diff-sign">-</span> <span class="c-comment"># Dangerous direct string concatenation</span></div>
-                    <div class="diff-line diff-del diff-highlight-target">
-                      <span class="diff-sign">-</span> raw_query = <span class="c-str">"SELECT * FROM users WHERE user_id = '"</span> + user_id + <span class="c-str">"'"</span>
-                      <span class="line-focus-tag">Line 42 ⚠️ TARGET TO FIX</span>
-                    </div>
-                    <div class="diff-line diff-del"><span class="diff-sign">-</span> cursor.<span class="c-func">execute</span>(raw_query)</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Transformation Arrow -->
-              <div class="diff-transform-indicator">
-                <div class="arrow-circle">➔</div>
-                <span class="transform-lbl">SECURE REWRITE</span>
-                <span class="transform-line-tag" id="scene9TransformTag">Line 42</span>
-              </div>
-
-              <!-- Right: Secure Code -->
-              <div class="diff-box diff-secure glass-panel">
-                <div class="diff-titlebar">
-                  <span class="diff-badge badge-secure">SECURE CODE (AI REMEDIATED)</span>
-                  <span class="diff-file" id="scene9SecureFileLabel">database.py:41-43</span>
-                </div>
-                <div class="diff-code-body-with-gutter">
-                  <div class="diff-gutter" id="scene9SecureGutter">
-                    <span class="gutter-num">41</span>
-                    <span class="gutter-num gutter-target-line-secure">42</span>
-                    <span class="gutter-num">43</span>
-                  </div>
-                  <div class="diff-code-lines" id="scene9SecureLines">
-                    <div class="diff-line diff-add"><span class="diff-sign">+</span> <span class="c-comment"># Safe parameterized query with placeholder</span></div>
-                    <div class="diff-line diff-add diff-highlight-secure">
-                      <span class="diff-sign">+</span> secure_query = <span class="c-str">"SELECT * FROM users WHERE user_id = %s"</span>
-                      <span class="line-focus-tag-secure">Line 42 ✓ SECURE REPLACEMENT</span>
-                    </div>
-                    <div class="diff-line diff-add"><span class="diff-sign">+</span> cursor.<span class="c-func">execute</span>(secure_query, (user_id,))</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Interactive Action Area -->
-            <div class="remediation-action-bar">
-              <button class="btn-cyber-emerald" id="applyFixBtn">
-                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                <span id="applyFixBtnText">APPLY RECOMMENDED FIX (database.py:42)</span>
-              </button>
-              <div class="fix-applied-badge hidden" id="fixAppliedBadge">
-                <span id="fixAppliedBranchText">Patch Applied to Branch: <code>fix/database-sqli-line-42</code> ✓</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- All 6 Fixes Codebase Matrix View (Side-by-Side Remediations for All Codebase Errors) -->
-          <div class="scene9-all-grid glass-panel hidden" id="scene9GridView">
-            <div class="grid-header-row">
-              <div class="grid-title">All 6 Codebase Vulnerability Fixes &amp; Verified Patches</div>
-              <div class="grid-actions">
-                <button class="btn-cyber-emerald-sm" id="btnApplyAllFixes">
-                  <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span>APPLY ALL 6 VERIFIED PATCHES</span>
-                </button>
-                <div class="fix-applied-badge-sm hidden" id="allFixesAppliedBadge">
-                  <span>All 6 Patches Applied ✓</span>
-                </div>
-              </div>
-            </div>
-            <div class="fix-matrix-container" id="scene9FixMatrix">
-              <!-- Grid cards populated dynamically -->
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================= SCENE 10: RE-SCAN & VERIFICATION ================= -->
-      <section class="scene" id="scene-10" data-scene="10">
-        <div class="scene-header-box">
-          <div class="scene-tag cyan-tag">ACT X &bull; RE-UPLOAD &amp; VERIFICATION</div>
-          <h1 class="scene-headline">Re-Scan &amp; Verification: <span class="text-cyan glow-cyan">Upload Patched Code &amp; Verify</span></h1>
-          <p class="scene-subline">The developer re-uploads the patched project containing the fix at Line 42. SecureCode re-analyzes the new code to actively verify fix efficacy.</p>
-        </div>
-
-        <div class="scene10-container">
-          <!-- Step 1: Re-Upload Patched Project -->
-          <div class="rescan-upload-stage glass-panel" id="rescanUploadStage">
-            <div class="rescan-stage-header">
-              <div class="header-tag-row">
-                <span class="step-badge">STEP 1 OF 2</span>
-                <span class="stage-title">Upload Patched Project</span>
-              </div>
-              <p class="stage-sub">Upload the remediated repository with changes applied at <strong><code>database.py:42</code></strong></p>
-            </div>
-
-            <div class="rescan-repo-card glass-card">
-              <div class="repo-meta-row">
-                <div class="repo-icon-badge">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-                </div>
-                <div class="repo-info">
-                  <div class="repo-name">enterprise/fintech-payment-service</div>
-                  <div class="repo-stats">Branch: <code>patch/fix-line-42</code> &bull; 1 file modified (<code>database.py:42</code>)</div>
-                </div>
-                <div class="rescan-upload-status" id="rescanUploadStatus">
-                  <span class="status-dot"></span>
-                  <span class="status-txt">Patched Code Ready for Upload</span>
-                </div>
-              </div>
-
-              <div class="upload-action-center">
-                <button class="btn-cyber-primary pulse-btn" id="uploadPatchedProjectBtn">
-                  <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                  <span>UPLOAD PATCHED PROJECT</span>
-                </button>
-                <div class="upload-confirmation hidden" id="rescanConfirmedBadge">
-                  <span class="check-icon">✓</span>
-                  <span class="confirm-text">Patched Repository Uploaded (Changes at Line 42 Received) ✓</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step 2: Re-Scan Project & Verification -->
-          <div class="rescan-verification-stage glass-panel" id="rescanVerificationStage">
-            <div class="rescan-stage-header">
-              <div class="header-tag-row">
-                <span class="step-badge">STEP 2 OF 2</span>
-                <span class="stage-title">Run Verification Re-Scan</span>
-              </div>
-            </div>
-
-            <div class="rescan-trigger-row">
-              <button class="btn-cyber-primary pulse-btn" id="rescanProjectBtn">
-                <svg class="btn-icon spin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
-                <span>RE-SCAN PROJECT</span>
-              </button>
-              <span class="rescan-status-msg" id="rescanStatusMsg">Waiting for project upload...</span>
-            </div>
-
-            <!-- Verification Results Matrix -->
-            <div class="verification-cards-grid">
-              <!-- Finding 1: Resolved -->
-              <div class="verif-card glass-panel is-resolved" id="verif-1">
-                <div class="verif-status-badge resolved">RESOLVED ✓</div>
-                <div class="verif-body">
-                  <h4>SQL Injection — Line 42</h4>
-                  <p class="verif-file">database.py:42</p>
-                  <div class="verif-proof">
-                    <span class="proof-icon">🛡️</span>
-                    <span>Line 42 Verified: Parameterized binding active &bull; Taint severed</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Finding 2: Resolved -->
-              <div class="verif-card glass-panel is-resolved" id="verif-2">
-                <div class="verif-status-badge resolved">RESOLVED ✓</div>
-                <div class="verif-body">
-                  <h4>Hardcoded Secret — Line 18</h4>
-                  <p class="verif-file">config.js:18</p>
-                  <div class="verif-proof">
-                    <span class="proof-icon">🛡️</span>
-                    <span>Line 18 Verified: Credential relocated to secure vault</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Finding 3: Still Present -->
-              <div class="verif-card glass-panel is-unresolved" id="verif-3">
-                <div class="verif-status-badge warning">STILL PRESENT ⚠️</div>
-                <div class="verif-body">
-                  <h4>Cross-Site Scripting — Line 89</h4>
-                  <p class="verif-file">app.js:89</p>
-                  <div class="verif-proof text-warning">
-                    <span class="proof-icon">⏳</span>
-                    <span>Line 89 Pending: Requires DOMPurify sanitizer middleware</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="verification-truth-banner glass-panel">
-              <span class="truth-icon">💡</span>
-              <span><strong>Verification Integrity:</strong> SecureCode verifies fixes against the newly re-uploaded project files, confirming Line 42 is safe before permitting production deployment.</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================= SCENE 11: SECURITY DASHBOARD ================= -->
-      <section class="scene" id="scene-11" data-scene="11">
-        <div class="scene-header-box">
-          <div class="scene-tag emerald-tag">ACT XI &bull; CONTINUOUS POSTURE GOVERNANCE</div>
-          <h1 class="scene-headline">Security Overview: <span class="text-emerald glow-emerald">Measurable Posture Improvement</span></h1>
-          <p class="scene-subline">Comprehensive telemetry, vulnerability reduction metrics, and clear executive-ready security scorecards.</p>
-        </div>
-
-        <div class="scene11-container">
-          <!-- Top KPI Metrics -->
-          <div class="dashboard-kpi-row">
-            <div class="kpi-card glass-panel">
-              <span class="kpi-label">Total Vulnerabilities</span>
-              <span class="kpi-value" id="kpiTotal">23</span>
-              <span class="kpi-sub text-emerald">↓ Down from 27</span>
-            </div>
-
-            <div class="kpi-card glass-panel">
-              <span class="kpi-label">Critical Vulnerabilities</span>
-              <span class="kpi-value text-danger" id="kpiCritical">2</span>
-              <span class="kpi-sub text-emerald">↓ 60% reduction (was 5)</span>
-            </div>
-
-            <div class="kpi-card glass-panel">
-              <span class="kpi-label">High Severity</span>
-              <span class="kpi-value text-warning" id="kpiHigh">8</span>
-              <span class="kpi-sub text-emerald">↓ 1 resolved</span>
-            </div>
-
-            <div class="kpi-card glass-panel">
-              <span class="kpi-label">Medium &amp; Low</span>
-              <span class="kpi-value text-cyan">13</span>
-              <span class="kpi-sub">10 Med &bull; 3 Low</span>
-            </div>
-
-            <div class="kpi-card glass-panel highlight-kpi">
-              <span class="kpi-label">Overall Risk Score</span>
-              <span class="kpi-value text-emerald" id="kpiScore">24 <small>/ 100</small></span>
-              <span class="kpi-sub text-emerald">⭐ Security Posture: EXCELLENT</span>
-            </div>
-          </div>
-
-          <!-- Comparison: Before vs After Remediation -->
-          <div class="comparison-grid">
-            <div class="comp-panel glass-panel before-panel">
-              <div class="comp-head text-danger">
-                <span>BEFORE SCAN &amp; FIXES</span>
-                <span class="risk-badge-old">HIGH RISK (91)</span>
-              </div>
-              <div class="comp-bars">
-                <div class="c-row"><span>5 Critical</span><div class="c-track"><div class="c-fill fill-danger" style="width: 100%;"></div></div></div>
-                <div class="c-row"><span>9 High</span><div class="c-track"><div class="c-fill fill-warning" style="width: 90%;"></div></div></div>
-                <div class="c-row"><span>10 Medium</span><div class="c-track"><div class="c-fill fill-info" style="width: 80%;"></div></div></div>
-                <div class="c-row"><span>3 Low</span><div class="c-track"><div class="c-fill fill-cyan" style="width: 30%;"></div></div></div>
-              </div>
-            </div>
-
-            <div class="comp-arrow-center">
-              <div class="posture-shield-badge">
-                <span class="shield-icon">🛡️</span>
-                <span>Security Posture Improved</span>
-              </div>
-            </div>
-
-            <div class="comp-panel glass-panel after-panel">
-              <div class="comp-head text-emerald">
-                <span>AFTER REMEDIATION</span>
-                <span class="risk-badge-new">LOW RISK (24)</span>
-              </div>
-              <div class="comp-bars">
-                <div class="c-row"><span class="text-emerald">2 Critical</span><div class="c-track"><div class="c-fill fill-danger" style="width: 40%;"></div></div></div>
-                <div class="c-row"><span class="text-emerald">8 High</span><div class="c-track"><div class="c-fill fill-warning" style="width: 80%;"></div></div></div>
-                <div class="c-row"><span class="text-emerald">10 Medium</span><div class="c-track"><div class="c-fill fill-info" style="width: 80%;"></div></div></div>
-                <div class="c-row"><span class="text-emerald">3 Low</span><div class="c-track"><div class="c-fill fill-cyan" style="width: 30%;"></div></div></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Complete 27-Finding Vulnerability Register Audit Table -->
-          <div class="findings-audit-table-panel glass-panel">
-            <div class="audit-table-header">
-              <div class="audit-table-title">
-                <span class="audit-title-text">Complete Vulnerability Register (All 27 Findings Prioritized)</span>
-                <span class="audit-badge">4 Remediated &bull; 23 Monitored &bull; Posture Score: 24/100</span>
-              </div>
-              <div class="audit-filter-badges" id="auditFilterTabs">
-                <button class="audit-tag-btn active" data-filter="all">All (27)</button>
-                <button class="audit-tag-btn tag-resolved" data-filter="resolved">✓ Resolved (4)</button>
-                <button class="audit-tag-btn tag-critical" data-filter="critical">Critical (5)</button>
-                <button class="audit-tag-btn tag-high" data-filter="high">High (9)</button>
-                <button class="audit-tag-btn tag-medium" data-filter="medium">Medium (10)</button>
-                <button class="audit-tag-btn tag-low" data-filter="low">Low (3)</button>
-              </div>
-            </div>
-            <div class="audit-table-scroll">
-              <table class="audit-table" id="auditRegisterTable">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Finding Name</th>
-                    <th>Exact Location</th>
-                    <th>CWE / CVE</th>
-                    <th>Severity</th>
-                    <th>Remediation Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="audit-row row-resolved" data-severity="critical" data-status="resolved">
-                    <td><code>SEC-01</code></td>
-                    <td><strong>SQL Injection</strong></td>
-                    <td class="code-loc">database.py:42</td>
-                    <td class="cwe-val">CWE-89</td>
-                    <td><span class="vuln-severity critical">CRITICAL</span></td>
-                    <td><span class="status-pill resolved">RESOLVED ✓</span></td>
-                  </tr>
-                  <tr class="audit-row row-resolved" data-severity="critical" data-status="resolved">
-                    <td><code>SEC-02</code></td>
-                    <td><strong>Hardcoded Cloud API Secret</strong></td>
-                    <td class="code-loc">config.js:18</td>
-                    <td class="cwe-val">CWE-798</td>
-                    <td><span class="vuln-severity critical">CRITICAL</span></td>
-                    <td><span class="status-pill resolved">RESOLVED ✓</span></td>
-                  </tr>
-                  <tr class="audit-row row-resolved" data-severity="critical" data-status="resolved">
-                    <td><code>SEC-03</code></td>
-                    <td><strong>Remote Command Injection</strong></td>
-                    <td class="code-loc">auth.js:64</td>
-                    <td class="cwe-val">CWE-78</td>
-                    <td><span class="vuln-severity critical">CRITICAL</span></td>
-                    <td><span class="status-pill resolved">RESOLVED ✓</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="critical" data-status="monitored">
-                    <td><code>SEC-04</code></td>
-                    <td><strong>Insecure Deserialization</strong></td>
-                    <td class="code-loc">login.py:88</td>
-                    <td class="cwe-val">CWE-502</td>
-                    <td><span class="vuln-severity critical">CRITICAL</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="critical" data-status="monitored">
-                    <td><code>SEC-05</code></td>
-                    <td><strong>Server-Side Request Forgery (SSRF)</strong></td>
-                    <td class="code-loc">app.js:142</td>
-                    <td class="cwe-val">CWE-918</td>
-                    <td><span class="vuln-severity critical">CRITICAL</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                  <tr class="audit-row row-resolved" data-severity="high" data-status="resolved">
-                    <td><code>SEC-06</code></td>
-                    <td><strong>Stored Cross-Site Scripting (XSS)</strong></td>
-                    <td class="code-loc">app.js:89</td>
-                    <td class="cwe-val">CWE-79</td>
-                    <td><span class="vuln-severity high">HIGH</span></td>
-                    <td><span class="status-pill resolved">RESOLVED ✓</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="high" data-status="monitored">
-                    <td><code>SEC-07</code></td>
-                    <td><strong>Broken Object-Level Auth (BOLA)</strong></td>
-                    <td class="code-loc">database.py:118</td>
-                    <td class="cwe-val">CWE-285</td>
-                    <td><span class="vuln-severity high">HIGH</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="high" data-status="monitored">
-                    <td><code>SEC-08</code></td>
-                    <td><strong>Weak JWT Verification (None Alg)</strong></td>
-                    <td class="code-loc">auth.js:31</td>
-                    <td class="cwe-val">CWE-347</td>
-                    <td><span class="vuln-severity high">HIGH</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="high" data-status="monitored">
-                    <td><code>SEC-09</code></td>
-                    <td><strong>Path Traversal File Disclosure</strong></td>
-                    <td class="code-loc">app.js:204</td>
-                    <td class="cwe-val">CWE-22</td>
-                    <td><span class="vuln-severity high">HIGH</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="high" data-status="monitored">
-                    <td><code>SEC-10</code></td>
-                    <td><strong>Mass Assignment Vulnerability</strong></td>
-                    <td class="code-loc">database.py:76</td>
-                    <td class="cwe-val">CWE-915</td>
-                    <td><span class="vuln-severity high">HIGH</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="high" data-status="monitored">
-                    <td><code>SEC-11</code></td>
-                    <td><strong>XML External Entity (XXE)</strong></td>
-                    <td class="code-loc">app.js:165</td>
-                    <td class="cwe-val">CWE-611</td>
-                    <td><span class="vuln-severity high">HIGH</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="high" data-status="monitored">
-                    <td><code>SEC-12</code></td>
-                    <td><strong>Cross-Site Request Forgery (CSRF)</strong></td>
-                    <td class="code-loc">login.py:15</td>
-                    <td class="cwe-val">CWE-352</td>
-                    <td><span class="vuln-severity high">HIGH</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="high" data-status="monitored">
-                    <td><code>SEC-13</code></td>
-                    <td><strong>Race Condition in Balance Transfer</strong></td>
-                    <td class="code-loc">database.py:210</td>
-                    <td class="cwe-val">CWE-362</td>
-                    <td><span class="vuln-severity high">HIGH</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="high" data-status="monitored">
-                    <td><code>SEC-14</code></td>
-                    <td><strong>Privilege Escalation via Header</strong></td>
-                    <td class="code-loc">auth.js:95</td>
-                    <td class="cwe-val">CWE-269</td>
-                    <td><span class="vuln-severity high">HIGH</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="medium" data-status="monitored">
-                    <td><code>SEC-15</code></td>
-                    <td><strong>Weak Cryptography (MD5)</strong></td>
-                    <td class="code-loc">login.py:112</td>
-                    <td class="cwe-val">CWE-327</td>
-                    <td><span class="vuln-severity medium">MEDIUM</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="medium" data-status="monitored">
-                    <td><code>SEC-16</code></td>
-                    <td><strong>Vulnerable Dependency: axios</strong></td>
-                    <td class="code-loc">package.json:27</td>
-                    <td class="cwe-val">CVE-2024-39338</td>
-                    <td><span class="vuln-severity medium">MEDIUM</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="medium" data-status="monitored">
-                    <td><code>SEC-17</code></td>
-                    <td><strong>Missing Rate Limiting on Login</strong></td>
-                    <td class="code-loc">login.py:24</td>
-                    <td class="cwe-val">CWE-307</td>
-                    <td><span class="vuln-severity medium">MEDIUM</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="medium" data-status="monitored">
-                    <td><code>SEC-18</code></td>
-                    <td><strong>Vulnerable Dependency: lodash</strong></td>
-                    <td class="code-loc">package.json:34</td>
-                    <td class="cwe-val">CVE-2021-23337</td>
-                    <td><span class="vuln-severity medium">MEDIUM</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="medium" data-status="monitored">
-                    <td><code>SEC-19</code></td>
-                    <td><strong>Verbose Stack Trace Leakage</strong></td>
-                    <td class="code-loc">app.js:310</td>
-                    <td class="cwe-val">CWE-209</td>
-                    <td><span class="vuln-severity medium">MEDIUM</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="medium" data-status="monitored">
-                    <td><code>SEC-20</code></td>
-                    <td><strong>Insecure CORS Wildcard (*)</strong></td>
-                    <td class="code-loc">config.js:45</td>
-                    <td class="cwe-val">CWE-942</td>
-                    <td><span class="vuln-severity medium">MEDIUM</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="medium" data-status="monitored">
-                    <td><code>SEC-21</code></td>
-                    <td><strong>Missing HSTS Security Header</strong></td>
-                    <td class="code-loc">config.js:52</td>
-                    <td class="cwe-val">CWE-319</td>
-                    <td><span class="vuln-severity medium">MEDIUM</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="medium" data-status="monitored">
-                    <td><code>SEC-22</code></td>
-                    <td><strong>Vulnerable Dependency: pyyaml</strong></td>
-                    <td class="code-loc">requirements.txt:12</td>
-                    <td class="cwe-val">CVE-2020-14343</td>
-                    <td><span class="vuln-severity medium">MEDIUM</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="medium" data-status="monitored">
-                    <td><code>SEC-23</code></td>
-                    <td><strong>Cookie Missing HttpOnly Flag</strong></td>
-                    <td class="code-loc">auth.js:140</td>
-                    <td class="cwe-val">CWE-614</td>
-                    <td><span class="vuln-severity medium">MEDIUM</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="medium" data-status="monitored">
-                    <td><code>SEC-24</code></td>
-                    <td><strong>Information Disclosure Header</strong></td>
-                    <td class="code-loc">app.js:12</td>
-                    <td class="cwe-val">CWE-200</td>
-                    <td><span class="vuln-severity medium">MEDIUM</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="low" data-status="monitored">
-                    <td><code>SEC-25</code></td>
-                    <td><strong>Missing SRI on CDN Script</strong></td>
-                    <td class="code-loc">index.html:14</td>
-                    <td class="cwe-val">CWE-353</td>
-                    <td><span class="vuln-severity low">LOW</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="low" data-status="monitored">
-                    <td><code>SEC-26</code></td>
-                    <td><strong>Cache-Control Missing on Sensitive Data</strong></td>
-                    <td class="code-loc">config.js:70</td>
-                    <td class="cwe-val">CWE-525</td>
-                    <td><span class="vuln-severity low">LOW</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                  <tr class="audit-row" data-severity="low" data-status="monitored">
-                    <td><code>SEC-27</code></td>
-                    <td><strong>Deprecated TLS 1.0/1.1 Configuration</strong></td>
-                    <td class="code-loc">config.js:84</td>
-                    <td class="cwe-val">CWE-326</td>
-                    <td><span class="vuln-severity low">LOW</span></td>
-                    <td><span class="status-pill active-monitored">ACTIVE MONITORED</span></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================= SCENE 12: COMPLETE WORKFLOW ================= -->
-      <section class="scene" id="scene-12" data-scene="12">
-        <div class="scene-header-box">
-          <div class="scene-tag cyan-tag">ACT XII &bull; THE END-TO-END SYSTEM</div>
-          <h1 class="scene-headline">Complete SecureCode <span class="text-cyan glow-cyan">Architecture Workflow</span></h1>
-          <p class="scene-subline">A unified, developer-first pipeline connecting every stage from initial git push to verified security posture.</p>
-        </div>
-
-        <div class="scene12-container">
-          <div class="workflow-chain-grid">
-            <div class="wf-step-box glass-panel" id="wf-1"><span class="wf-num">1</span><h4>Upload Repository</h4><p>Git Ingestion &amp; Indexing</p></div>
-            <div class="wf-arrow">➔</div>
-            <div class="wf-step-box glass-panel" id="wf-2"><span class="wf-num">2</span><h4>Analyze Code</h4><p>AST Syntax &amp; Lexical Scan</p></div>
-            <div class="wf-arrow">➔</div>
-            <div class="wf-step-box glass-panel" id="wf-3"><span class="wf-num">3</span><h4>Detect Vulnerabilities</h4><p>SAST, SCA, Secret Sniffing</p></div>
-            <div class="wf-arrow">➔</div>
-            <div class="wf-step-box glass-panel" id="wf-4"><span class="wf-num">4</span><h4>Analyze Context</h4><p>Taint Tracking &amp; Call Graphs</p></div>
-
-            <div class="wf-step-box glass-panel" id="wf-5"><span class="wf-num">5</span><h4>Calculate Risk</h4><p>Reachability &amp; Data Impact</p></div>
-            <div class="wf-arrow">➔</div>
-            <div class="wf-step-box glass-panel" id="wf-6"><span class="wf-num">6</span><h4>Prioritize Findings</h4><p>Eliminate False Positives</p></div>
-            <div class="wf-arrow">➔</div>
-            <div class="wf-step-box glass-panel" id="wf-7"><span class="wf-num">7</span><h4>AI Explanation</h4><p>Plain-Language Engineering Context</p></div>
-            <div class="wf-arrow">➔</div>
-            <div class="wf-step-box glass-panel" id="wf-8"><span class="wf-num">8</span><h4>Remediation Guidance</h4><p>Secure Patch Generation</p></div>
-
-            <div class="wf-step-box glass-panel" id="wf-9"><span class="wf-num">9</span><h4>Developer Fix</h4><p>One-Click Code Merging</p></div>
-            <div class="wf-arrow">➔</div>
-            <div class="wf-step-box glass-panel" id="wf-10"><span class="wf-num">10</span><h4>Re-Scan</h4><p>Automated Pipeline Retest</p></div>
-            <div class="wf-arrow">➔</div>
-            <div class="wf-step-box glass-panel" id="wf-11"><span class="wf-num">11</span><h4>Fix Verification</h4><p>Taint Severance Proof</p></div>
-            <div class="wf-arrow">➔</div>
-            <div class="wf-step-box glass-panel" id="wf-12"><span class="wf-num">12</span><h4>Security Dashboard</h4><p>Executive Posture Score</p></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================= FINAL SCENE: PROJECT VISION ================= -->
-      <section class="scene" id="scene-13" data-scene="13">
-        <div class="scene-header-box">
-          <div class="scene-tag emerald-tag">FINALE &bull; THE SECURECODE VISION</div>
-          <h1 class="scene-headline text-gradient-cyber">Build More Secure Software.</h1>
-          <p class="scene-subline">Empowering developers to ship resilient code with confidence, context, and speed.</p>
-        </div>
-
-        <div class="scene13-container">
-          <!-- 4 Core Pillars -->
-          <div class="vision-pillars-grid">
-            <div class="vision-card glass-panel" id="vis-1">
-              <div class="vis-icon-circle text-cyan">⚡</div>
-              <h3>Detect Earlier.</h3>
-              <p>Shift security left directly into the developer's everyday workflow before merging to production.</p>
-            </div>
-
-            <div class="vision-card glass-panel" id="vis-2">
-              <div class="vis-icon-circle text-violet">🧠</div>
-              <h3>Understand Better.</h3>
-              <p>Contextual AI explanations break down complex attack vectors into actionable software engineering solutions.</p>
-            </div>
-
-            <div class="vision-card glass-panel" id="vis-3">
-              <div class="vis-icon-circle text-emerald">🛠️</div>
-              <h3>Fix Faster.</h3>
-              <p>One-click verified code patches drastically slash remediation time and eliminate back-and-forth ticket ping-pong.</p>
-            </div>
-
-            <div class="vision-card glass-panel" id="vis-4">
-              <div class="vis-icon-circle text-warning">🛡️</div>
-              <h3>Build More Secure.</h3>
-              <p>Proactive posture verification ensures vulnerabilities are truly dead and defense is hardened end-to-end.</p>
-            </div>
-          </div>
-
-          <!-- Grand Brand Finale Banner -->
-          <div class="grand-finale-card glass-panel">
-            <div class="finale-shield">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                <path d="m9 12 2 2 4-4"/>
-              </svg>
-            </div>
-            <h2 class="finale-title">Secure<span class="text-cyan glow-cyan">Code</span></h2>
-            <p class="finale-subtitle">Context-Aware AI Security Analyzer for Developer-Friendly Vulnerability Detection and Remediation</p>
-            
-            <div class="finale-actions">
-              <button class="btn-cyber-primary" id="restartDemoBtn">
-                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
-                <span>REPLAY DEMONSTRATION</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
-    <!-- Bottom Timeline & Scrubber Controller Bar -->
-    <footer class="bottom-controller">
-      <!-- Scrubber Progress Line -->
-      <div class="timeline-scrubber-track" id="timelineScrubberTrack">
-        <div class="scrubber-progress-fill" id="scrubberProgressFill"></div>
-        <div class="scrubber-thumb" id="scrubberThumb"></div>
-      </div>
-
-      <div class="controller-inner">
-        <div class="ctrl-left">
-          <!-- Play / Pause Button -->
-          <button class="ctrl-btn main-play-btn" id="playPauseBtn" title="Play / Pause (Spacebar)">
-            <svg id="playIcon" class="icon" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            <svg id="pauseIcon" class="icon hidden" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-          </button>
-
-          <!-- Prev / Next Scene Buttons -->
-          <button class="ctrl-btn" id="prevSceneBtn" title="Previous Scene (Left Arrow)">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-          </button>
-          <button class="ctrl-btn" id="nextSceneBtn" title="Next Scene (Right Arrow)">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-          </button>
-
-          <!-- Timer Display -->
-          <div class="time-readout">
-            <span id="currentTimeDisplay">00:00</span> / <span id="totalTimeDisplay">02:10</span>
-          </div>
-        </div>
-
-        <!-- 13 Clickable Scene Selector Pills -->
-        <div class="scene-pills-bar" id="scenePillsBar">
-          <button class="scene-pill active" data-target-scene="1">1. Problem</button>
-          <button class="scene-pill" data-target-scene="2">2. Challenge</button>
-          <button class="scene-pill" data-target-scene="3">3. Intro</button>
-          <button class="scene-pill" data-target-scene="4">4. Pipeline</button>
-          <button class="scene-pill" data-target-scene="5">5. Detection</button>
-          <button class="scene-pill" data-target-scene="6">6. Context</button>
-          <button class="scene-pill" data-target-scene="7">7. Risk Score</button>
-          <button class="scene-pill" data-target-scene="8">8. AI Explain</button>
-          <button class="scene-pill" data-target-scene="9">9. AI Fix</button>
-          <button class="scene-pill" data-target-scene="10">10. Re-Scan</button>
-          <button class="scene-pill" data-target-scene="11">11. Dashboard</button>
-          <button class="scene-pill" data-target-scene="12">12. Workflow</button>
-          <button class="scene-pill" data-target-scene="13">13. Vision</button>
-        </div>
-
-        <div class="ctrl-right">
-          <div class="keyboard-hint" title="Keyboard Shortcuts">
-            <span><code>Space</code>: Pause</span>
-            <span><code>← / →</code>: Step</span>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-  </div>
-
-  <script src="app.js"></script>
+    </div>
+
+    <!-- Quick Comparison Matrix for Judges -->
+    <div class="comparison-section">
+      <div class="comp-title">Quick Comparison for Judges &amp; Evaluators</div>
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Comparison Aspect</th>
+            <th>Problem Statement 1: ScamShield 2.0</th>
+            <th>Problem Statement 2: SecureCode</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Target Domain</strong></td>
+            <td>Digital Fraud, Financial Cybercrime &amp; Scam Intelligence</td>
+            <td>Application Security, Source Code Analysis &amp; DevSecOps</td>
+          </tr>
+          <tr>
+            <td><strong>What It Ingests</strong></td>
+            <td>Digital messages (SMS, WhatsApp, Emails, Phone calls, URLs, UPI)</td>
+            <td>Source code files (Python, JavaScript, configs, package.json)</td>
+          </tr>
+          <tr>
+            <td><strong>Core AI Innovation</strong></td>
+            <td>Social-engineering NLP levers &amp; dynamic relationship graph network</td>
+            <td>AST taint analysis &amp; automated LLM code remediation</td>
+          </tr>
+          <tr>
+            <td><strong>Key Breakthrough</strong></td>
+            <td>Connects 4 separate victims into one coordinated syndicate (#SCM-2048)</td>
+            <td>Shows exact line number (Line 42) and writes the verified patch</td>
+          </tr>
+          <tr>
+            <td><strong>Presentation Length</strong></td>
+            <td>17 Interactive Continuous Scenes (~2:45 min)</td>
+            <td>13 Interactive Continuous Scenes (~2:15 min)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="portal-footer">
+    <span>ScamShield 2.0 &amp; SecureCode &bull; Ready for Hackathon Presentation</span>
+    <span>Use top HUD <code>[ 🔀 Switch PS ]</code> button to jump between presentations anytime</span>
+  </footer>
+
+  <script>
+    // Fast Deep-Link Hash Routing
+    (function () {
+      const hash = window.location.hash.toLowerCase();
+      const params = new URLSearchParams(window.location.search);
+      const psParam = params.get('ps');
+
+      if (hash === '#ps1' || psParam === '1') {
+        window.location.replace('scamshield.html');
+      } else if (hash === '#ps2' || psParam === '2') {
+        window.location.replace('securecode.html');
+      }
+    })();
+  </script>
 </body>
 </html>
-

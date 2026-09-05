@@ -237,6 +237,43 @@ body {
   color: var(--cyan);
 }
 
+.ps-portal-link {
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: var(--text-muted);
+}
+
+.ps-portal-link:hover {
+  color: #fff;
+  border-color: var(--cyan);
+  background: rgba(0, 240, 255, 0.1);
+}
+
+.ps-switch-btn {
+  text-decoration: none;
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid var(--violet);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 0 10px var(--violet-glow);
+}
+
+.ps-switch-btn:hover {
+  background: var(--violet);
+  color: #07090e;
+}
+
+.ps-switch-tag {
+  background: rgba(0, 240, 255, 0.2);
+  color: var(--cyan);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
 .icon {
   width: 16px;
   height: 16px;
