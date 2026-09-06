@@ -1,6 +1,6 @@
-# CyberDefense Innovations Showcase — Dual Problem Statement Hub
+# CyberDefense Innovations Showcase — 3 Problem Statement Hub
 
-A cinematic, interactive, and responsive cybersecurity product demonstration platform built for hackathons and innovation presentations. It features a centralized **Starting Problem Statement (PS) Selection Portal** and two complete, continuous animated product demonstrations.
+A cinematic, interactive, and responsive cybersecurity product demonstration platform built for hackathons and innovation presentations. It features a centralized **Starting Problem Statement (PS) Selection Portal** and three complete, continuous animated product demonstrations.
 
 ---
 
@@ -10,8 +10,9 @@ A cinematic, interactive, and responsive cybersecurity product demonstration pla
 The main entry point allowing presenters and judges to select which Problem Statement demonstration to launch:
 - **PS 1: ScamShield 2.0** (*Multi-Channel Scam Intelligence & Coordinated Detection — 17 Acts*)
 - **PS 2: SecureCode** (*Context-Aware AI Security Analyzer — 13 Acts*)
-- Supports direct deep-linking via `#ps1` and `#ps2`.
-- Features persistent top HUD `[ 🔀 Switch PS ]` controls to jump between presentations anytime without reloading.
+- **PS 3: SAT-SA** (*Supervisory Analytics Tool for SOC Assessment — 19 Acts*)
+- Supports direct deep-linking via `#ps1`, `#ps2`, and `#ps3`.
+- Features persistent top HUD `[ 🔀 Switch PS ]` controls in every presentation to jump between demos anytime without reloading.
 
 ---
 
@@ -57,6 +58,31 @@ The main entry point allowing presenters and judges to select which Problem Stat
 
 ---
 
+### 4. Problem Statement 3: SAT-SA (`index1.html`)
+**“SAT-SA: Supervisory Analytics Tool for SOC Assessment”**
+- **19 Continuous Acts** (~2:30 min runtime):
+  1. *Critical Sector Entities & SOCs*: Baseline operational landscape across Energy (CSE-A), Finance (CSE-B), Telecom (CSE-C), and Transport (CSE-D).
+  2. *Periodic Supervisory Assessment*: Current manual audit paradigm (50-sample review of 100K+ records).
+  3. *The Hidden Operational Problem*: Deceptive >95% reported SLAs masking instant closures and lack of L2 forensics.
+  4. *Introducing SAT-SA Platform*: Supervisory Analytics Tool for continuous, evidence-based SOC assessment.
+  5. *Data Ingestion & Feature Engineering*: Ingestion of raw alerts, incident cases, telemetry logs, and closure metadata.
+  6. *Supervisory Analytics Core*: Statistical modeling, heuristic engines, and baseline profiling.
+  7. *Execution Gap Detection*: Identification of instant closures without investigation artifacts.
+  8. *Negative Space Detection*: Uncovering critical servers with zero telemetry (monitoring blind spots).
+  9. *Anomaly Detection*: Period-over-period behavioral shifts with interactive canvas baseline curve and anomaly flags.
+  10. *Peer Benchmarking*: Cross-sector investigation rate comparison (Median 84% vs CSE-D at 19%).
+  11. *Signal Correlation & Risk Indicator*: Multi-vector risk convergence (CSE-D Risk Score: 87/100 High).
+  12. *Intelligent Sample Prioritization*: Algorithmic selection of 100 high-risk evidence samples replacing blind random sampling.
+  13. *Explainable Findings & Audit Trail*: Plain-English rationale, observed vs baseline metrics, and examiner directives.
+  14. *Human Examiner Control*: Examiner-in-the-loop validation, risk overrides, and formal supervisory inquiries.
+  15. *Supervisory Dashboard*: Cross-sector executive metrics, risk distribution, and interactive sector canvas charts.
+  16. *Historical Trends*: Multi-cycle trend tracking unmasking recurring non-compliance.
+  17. *Complete Workflow Pipeline*: End-to-end architecture from raw evidence to supervisory action.
+  18. *Offline Air-Gapped Architecture*: 100% local execution within national boundaries with zero public AI API leakage.
+  19. *Core Vision & Tech Stack*: "From Operational Evidence to Supervisory Insight" with Python, Scikit-learn, PostgreSQL, and air-gapped deployment.
+
+---
+
 ## Quick Start / How to Run
 
 ### Method 1: Local HTTP Server (Recommended)
@@ -68,6 +94,7 @@ Then open:
 - **`http://localhost:3000`** &rarr; Starting PS Selection Portal
 - **`http://localhost:3000/scamshield.html`** &rarr; Direct to PS 1: ScamShield 2.0
 - **`http://localhost:3000/securecode.html`** &rarr; Direct to PS 2: SecureCode
+- **`http://localhost:3000/index1.html`** &rarr; Direct to PS 3: SAT-SA
 
 ### Method 2: Direct File Open
 You can open `index.html` directly in any web browser:
@@ -94,4 +121,4 @@ open /Users/sohampatil/Documents/animation/index.html
 ## Technical Highlights
 - **100% Offline & Zero External Dependencies**: Runs entirely on native browser technologies with no npm packages, CDNs, or remote API calls.
 - **Procedural Web Audio API Synthesizer**: Generates all clicks, typing blips, alert chimes, radar sweeps, and campaign chords in real-time.
-- **Dual-Presentation Hub Architecture**: Allows instant switching between PS 1 and PS 2 with complete state isolation and deep-link routing.
+- **Tri-Presentation Hub Architecture**: Allows instant switching between PS 1, PS 2, and PS 3 with complete state isolation and deep-link routing.

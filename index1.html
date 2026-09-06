@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAT-SA | Supervisory Analytics Tool for SOC Assessment</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;800&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+
+  <!-- Background Animated Canvas & Grid Overlay -->
+  <canvas id="background-canvas"></canvas>
+  <div class="cyber-grid-overlay"></div>
+  <div class="vignette-overlay"></div>
+
+  <!-- Main Application Wrapper -->
+  <div id="app-container">
+
+    <!-- Header Control Bar -->
+    <header class="app-header">
+      <div class="header-brand-group">
+        <div class="header-brand">
+          <span class="brand-badge">PS 3 &bull; SAT-SA</span>
+          <span class="brand-title">Supervisory Analytics Tool</span>
+          <span class="brand-subtitle">SOC Assessment Platform</span>
+        </div>
+
+        <div class="header-hub-nav">
+          <a href="index.html" class="ps-portal-link" title="Return to Problem Statement Portal">
+            <span>🏠 PS Hub</span>
+          </a>
+          <a href="scamshield.html" class="ps-switch-btn ps-switch-btn-cyan" title="Switch to PS 1: ScamShield 2.0">
+            <span class="ps-switch-tag">PS 1</span>
+            <span>ScamShield ➔</span>
+          </a>
+          <a href="securecode.html" class="ps-switch-btn ps-switch-btn-violet" title="Switch to PS 2: SecureCode">
+            <span class="ps-switch-tag ps-switch-tag-violet">PS 2</span>
+            <span>SecureCode ➔</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="header-nav-controls">
+        <button id="btn-prev" class="btn-ctrl" title="Previous Scene (Left Arrow)">
+          <span>⏮</span> Prev
+        </button>
+
+        <button id="btn-play-pause" class="btn-ctrl" title="Pause / Play (Spacebar)">
+          <span id="play-icon">⏸</span> <span id="play-text">Pause</span>
+        </button>
+
+        <button id="btn-next" class="btn-ctrl" title="Next Scene (Right Arrow)">
+          Next <span>⏭</span>
+        </button>
+
+        <select id="scene-select" class="scene-selector" title="Jump to Scene">
+          <!-- Populated by script1.js -->
+        </select>
+
+        <button id="audio-toggle-btn" class="btn-ctrl" title="Toggle Sound FX (Key: M)">
+          <span id="audio-icon">🔇</span> <span id="audio-text">Audio</span>
+        </button>
+
+        <button id="btn-fullscreen" class="btn-ctrl" title="Toggle Fullscreen (Key: F)">
+          ⛶ Fullscreen
+        </button>
+      </div>
+
+      <div class="header-progress-container">
+        <div id="progress-bar" class="header-progress-bar"></div>
+      </div>
+    </header>
+
+    <!-- Main Interactive Stage -->
+    <main id="presentation-stage">
+
+      <!-- SCENE 1: Critical Sector Entities and their SOCs -->
+      <section id="scene-1" class="scene active">
+        <div class="scene-header">
+          <div class="scene-tag">Scene 01 // Baseline Landscape</div>
+          <h1 class="scene-title">Critical Sector Entities & SOC Environments</h1>
+          <p class="scene-subtitle">Critical Sector Entities operate internal Security Operations Centers (SOCs) generating massive volumes of operational records.</p>
+          <div class="scene-explanation-bar">
+            <span class="sat-sa-action-tag">CONTEXT REVEAL</span>
+            <span>Every critical organization maintains its own SOC environment. These environments continuously produce operational security records.</span>
+          </div>
+        </div>
+
+        <div class="scene1-grid">
+          <!-- CSE A -->
+          <div class="glass-panel soc-card">
+            <div class="soc-header">
+              <span class="soc-title">CSE-A (Energy)</span>
+              <span class="soc-type">Energy Sector</span>
+            </div>
+            <div class="soc-activity-stream" id="stream-cse1"></div>
+            <div class="soc-metrics">
+              <div class="mini-stat">
+                <div class="mini-stat-val">28.4K</div>
+                <div class="mini-stat-lbl">Alerts/Mo</div>
+              </div>
+              <div class="mini-stat">
+                <div class="mini-stat-val">5.4K</div>
+                <div class="mini-stat-lbl">Cases</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CSE B -->
+          <div class="glass-panel soc-card">
+            <div class="soc-header">
+              <span class="soc-title">CSE-B (Finance)</span>
+              <span class="soc-type">Financial Sector</span>
+            </div>
+            <div class="soc-activity-stream" id="stream-cse2"></div>
+            <div class="soc-metrics">
+              <div class="mini-stat">
+                <div class="mini-stat-val">41.2K</div>
+                <div class="mini-stat-lbl">Alerts/Mo</div>
+              </div>
+              <div class="mini-stat">
+                <div class="mini-stat-val">8.9K</div>
+                <div class="mini-stat-lbl">Cases</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CSE C -->
+          <div class="glass-panel soc-card">
+            <div class="soc-header">
+              <span class="soc-title">CSE-C (Telecom)</span>
+              <span class="soc-type">Telecommunications</span>
+            </div>
+            <div class="soc-activity-stream" id="stream-cse3"></div>
+            <div class="soc-metrics">
+              <div class="mini-stat">
+                <div class="mini-stat-val">18.9K</div>
+                <div class="mini-stat-lbl">Alerts/Mo</div>
+              </div>
+              <div class="mini-stat">
+                <div class="mini-stat-val">3.2K</div>
+                <div class="mini-stat-lbl">Cases</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CSE D -->
+          <div class="glass-panel soc-card">
+            <div class="soc-header">
+              <span class="soc-title">CSE-D (Transport)</span>
+              <span class="soc-type">Transport Sector</span>
+            </div>
+            <div class="soc-activity-stream" id="stream-cse4"></div>
+            <div class="soc-metrics">
+              <div class="mini-stat">
+                <div class="mini-stat-val">11.4K</div>
+                <div class="mini-stat-lbl">Alerts/Mo</div>
+              </div>
+              <div class="mini-stat">
+                <div class="mini-stat-val">2.5K</div>
+                <div class="mini-stat-lbl">Cases</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="why-this-matters-card">
+          <span class="why-icon">WHY THIS MATTERS</span>
+          <span class="why-text">Critical Sector Entities generate millions of operational log entries. National supervisors require a systematic methodology to evaluate periodic operational data without continuous live monitoring.</span>
+        </div>
+      </section>
+
+      <!-- SCENE 2: Periodic Supervisory Assessment -->
+      <section id="scene-2" class="scene">
+        <div class="scene-header">
+          <div class="scene-tag">Scene 02 // Supervisory Dilemma</div>
+          <h1 class="scene-title">Periodic Operational Evidence Assessment</h1>
+          <p class="scene-subtitle">Supervisors receive periodic operational data submissions from entities. Manual sampling cannot scale across the volume.</p>
+          <div class="scene-explanation-bar">
+            <span class="sat-sa-action-tag">DATA BOTTLENECK</span>
+            <span>Manual sampling of 50 records out of 100,000 alerts risks missing critical operational weaknesses.</span>
+          </div>
+        </div>
+
+        <div class="scene2-container">
+          <div class="funnel-visual">
+            <div class="funnel-stage">
+              <span class="funnel-val">100,000</span>
+              <span class="funnel-lbl">Total Security Alerts Received</span>
+            </div>
+            <div class="funnel-stage">
+              <span class="funnel-val">20,000</span>
+              <span class="funnel-lbl">Recorded Incident Cases</span>
+            </div>
+            <div class="funnel-stage">
+              <span class="funnel-val">5,000</span>
+              <span class="funnel-lbl">Formal Technical Investigations</span>
+            </div>
+            <div class="funnel-stage">
+              <span class="funnel-val">2,000</span>
+              <span class="funnel-lbl">High-Priority Escalations</span>
+            </div>
+            <div class="funnel-stage narrow">
+              <span class="funnel-val">50</span>
+              <span class="funnel-lbl">Manual Sample Review Limit</span>
+            </div>
+          </div>
+
+          <div class="scene2-callout">
+            <div class="glass-panel banner-warning">
+              <p>⚡ <strong>Supervisory Assessment Challenge:</strong></p>
+              <p style="margin-top: 10px; font-weight: 400; font-size: 0.92rem; color: var(--text-main);">
+                "Manual review provides valuable qualitative sample depth, but becomes resource-intensive and difficult to scale across national infrastructure."
+              </p>
+            </div>
+
+            <div class="why-this-matters-card amber">
+              <span class="why-icon">WHY THIS MATTERS</span>
+              <span class="why-text">Random sampling may inspect 50 compliant cases while missing critical operational anomalies hidden within the remaining 99,950 unexamined records.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCENE 3: The Hidden Problem -->
+      <section id="scene-3" class="scene">
+        <div class="scene-header">
+          <div class="scene-tag">Scene 03 // KPI Surface Illusion</div>
+          <h1 class="scene-title">The Hidden Operational Problem</h1>
+          <p class="scene-subtitle">Top-level reported KPIs can appear exceptionally healthy while deeper operational evidence reveals hidden vulnerabilities.</p>
+          <div class="scene-explanation-bar">
+            <span class="sat-sa-action-tag">KPI DEEP-DIVE</span>
+            <span>Reported high SLA compliance numbers do not automatically guarantee thorough technical investigation.</span>
+          </div>
+        </div>
+
+        <div class="scene3-split">
+          <div class="glass-panel" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <h3 style="color: var(--status-green); font-family: var(--font-heading); margin-bottom: 10px;">Reported KPIs (Surface View: "Healthy")</h3>
+            <div class="kpi-board">
+              <div class="kpi-card">
+                <div class="kpi-card-val">96%</div>
+                <div class="kpi-card-lbl">SLA Compliance</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-card-val">94%</div>
+                <div class="kpi-card-lbl">Alert Closure Rate</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-card-val">91%</div>
+                <div class="kpi-card-lbl">Investigation Rate</div>
+              </div>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;">Conventional supervisory reporting relies on self-reported aggregated summary KPIs.</p>
+          </div>
+
+          <div class="glass-panel deep-dive-panel">
+            <h3 style="color: var(--status-red); font-family: var(--font-heading);">Deep Operational Evidence Reveal</h3>
+            <div class="hidden-finding-item">
+              <i style="color: var(--status-red); font-weight: bold;">⚠</i>
+              <div>
+                <strong>Rapid Closure Anomalies:</strong> 87 Critical alerts closed in under 3 minutes without investigation logs.
+              </div>
+            </div>
+            <div class="hidden-finding-item">
+              <i style="color: var(--status-red); font-weight: bold;">⚠</i>
+              <div>
+                <strong>Missing Forensic Evidence:</strong> 62 Cases closed without required PCAP or log attachments.
+              </div>
+            </div>
+            <div class="hidden-finding-item">
+              <i style="color: var(--status-red); font-weight: bold;">⚠</i>
+              <div>
+                <strong>Un-escalated High Severity:</strong> 41 Critical events marked solved without supervisor review.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="why-this-matters-card red">
+          <span class="why-icon">WHY THIS MATTERS</span>
+          <span class="why-text">KPIs measure reported operational speed, but evidence analysis evaluates operational quality. High closure rates can mask superficial alert handling.</span>
+        </div>
+      </section>
+
+      <!-- SCENE 4: Introduce SAT-SA -->
+      <section id="scene-4" class="scene">
+        <div class="scene-header">
+          <div class="scene-tag">Scene 04 // Solution Architecture</div>
+          <h1 class="scene-title">Introducing SAT-SA</h1>
+          <p class="scene-subtitle">Supervisory Analytics Tool for SOC Assessment — An AI-assisted analytical platform for periodic operational evidence.</p>
+          <div class="scene-explanation-bar">
+            <span class="sat-sa-action-tag">SYSTEM REVEAL</span>
+            <span>SAT-SA ingests submitted periodic operational datasets (CSV, JSON, DB, API) and extracts structured evidence signals.</span>
+          </div>
+        </div>
+
+        <div class="scene4-architecture">
+          <div class="cses-column">
+            <div class="cse-node">CSE-A (Energy)</div>
+            <div class="cse-node">CSE-B (Finance)</div>
+            <div class="cse-node">CSE-C (Telecom)</div>
+            <div class="cse-node">CSE-D (Transport)</div>
+          </div>
+
+          <svg class="data-pipe-svg" viewBox="0 0 400 250">
+            <path d="M 10,30 C 150,30 200,125 380,125" fill="none" stroke="#00f0ff" stroke-width="3" stroke-dasharray="8,8" />
+            <path d="M 10,90 C 150,90 200,125 380,125" fill="none" stroke="#00f0ff" stroke-width="3" stroke-dasharray="8,8" />
+            <path d="M 10,160 C 150,160 200,125 380,125" fill="none" stroke="#00f0ff" stroke-width="3" stroke-dasharray="8,8" />
+            <path d="M 10,220 C 150,220 200,125 380,125" fill="none" stroke="#00f0ff" stroke-width="3" stroke-dasharray="8,8" />
+          </svg>
+
+          <div class="sat-sa-central-hub">
+            <h2>SAT-SA</h2>
+            <p style="font-size: 0.8rem; color: var(--accent-cyan); font-family: var(--font-mono); text-align: center; padding: 0 10px;">
+              Periodic Evidence Processing Engine
+            </p>
+          </div>
+        </div>
+
+        <div class="why-this-matters-card">
+          <span class="why-icon">WHY THIS MATTERS</span>
+          <span class="why-text">SAT-SA is NOT a live SOC, SIEM, or IDS. It operates on periodic evidence submissions to provide human supervisors with scalable analytical insight.</span>
+        </div>
+      </section>
+
+      <!-- SCENE 5: Data Ingestion and Preparation -->
+      <section id="scene-5" class="scene">
+        <div class="scene-header">
+          <div class="scene-tag">Scene 05 // Feature Engineering</div>
+          <h1 class="scene-title">Data Ingestion & Feature Engineering</h1>
+          <p class="scene-subtitle">Raw periodic operational evidence is validated, normalized, and transformed into structured analytical features.</p>
+          <div class="scene-explanation-bar">
+            <span class="sat-sa-action-tag">FEATURE EXTRACTION</span>
+            <span>Converting raw alert timestamps and case records into standardized statistical distributions.</span>
+          </div>
+        </div>
+
+        <div class="pipeline-stepper">
+          <div class="pipeline-step active">
+            <div class="step-num">STEP 01</div>
+            <div class="step-title">Ingestion</div>
+          </div>
+          <div style="color: var(--accent-cyan);">➔</div>
+          <div class="pipeline-step active">
+            <div class="step-num">STEP 02</div>
+            <div class="step-title">Validation</div>
+          </div>
+          <div style="color: var(--accent-cyan);">➔</div>
+          <div class="pipeline-step active">
+            <div class="step-num">STEP 03</div>
+            <div class="step-title">Normalization</div>
+          </div>
+          <div style="color: var(--accent-cyan);">➔</div>
+          <div class="pipeline-step active">
+            <div class="step-num">STEP 04</div>
+            <div class="step-title">Feature Extraction</div>
+          </div>
+          <div style="color: var(--status-green);">➔</div>
+          <div class="pipeline-step active" style="border-color: var(--status-green);">
+            <div class="step-num" style="color: var(--status-green);">STEP 05</div>
+            <div class="step-title">Analytics Ready</div>
+          </div>
+        </div>
+
+        <div class="extracted-features-grid">
+          <div class="feature-pill">Investigation Duration Distribution</div>
+          <div class="feature-pill">Evidence Completeness Ratio</div>
+          <div class="feature-pill">Escalation Velocity Metrics</div>
+          <div class="feature-pill">Critical Asset Monitoring Density</div>
+          <div class="feature-pill">Closure Rate Volatility</div>
+          <div class="feature-pill">Repeated Workflow Frequency</div>
+          <div class="feature-pill">Peer Variance Coefficients</div>
+          <div class="feature-pill">Negative Space Activity Index</div>
+        </div>
+
+        <div class="why-this-matters-card">
+          <span class="why-icon">WHY THIS MATTERS</span>
+          <span class="why-text">Different entities use different case tools and formats. Feature engineering normalizes raw evidence so machine learning models can perform fair cross-entity analysis.</span>
+        </div>
+      </section>
+
+      <!-- SCENE 6: Supervisory Analytics Engine -->
+      <section id="scene-6" class="scene">
+        <div class="scene-header">
+          <div class="scene-tag">Scene 06 // Engine Architecture</div>
+          <h1 class="scene-title">Supervisory Analytics Core</h1>
+          <p class="scene-subtitle">Five specialized analytical layers work simultaneously to discover hidden operational signals in periodic evidence.</p>
+          <div class="scene-explanation-bar">
+            <span class="sat-sa-action-tag">MULTI-LAYER PIPELINE</span>
+            <span>Combining execution gap, negative space, anomaly detection, peer benchmarking, and risk scoring.</span>
+          </div>
+        </div>
+
+        <div class="analytics-core-layout">
+          <div class="core-hub-center">
+            <h3 style="font-family: var(--font-heading); font-size: 1.1rem;">SAT-SA CORE</h3>
+            <p style="font-size: 0.7rem; color: var(--accent-cyan);">Analytics Engine</p>
+          </div>
+
+          <div class="branch-node branch-node-1">
+            <h4 style="color: var(--accent-cyan); font-size: 0.9rem;">1. Execution Gap</h4>
+            <p style="font-size: 0.72rem; color: var(--text-muted);">Reported vs evidence gaps</p>
+          </div>
+
+          <div class="branch-node branch-node-2">
+            <h4 style="color: var(--accent-cyan); font-size: 0.9rem;">2. Negative Space</h4>
+            <p style="font-size: 0.72rem; color: var(--text-muted);">Absence of expected telemetry</p>
+          </div>
+
+          <div class="branch-node branch-node-3">
+            <h4 style="color: var(--accent-cyan); font-size: 0.9rem;">3. Anomaly Detection</h4>
+            <p style="font-size: 0.72rem; color: var(--text-muted);">Statistical baseline variance</p>
+          </div>
+
+          <div class="branch-node branch-node-4">
+            <h4 style="color: var(--accent-cyan); font-size: 0.9rem;">4. Peer Benchmarking</h4>
+            <p style="font-size: 0.72rem; color: var(--text-muted);">Cross-entity sector metrics</p>
+          </div>
+
+          <div class="branch-node branch-node-5">
+            <h4 style="color: var(--accent-cyan); font-size: 0.9rem;">5. Risk Prioritization</h4>
+            <p style="font-size: 0.72rem; color: var(--text-muted);">Multi-signal attention score</p>
+          </div>
+        </div>
+
+        <div class="why-this-matters-card">
+          <span class="why-icon">WHY THIS MATTERS</span>
+          <span class="why-text">Single metrics can be misleading. SAT-SA evaluates five independent analytical dimensions to ensure robust, evidence-backed supervisory findings.</span>
+        </div>
+      </section>
+
+      <!-- SCENE 7: Execution Gap Detection -->
+      <section id="scene-7" class="scene">
+        <div class="scene-header">
+          <div class="scene-tag">Scene 07 // Analytical Layer 1</div>
+          <h1 class="scene-title">Execution Gap Detection</h1>
+          <p class="scene-subtitle">Identifying discrepancies between reported compliance metrics and true underlying operational evidence.</p>
+          <div class="scene-explanation-bar">
+            <span class="sat-sa-action-tag">SAT-SA COMPARING</span>
+            <span>Comparing CSE-D reported 95% SLA compliance against raw case closure speeds and log attachments.</span>
+          </div>
+        </div>
+
+        <div class="scene7-wrapper">
+          <div class="gap-evidence-list">
+            <div class="gap-step-card">
+              <div class="gap-step-num">87</div>
+              <div>
+                <strong>Unusually Rapid Closures</strong>
+                <p style="font-size: 0.78rem; color: var(--text-muted);">Critical alerts resolved in under 3 minutes.</p>
+              </div>
+            </div>
+            <div class="gap-step-card">
+              <div class="gap-step-num">62</div>
+              <div>
+                <strong>Limited Forensic Evidence</strong>
+                <p style="font-size: 0.78rem; color: var(--text-muted);">Cases missing investigator notes or PCAP captures.</p>
+              </div>
+            </div>
+            <div class="gap-step-card">
+              <div class="gap-step-num">41</div>
+              <div>
+                <strong>Missing Escalation Records</strong>
+                <p style="font-size: 0.78rem; color: var(--text-muted);">High-impact alerts closed without supervisor review.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="execution-gap-alert-card">
+            <span style="font-size: 2.5rem; color: var(--status-amber);">⚠</span>
+            <h2 style="font-size: 1.5rem;">POTENTIAL EXECUTION GAP</h2>
+            <p style="margin-top: 10px; font-size: 0.88rem; color: var(--text-main);">
+              "Operational evidence indicates that reported SLA compliance (95%) may not reflect effective technical investigation."
+            </p>
+            <p style="margin-top: 8px; font-size: 0.75rem; color: var(--text-muted);">
+              * Potential supervisory signal requiring examiner review — not an automated final judgment.
+            </p>
+          </div>
+        </div>
+
+        <div class="why-this-matters-card amber">
+          <span class="why-icon">WHY THIS MATTERS</span>
+          <span class="why-text">Execution gap signals alert human examiners to potential operational discrepancies where high reported performance metrics conflict with sparse underlying evidence.</span>
+        </div>
+      </section>
+
+      <!-- SCENE 8: Negative Space Detection (REFINED) -->
+      <section id="scene-8" class="scene">
+        <div class="scene-header">
+          <div class="scene-tag">Scene 08 // Analytical Layer 2</div>
+          <h1 class="scene-title">Negative Space Detection</h1>
+          <p class="scene-subtitle">Identifying what is <em>absent</em> — detecting missing evidence where security activity is expected.</p>
+          <div class="scene-explanation-bar">
+            <span class="sat-sa-action-tag">SAT-SA COMPARING</span>
+            <span>SAT-SA compares observed security evidence against expected activity patterns for critical assets and comparable environments.</span>
+          </div>
+        </div>
+
+        <div class="scene8-container">
+          <div class="scene8-top-panel glass-panel">
+            <div class="asset-target-box">
+              <div class="asset-icon-hex">🗄</div>
+              <div>
+                <h3 style="color: var(--accent-cyan); font-size: 1.1rem;">Target Asset: Critical Database Server (DB-FIN-01)</h3>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">High-value financial database expected to generate continuous security telemetry.</p>
+              </div>
+            </div>
+
+            <div class="asset-info-grid">
+              <div class="asset-stat-badge">
+                <div class="asset-stat-lbl">Criticality</div>
+                <div class="asset-stat-val" style="color: var(--status-red);">HIGH</div>
+              </div>
+              <div class="asset-stat-badge">
+                <div class="asset-stat-lbl">Expected Monitoring</div>
+                <div class="asset-stat-val">CONTINUOUS</div>
+              </div>
+              <div class="asset-stat-badge">
+                <div class="asset-stat-lbl">Expected Sources</div>
+                <div class="asset-stat-val">AUTH, EDR, NET</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="events-flow-visual">
+            <span style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-muted);">EVIDENCE TELEMETRY SAMPLE:</span>
+            <span class="event-chip">AUTH-1842 (Auth Event)</span>
+            <span class="event-chip">EDR-7712 (Process Event)</span>
+            <span class="event-chip">NET-3921 (NetFlow Event)</span>
+            <span class="event-chip">SEC-8291 (Audit Event)</span>
+          </div>
+
+          <div class="negative-space-comparison">
+            <div class="glass-panel">
+              <div class="comparison-column-header">
+                <h4 style="color: var(--accent-blue);">EXPECTED SECURITY ACTIVITY</h4>
+                <span class="sat-sa-action-tag" style="font-size: 0.65rem;">BASELINE PATTERN</span>
+              </div>
+              <div class="activity-bar-container">
+                <div class="activity-bar-bg">
+                  <div class="activity-bar-fill expected"></div>
+                </div>
+              </div>
+              <div class="counts-list-mini">
+                <div class="count-row"><span>Authentication Events</span><strong>1,240 events</strong></div>
+                <div class="count-row"><span>Endpoint EDR Events</span><strong>980 events</strong></div>
+                <div class="count-row"><span>Network NetFlow Traces</span><strong>1,430 events</strong></div>
+                <div class="count-row"><span>Security Audit Events</span><strong>760 events</strong></div>
+              </div>
+            </div>
+
+            <div class="glass-panel" style="border-color: var(--status-red);">
+              <div class="comparison-column-header">
+                <h4 style="color: var(--status-red);">OBSERVED SECURITY ACTIVITY</h4>
+                <span class="sat-sa-action-tag" style="background: rgba(255,59,92,0.2); border-color: var(--status-red); color: #ff8599; font-size: 0.65rem;">GAP IDENTIFIED</span>
+              </div>
+              <div class="activity-bar-container">
+                <div class="activity-bar-bg">
+                  <div class="activity-bar-fill observed"></div>
+                </div>
+              </div>
+              <div class="counts-list-mini">
+                <div class="count-row"><span>Authentication Events</span><strong style="color: var(--status-red);">82 events (-93%)</strong></div>
+                <div class="count-row"><span>Endpoint EDR Events</span><strong style="color: var(--status-red);">47 events (-95%)</strong></div>
+                <div class="count-row"><span>Network NetFlow Traces</span><strong style="color: var(--status-red);">61 events (-95%)</strong></div>
+                <div class="count-row"><span>Security Audit Events</span><strong style="color: var(--status-red);">29 events (-96%)</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="scene8-bottom-flow">
+            <div class="analytics-pipeline-strip">
+              <span class="pipeline-node-chip">Expected Activity</span>
+              <span>+</span>
+              <span class="pipeline-node-chip">Observed Activity</span>
+              <span>+</span>
+              <span class="pipeline-node-chip">Baseline</span>
+              <span>➔</span>
+              <strong style="color: var(--accent-cyan);">SAT-SA GAP ANALYSIS</strong>
+            </div>
+
+            <div style="background: rgba(255, 59, 92, 0.1); border: 1px solid var(--status-red); border-radius: 8px; padding: 10px 14px; font-size: 0.8rem; color: #ff8599;">
+              <strong>⚠ POTENTIAL NEGATIVE SPACE:</strong> Expected security evidence is significantly lower than baseline. Possible monitoring blind spot requiring supervisory review.
+            </div>
+          </div>
+
+          <div class="why-this-matters-card red">
+            <span class="why-icon">WHY THIS MATTERS</span>
+            <span class="why-text">Critical assets are expected to generate observable security telemetry. A significant absence of expected evidence may indicate a monitoring blind spot, logging failure, or unmonitored infrastructure area.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCENE 9: Anomaly Detection (REFINED) -->
+      <section id="scene-9" class="scene">
+        <div class="scene-header">
+          <div class="scene-tag">Scene 09 // Analytical Layer 3</div>
+          <h1 class="scene-title">Statistical & Machine Learning Anomaly Detection</h1>
+          <p class="scene-subtitle">Identifying operational behavior that deviates significantly from historical baseline patterns.</p>
+          <div class="scene-explanation-bar">
+            <span class="sat-sa-action-tag">SAT-SA ANALYZING</span>
+            <span>SAT-SA learns the normal operating range of an entity from historical assessment data and flags statistical deviations.</span>
+          </div>
+        </div>
+
+        <div class="scene9-layout">
+          <div>
+            <div class="baseline-info-card">
+              <div>
+                <strong style="color: var(--accent-cyan); font-size: 0.88rem;">HISTORICAL BASELINE FORMATION</strong>
+                <p style="font-size: 0.78rem; color: var(--text-muted);">Historical Assessment Periods 1–5 merged into Learned Normal Operating Range (75%–85%)</p>
+              </div>
+              <span class="sat-sa-action-tag">NORMAL RANGE: 75%–85%</span>
+            </div>
+
+            <div class="time-series-canvas-container">
+              <canvas id="anomaly-chart-canvas"></canvas>
+            </div>
+
+            <div class="anomaly-types-grid">
+              <div class="anomaly-type-chip">UNUSUALLY LOW ALERT VOLUME</div>
+              <div class="anomaly-type-chip">SUDDEN CLOSURE SPIKE</div>
+              <div class="anomaly-type-chip">ABNORMAL WORKLOAD VARIANCE</div>
+              <div class="anomaly-type-chip">UNEXPECTED ESCALATION CHANGE</div>
+            </div>
+          </div>
+
+          <div class="anomaly-side-panel">
+            <div class="anomaly-details-card">
+              <h4 style="color: var(--status-red); font-size: 0.95rem;">ANOMALY DETAILS</h4>
+              <div class="anomaly-detail-row"><span>Observed Level:</span><strong>42%</strong></div>
+              <div class="anomaly-detail-row"><span>Historical Baseline:</span><strong>78% – 84%</strong></div>
+              <div class="anomaly-detail-row"><span>Deviation:</span><strong style="color: var(--status-red);">-40 percentage pts</strong></div>
+              <div class="anomaly-detail-row"><span>Classification:</span><strong style="color: var(--status-red);">UNUSUAL BEHAVIOR</strong></div>
+            </div>
+
+            <div class="glass-panel" style="font-size: 0.78rem; color: var(--text-muted);">
+              <strong style="color: var(--accent-purple);">ANALYTICAL MODEL CONCEPT:</strong>
+              <p style="margin-top: 6px;">Models such as Isolation Forest and statistical Z-score algorithms evaluate operational metrics against learned baseline bounds.</p>
+            </div>
+
+            <div class="why-this-matters-card amber">
+              <span class="why-icon">WHY THIS MATTERS</span>
+              <span class="why-text">An unusual operational shift may indicate changes in alert handling, logging coverage, workload, or reporting behavior that warrants supervisory review.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCENE 10: Peer Benchmarking (REFINED) -->
+      <section id="scene-10" class="scene">
+        <div class="scene-header">
+          <div class="scene-tag">Scene 10 // Analytical Layer 4</div>
+          <h1 class="scene-title">Peer Benchmarking & Cross-Entity Comparison</h1>
+          <p class="scene-subtitle">Comparing operational evidence metrics across comparable Critical Sector Entities.</p>
+          <div class="scene-explanation-bar">
+            <span class="sat-sa-action-tag">SAT-SA COMPARING</span>
+            <span>SAT-SA compares operational metrics across comparable entities to identify behavior that differs significantly from the peer group.</span>
+          </div>
+        </div>
+
+        <div class="scene10-layout">
+          <div>
+            <div class="metric-explanation-box">
+              <strong style="color: var(--accent-cyan);">SELECTED METRIC: INVESTIGATION RATE (%)</strong>
+              <p style="color: var(--text-muted); margin-top: 4px; font-size: 0.8rem;">Percentage of sampled alerts/cases that contain a documented technical investigation record in available assessment data.</p>
+            </div>
+
+            <div class="glass-panel">
+              <div class="peer-chart-container">
+                <div class="peer-row">
+                  <span class="peer-name">CSE-A (Energy Sector)</span>
+                  <div class="peer-bar-bg"><div class="peer-bar-fill" style="width: 89%;"></div></div>
+                  <span class="peer-val">89%</span>
+                </div>
+                <div class="peer-row">
+                  <span class="peer-name">CSE-B (Financial Sector)</span>
+                  <div class="peer-bar-bg"><div class="peer-bar-fill" style="width: 84%;"></div></div>
+                  <span class="peer-val">84%</span>
+                </div>
+                <div class="peer-row">
+                  <span class="peer-name">CSE-C (Telecom Sector)</span>
+                  <div class="peer-bar-bg"><div class="peer-bar-fill" style="width: 81%;"></div></div>
+                  <span class="peer-val">81%</span>
+                </div>
+                <div class="peer-row deviant">
+                  <span class="peer-name" style="color: var(--status-red);">CSE-D (Transport Sector)</span>
+                  <div class="peer-bar-bg"><div class="peer-bar-fill" style="width: 19%;"></div></div>
+                  <span class="peer-val" style="color: var(--status-red);">19%</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top: 14px; padding: 12px; background: rgba(255, 59, 92, 0.1); border-radius: 6px; border: 1px solid var(--status-red); color: var(--status-red); font-size: 0.85rem;">
+              ⚠ <strong>SIGNIFICANT PEER DEVIATION:</strong> CSE-D differs substantially from the observed peer group pattern (19% vs 84% median) and may warrant further supervisory review.
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div class="causes-panel">
+              <h4 style="color: var(--accent-cyan); font-size: 0.9rem;">WHAT CAN CAUSE PEER DEVIATION?</h4>
+              <ul class="causes-list">
+                <li>Different alert volume thresholds</li>
+                <li>Different operating environments</li>
+                <li>Different investigation workflows</li>
+                <li>Data completeness differences</li>
+                <li>Genuine operational differences</li>
+              </ul>
+              <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 8px;">
+                * Peer deviation is a supervisory signal — not proof of non-compliance. SAT-SA highlights the deviation; the supervisor determines the cause.
+              </p>
+            </div>
+
+            <div class="why-this-matters-card red">
+              <span class="why-icon">WHY THIS MATTERS</span>
+              <span class="why-text">An entity operating far outside peer group norms provides supervisors with context to evaluate whether deeper examination is warranted.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCENE 11: Signal Correlation -->
+      <section id="scene-11" class="scene">
+        <div class="scene-header">
+          <div class="scene-tag">Scene 11 // Analytical Layer 5</div>
+          <h1 class="scene-title">Signal Correlation & Attention Prioritization</h1>
+          <p class="scene-subtitle">Correlating multiple weak analytical signals into an actionable supervisory risk indicator.</p>
+          <div class="scene-explanation-bar">
+            <span class="sat-sa-action-tag">SAT-SA CORRELATING</span>
+            <span>Aggregating 5 independent analytical signals into a single evidence-backed supervisory risk indicator.</span>
+          </div>
+        </div>
+
+        <div class="correlation-wrapper">
+          <div class="signals-list">
+            <div class="signal-item">
+              <span>Rapid Alert Closure Pattern</span>
+              <strong style="color: var(--status-amber);">DETECTED</strong>
+            </div>
+            <div class="signal-item">
+              <span>Limited Forensic Documentation</span>
+              <strong style="color: var(--status-amber);">DETECTED</strong>
+            </div>
+            <div class="signal-item">
+              <span>Un-escalated High Severity</span>
+              <strong style="color: var(--status-amber);">DETECTED</strong>
+            </div>
+            <div class="signal-item">
+              <span>Negative Space Telemetry Gap</span>
+              <strong style="color: var(--status-red);">DETECTED</strong>
+            </div>
+            <div class="signal-item">
+              <span>Peer Investigation Rate Deviation</span>
+              <strong style="color: var(--status-red);">DETECTED</strong>
+            </div>
+          </div>
+
+          <div class="risk-meter-display">
+            <span style="font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);">SUPERVISORY RISK INDICATOR</span>
+            <div class="risk-score-big">87 / 100</div>
+            <div style="background: var(--status-red); color: #fff; padding: 4px 16px; border-radius: 4px; font-weight: 800; font-size: 0.85rem;">
+              HIGH SUPERVISORY ATTENTION
+            </div>
+            <p style="margin-top: 10px; font-size: 0.78rem; color: var(--text-muted);">
+              Evidence-based prioritization score to focus examiner review.
+            </p>
+          </div>
+        </div>
+
+        <div class="why-this-matters-card red">
+          <span class="why-icon">WHY THIS MATTERS</span>
+          <span class="why-text">Multiple correlated signals provide higher confidence than a single isolated metric. It prioritizes entity reviews based on cumulative operational evidence.</span>
+        </div>
+      </section>
+
+      <!-- SCENE 12: Intelligent Sample Prioritization -->
+      <section id="scene-12" class="scene">
+        <div class="scene-header">
+          <div class="scene-tag">Scene 12 // Evidence Sampling</div>
+          <h1 class="scene-title">Intelligent Sample Prioritization</h1>
+          <p class="scene-subtitle">Filtering 100,000 raw operational records down to the top 100 highest-value evidence samples for human review.</p>
+          <div class="scene-explanation-bar">
+            <span class="sat-sa-action-tag">SAT-SA PRIORITIZING</span>
+            <span>100,000 Raw Alerts ➔ SAT-SA Analytics Engine ➔ Top 100 Prioritized Evidence Samples</span>
+          </div>
+        </div>
+
+        <div class="priority-samples-grid">
+          <div class="priority-card p1">
+            <span style="font-size: 0.75rem; color: var(--status-red); font-family: var(--font-mono); font-weight: 800;">PRIORITY 01</span>
+            <h4 style="margin-top: 6px;">Critical Alert + Rapid Closure</h4>
+            <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 6px;">Case #CASE-9812: Closed in 42 seconds without forensic log attachment.</p>
+          </div>
+
+          <div class="priority-card p2">
+            <span style="font-size: 0.75rem; color: var(--status-amber); font-family: var(--font-mono); font-weight: 800;">PRIORITY 02</span>
+            <h4 style="margin-top: 6px;">Repeated Alert + Zero Remediation</h4>
+            <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 6px;">Asset #DB-FIN-01: 14 identical critical alerts closed with template text.</p>
+          </div>
+
+          <div class="priority-card p3">
+            <span style="font-size: 0.75rem; color: var(--accent-cyan); font-family: var(--font-mono); font-weight: 800;">PRIORITY 03</span>
+            <h4 style="margin-top: 6px;">Peer Anomaly Divergence</h4>
+            <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 6px;">CSE-D Investigation workflow duration deviates 4.2x from industry median.</p>
+          </div>
+        </div>
+
+        <div class="why-this-matters-card">
+          <span class="why-icon">WHY THIS MATTERS</span>
+          <span class="why-text">Instead of inspecting 50 random samples, examiners inspect the 100 samples containing the strongest analytical indicators, maximizing supervisory efficiency.</span>
+        </div>
+      </section>
+
+      <!-- SCENE 13: Explainability -->
+      <section id="scene-13" class="scene">
+        <div class="scene-header">
+          <div class="scene-tag">Scene 13 // Audit Trail</div>
+          <h1 class="scene-title">Explainable Findings & Evidence Traceability</h1>
+          <p class="scene-subtitle">Every supervisory finding can be traced back through evidence layers to specific raw operational records.</p>
+          <div class="scene-explanation-bar">
+            <span class="sat-sa-action-tag">SAT-SA TRACING</span>
+            <span>Every finding provides clear, auditable technical justification linking findings to raw data records.</span>
+          </div>
+        </div>
+
+        <div class="glass-panel">
+          <h3 style="color: var(--accent-cyan); font-size: 1rem;">WHY WAS CSE-D FLAGGED FOR HIGH SUPERVISORY ATTENTION?</h3>
+
+          <div class="explainability-tree">
+            <div class="tree-node-item">
+              <div class="tree-step-icon">1</div>
+              <div><strong>Supervisory Finding:</strong> Risk Indicator 87/100 (High Supervisory Attention)</div>
+            </div>
+            <div class="tree-node-item">
+              <div class="tree-step-icon">2</div>
+              <div><strong>Analytical Signal:</strong> 87 Critical alerts closed unusually fast (< 3 min)</div>
+            </div>
+            <div class="tree-node-item">
+              <div class="tree-step-icon">3</div>
+              <div><strong>Target Case:</strong> Case #CASE-2026-9812 on DB-FIN-01</div>
+            </div>
+            <div class="tree-node-item">
+              <div class="tree-step-icon">4</div>
+              <div><strong>Raw Record Evidence:</strong> Alert ALT-90812 closed in 42s without attached PCAP or supervisor sign-off</div>
+            </div>
+          </div>
+
+          <button class="btn-ctrl" style="margin-top: 16px; background: var(--accent-cyan); color: #000; font-weight: 700; font-size: 0.8rem;">
+            VIEW UNDERLYING RECORDS ➔
+          </button>
+        </div>
+
+        <div class="why-this-matters-card">
+          <span class="why-icon">WHY THIS MATTERS</span>
+          <span class="why-text">Black-box AI is unsuitable for regulatory environments. SAT-SA findings are fully explainable, auditable, and traceable to specific raw evidence records.</span>
+        </div>
+      </section>
+
+      <!-- SCENE 14: Human Examiner Control -->
+      <section id="scene-14" class="scene">
+        <div class="scene-header">
+          <div class="scene-tag">Scene 14 // Governance Principles</div>
+          <h1 class="scene-title">Human Examiner Command & Control</h1>
+          <p class="scene-subtitle">SAT-SA empowers human examiners with evidence — the final decision always remains with human authority.</p>
+          <div class="scene-explanation-bar">
+            <span class="sat-sa-action-tag">HUMAN GOVERNANCE</span>
+            <span>AI performs analytics and prioritization; human supervisors render supervisory judgments.</span>
+          </div>
+        </div>
+
+        <div class="human-control-banner">
+          <div class="human-control-title">SAT-SA ASSISTS</div>
+          <div class="human-control-title" style="color: #fff; -webkit-text-fill-color: initial;">HUMAN EXAMINER DECIDES</div>
+        </div>
+
+        <div class="examiner-actions-row">
+          <button class="btn-ctrl" style="border-color: var(--accent-cyan);">✓ Review Evidence</button>
+          <button class="btn-ctrl" style="border-color: var(--status-green);">✓ Accept Finding</button>
+          <button class="btn-ctrl" style="border-color: var(--status-amber);">✕ Dismiss Finding</button>
+          <button class="btn-ctrl" style="border-color: var(--accent-purple);">💬 Request Clarification</button>
+        </div>
+
+        <div class="why-this-matters-card green" style="margin-top: 20px;">
+          <span class="why-icon" style="background: var(--status-green); color: #000;">SUPERVISORY PRINCIPLE</span>
+          <span class="why-text">SAT-SA does NOT make compliance decisions. It organizes evidence so human examiners can make informed, defensible supervisory decisions efficiently.</span>
+        </div>
+      </section>
+
+      <!-- SCENE 15: SAT-SA Supervisory Dashboard -->
+      <section id="scene-15" class="scene">
+        <div class="scene-header">
+          <div class="scene-tag">Scene 15 // Supervisory Command Center</div>
+          <h1 class="scene-title">Supervisory Assessment Dashboard</h1>
+          <p class="scene-subtitle">National supervisory overview across all Critical Sector Entities.</p>
+          <div class="scene-explanation-bar">
+            <span class="sat-sa-action-tag">COMMAND CENTER</span>
+            <span>Consolidated sector-wide visibility over entity risk profiles, execution gaps, and prioritization queues.</span>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="dash-stat-card">
+            <div class="dash-stat-val">24</div>
+            <div class="dash-stat-lbl">CSEs Assessed</div>
+          </div>
+          <div class="dash-stat-card" style="border-color: var(--status-red);">
+            <div class="dash-stat-val" style="color: var(--status-red);">4</div>
+            <div class="dash-stat-lbl">High Attention</div>
+          </div>
+          <div class="dash-stat-card" style="border-color: var(--status-amber);">
+            <div class="dash-stat-val" style="color: var(--status-amber);">7</div>
+            <div class="dash-stat-lbl">Medium Attention</div>
+          </div>
+          <div class="dash-stat-card" style="border-color: var(--status-green);">
+            <div class="dash-stat-val" style="color: var(--status-green);">13</div>
+            <div class="dash-stat-lbl">Low Attention</div>
+          </div>
+        </div>
+
+        <div class="glass-panel" style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+          <h3 style="color: var(--accent-cyan); margin-bottom: 10px; font-size: 1rem;">Sector-Wide Risk Distribution Overview</h3>
+          <canvas id="dashboard-sector-canvas" style="width: 100%; height: 180px;"></canvas>
+        </div>
+
+        <div class="why-this-matters-card">
+          <span class="why-icon">WHY THIS MATTERS</span>
+          <span class="why-text">Supervisors obtain macro-level sector visibility while retaining the ability to drill down into micro-level entity evidence records instantly.</span>
+        </div>
+      </section>
+
+      <!-- SCENE 16: Historical Assessment and Trends -->
+      <section id="scene-16" class="scene">
+        <div class="scene-header">
+          <div class="scene-tag">Scene 16 // Longitudinal Analytics</div>
+          <h1 class="scene-title">Historical Assessment & Trend Analytics</h1>
+          <p class="scene-subtitle">Tracking operational effectiveness trends across multiple assessment periods.</p>
+          <div class="scene-explanation-bar">
+            <span class="sat-sa-action-tag">TREND ANALYSIS</span>
+            <span>Evaluating whether entity operational evidence quality is improving or deteriorating over time.</span>
+          </div>
+        </div>
+
+        <div class="periods-trend-container">
+          <div class="period-card">
+            <h4>Assessment 01</h4>
+            <div style="font-size: 1.4rem; color: var(--status-amber); margin: 8px 0; font-family: var(--font-mono);">Risk Score 64</div>
+            <span style="font-size: 0.72rem; color: var(--text-muted);">Baseline Period</span>
+          </div>
+          <div class="period-card">
+            <h4>Assessment 02</h4>
+            <div style="font-size: 1.4rem; color: var(--status-red); margin: 8px 0; font-family: var(--font-mono);">Risk Score 78</div>
+            <span style="font-size: 0.72rem; color: var(--status-red);">↑ Deteriorating</span>
+          </div>
+          <div class="period-card">
+            <h4>Assessment 03</h4>
+            <div style="font-size: 1.4rem; color: var(--status-amber); margin: 8px 0; font-family: var(--font-mono);">Risk Score 52</div>
+            <span style="font-size: 0.72rem; color: var(--status-green);">↓ Improving</span>
+          </div>
+          <div class="period-card" style="border-color: var(--status-green);">
+            <h4>Assessment 04</h4>
+            <div style="font-size: 1.4rem; color: var(--status-green); margin: 8px 0; font-family: var(--font-mono);">Risk Score 28</div>
+            <span style="font-size: 0.72rem; color: var(--status-green);">↓ Target Reached</span>
+          </div>
+        </div>
+
+        <div class="why-this-matters-card green">
+          <span class="why-icon" style="background: var(--status-green); color: #000;">WHY THIS MATTERS</span>
+          <span class="why-text">Supervisory technology enables longitudinal tracking to determine if supervisory recommendations lead to tangible operational improvements across assessment cycles.</span>
+        </div>
+      </section>
+
+      <!-- SCENE 17: Complete SAT-SA Workflow -->
+      <section id="scene-17" class="scene">
+        <div class="scene-header">
+          <div class="scene-tag">Scene 17 // End-to-End Workflow</div>
+          <h1 class="scene-title">Complete SAT-SA Assessment Pipeline</h1>
+          <p class="scene-subtitle">Full operational pipeline from periodic CSE data submission to human supervisory decisions.</p>
+          <div class="scene-explanation-bar">
+            <span class="sat-sa-action-tag">SYSTEM WORKFLOW</span>
+            <span>Data Submission ➔ Validation ➔ Analytics Core ➔ Prioritization ➔ Explainable Findings ➔ Human Decision</span>
+          </div>
+        </div>
+
+        <div class="workflow-diagram">
+          <div class="workflow-node">1. CSE Data Submission</div>
+          <span style="color: var(--accent-cyan);">➔</span>
+          <div class="workflow-node">2. Data Validation & Feature Eng.</div>
+          <span style="color: var(--accent-cyan);">➔</span>
+          <div class="workflow-node">3. Supervisory Analytics Core</div>
+          <span style="color: var(--accent-cyan);">➔</span>
+          <div class="workflow-node">4. Risk & Sample Prioritization</div>
+          <span style="color: var(--accent-cyan);">➔</span>
+          <div class="workflow-node">5. Explainable Findings</div>
+          <span style="color: var(--status-green);">➔</span>
+          <div class="workflow-node" style="border-color: var(--status-green); color: var(--status-green);">6. Human Supervisory Decision</div>
+        </div>
+
+        <div class="why-this-matters-card">
+          <span class="why-icon">WHY THIS MATTERS</span>
+          <span class="why-text">A structured pipeline ensures repeatable, auditable, and standardized supervisory assessments across all critical infrastructure sectors.</span>
+        </div>
+      </section>
+
+      <!-- SCENE 18: Offline / Air-Gapped Deployment -->
+      <section id="scene-18" class="scene">
+        <div class="scene-header">
+          <div class="scene-tag">Scene 18 // Security Infrastructure</div>
+          <h1 class="scene-title">Offline & Air-Gapped Controlled Environment</h1>
+          <p class="scene-subtitle">All analytics, data storage, and machine learning operate locally inside secure controlled boundaries.</p>
+          <div class="scene-explanation-bar">
+            <span class="sat-sa-action-tag">AIR-GAPPED DEPLOYMENT</span>
+            <span>Sensitive operational security data remains strictly within controlled government boundaries.</span>
+          </div>
+        </div>
+
+        <div class="air-gapped-boundary">
+          <div class="boundary-label">NCIIPC SECURE CONTROLLED ENVIRONMENT</div>
+
+          <div style="display: flex; justify-content: space-around; align-items: center; padding: 16px;">
+            <div style="text-align: center;">
+              <h3 style="color: var(--accent-cyan); font-size: 1rem;">SAT-SA Engine</h3>
+              <p style="font-size: 0.75rem; color: var(--text-muted);">Local Execution</p>
+            </div>
+            <div style="text-align: center;">
+              <h3 style="color: var(--accent-cyan); font-size: 1rem;">PostgreSQL DB</h3>
+              <p style="font-size: 0.75rem; color: var(--text-muted);">Local Storage</p>
+            </div>
+            <div style="text-align: center;">
+              <h3 style="color: var(--accent-cyan); font-size: 1rem;">Scikit / XGBoost</h3>
+              <p style="font-size: 0.75rem; color: var(--text-muted);">Local ML Models</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="blocked-external-grid">
+          <div class="blocked-item">❌ Public Internet</div>
+          <div class="blocked-item">❌ External SaaS / Cloud</div>
+          <div class="blocked-item">❌ External AI APIs</div>
+        </div>
+
+        <div class="why-this-matters-card green" style="margin-top: 16px;">
+          <span class="why-icon" style="background: var(--status-green); color: #000;">SECURITY PRINCIPLE</span>
+          <span class="why-text">National critical sector operational evidence must never be transmitted to public cloud AI APIs. SAT-SA runs completely offline in air-gapped environments.</span>
+        </div>
+      </section>
+
+      <!-- FINAL SCENE: Core Vision & Technology Stack -->
+      <section id="scene-19" class="scene">
+        <div class="final-hero-container">
+          <div class="final-logo">SAT-SA</div>
+          <p class="final-tagline">"From Operational Evidence to Supervisory Insight."</p>
+
+          <div class="tech-badges-grid">
+            <span class="tech-badge">Python</span>
+            <span class="tech-badge">Machine Learning</span>
+            <span class="tech-badge">Anomaly Detection</span>
+            <span class="tech-badge">Statistical Analysis</span>
+            <span class="tech-badge">Pattern Recognition</span>
+            <span class="tech-badge">Pandas</span>
+            <span class="tech-badge">Scikit-learn</span>
+            <span class="tech-badge">XGBoost</span>
+            <span class="tech-badge">PostgreSQL</span>
+            <span class="tech-badge">FastAPI</span>
+            <span class="tech-badge">React</span>
+            <span class="tech-badge">Plotly</span>
+            <span class="tech-badge">Docker</span>
+            <span class="tech-badge">Air-Gapped Architecture</span>
+          </div>
+
+          <div class="finale-actions-row">
+            <button id="btn-replay-demo" class="btn-cyber-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              <span>REPLAY DEMONSTRATION</span>
+            </button>
+            <a href="index.html" class="finale-hub-btn" title="Return to Hub">
+              <span>🏠 RETURN TO PS HUB</span>
+            </a>
+            <a href="scamshield.html" class="ps-switch-btn ps-switch-btn-cyan" style="padding:12px 20px;font-size:0.84rem;">
+              <span class="ps-switch-tag">PS 1</span>
+              <span>LAUNCH PS 1: SCAMSHIELD 2.0 &rarr;</span>
+            </a>
+            <a href="securecode.html" class="ps-switch-btn ps-switch-btn-violet" style="padding:12px 20px;font-size:0.84rem;">
+              <span class="ps-switch-tag ps-switch-tag-violet">PS 2</span>
+              <span>LAUNCH PS 2: SECURECODE &rarr;</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer Telemetry Bar -->
+    <footer class="app-footer">
+      <div class="footer-status-indicator">
+        <span class="status-badge air-gapped">
+          <span class="status-pulse-dot"></span>
+          AIR-GAPPED ENVIRONMENT
+        </span>
+        <span id="footer-scene-indicator">Scene 01 / 19</span>
+      </div>
+
+      <div>
+        <span>Keyboard Shortcuts: [Space] Pause/Play | [← / →] Navigation | [F] Fullscreen</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="data1.js"></script>
+  <script src="script1.js"></script>
+</body>
+</html>

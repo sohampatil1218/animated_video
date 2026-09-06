@@ -110,7 +110,7 @@
     /* Main Container */
     .portal-main {
       flex: 1;
-      max-width: 1280px;
+      max-width: 1440px;
       width: 100%;
       margin: 0 auto;
       padding: 40px 32px 60px;
@@ -150,15 +150,21 @@
     .portal-header p {
       font-size: 1rem;
       color: #94a3b8;
-      max-width: 780px;
+      max-width: 860px;
       line-height: 1.5;
     }
 
     /* PS Cards Grid */
     .ps-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 28px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    @media (max-width: 1160px) {
+      .ps-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     .ps-card {
@@ -166,10 +172,10 @@
       backdrop-filter: blur(16px);
       border: 1px solid var(--border-color);
       border-radius: 18px;
-      padding: 28px;
+      padding: 26px;
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      gap: 16px;
       position: relative;
       overflow: hidden;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -196,6 +202,14 @@
       box-shadow: 0 0 32px var(--violet-glow);
     }
 
+    .ps-card-3 {
+      border-top: 4px solid var(--emerald);
+    }
+    .ps-card-3:hover {
+      border-color: var(--emerald);
+      box-shadow: 0 0 32px var(--emerald-glow);
+    }
+
     .ps-card-top-row {
       display: flex;
       align-items: center;
@@ -213,6 +227,7 @@
 
     .ps1-badge { background: rgba(0, 240, 255, 0.15); border: 1px solid var(--cyan); color: var(--cyan); }
     .ps2-badge { background: rgba(139, 92, 246, 0.15); border: 1px solid var(--violet); color: var(--violet); }
+    .ps3-badge { background: rgba(16, 185, 129, 0.15); border: 1px solid var(--emerald); color: var(--emerald); }
 
     .ps-acts-pill {
       font-family: var(--font-mono);
@@ -225,7 +240,7 @@
 
     .ps-target-tag {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.70rem;
       font-weight: 700;
       color: var(--emerald);
       letter-spacing: 0.05em;
@@ -233,7 +248,7 @@
 
     .ps-title {
       font-family: var(--font-display);
-      font-size: 1.45rem;
+      font-size: 1.35rem;
       font-weight: 800;
       line-height: 1.25;
       color: #fff;
@@ -254,8 +269,8 @@
       display: flex;
       align-items: flex-start;
       gap: 10px;
-      font-size: 0.84rem;
-      line-height: 1.45;
+      font-size: 0.82rem;
+      line-height: 1.42;
     }
 
     .explainer-icon {
@@ -291,10 +306,10 @@
 
     .btn-launch {
       margin-top: auto;
-      padding: 14px 24px;
+      padding: 14px 20px;
       border-radius: 10px;
       font-family: var(--font-mono);
-      font-size: 0.88rem;
+      font-size: 0.84rem;
       font-weight: 800;
       display: flex;
       align-items: center;
@@ -304,6 +319,7 @@
       transition: all 0.2s ease;
       text-decoration: none;
       border: none;
+      text-align: center;
     }
 
     .btn-launch-ps1 {
@@ -325,6 +341,17 @@
 
     .btn-launch-ps2:hover {
       box-shadow: 0 0 32px var(--violet-glow);
+      transform: scale(1.02);
+    }
+
+    .btn-launch-ps3 {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(0, 240, 255, 0.9));
+      color: #040914;
+      box-shadow: 0 0 20px var(--emerald-glow);
+    }
+
+    .btn-launch-ps3:hover {
+      box-shadow: 0 0 32px var(--emerald-glow);
       transform: scale(1.02);
     }
 
@@ -399,7 +426,7 @@
       </div>
       <div>
         <h1>CyberDefense Innovation Demos</h1>
-        <p>HACKATHON &bull; DUAL PROBLEM STATEMENT PRESENTATION HUB</p>
+        <p>HACKATHON &bull; 3 PROBLEM STATEMENT PRESENTATION HUB</p>
       </div>
     </div>
     <div class="portal-tag-badge">100% OFFLINE &bull; 0 EXTERNAL DEPENDENCIES</div>
@@ -410,10 +437,10 @@
     <div class="portal-header">
       <span class="hero-badge">SELECT PRESENTATION DEMO</span>
       <h2>Which Problem Statement do you want to watch?</h2>
-      <p>Both demonstrations feature complete continuous storytelling, interactive controls, live audio synthesis, and clear step-by-step problem &amp; solution walkthroughs.</p>
+      <p>All three demonstrations feature complete continuous storytelling, interactive controls, live audio synthesis, and clear step-by-step problem &amp; solution walkthroughs.</p>
     </div>
 
-    <!-- Dual PS Cards -->
+    <!-- Triple PS Cards Grid -->
     <div class="ps-grid">
       <!-- PS 1 Card: ScamShield 2.0 -->
       <div class="ps-card ps-card-1">
@@ -421,7 +448,7 @@
           <span class="ps-badge ps1-badge">PROBLEM STATEMENT 1</span>
           <span class="ps-acts-pill">17 Scenes &bull; ~2:45 min</span>
         </div>
-        <span class="ps-target-tag">FOR CITIZENS, BANKS &amp; CYBER CRIME INVESTIGATORS</span>
+        <span class="ps-target-tag">FOR CITIZENS, BANKS &amp; CYBER INVESTIGATORS</span>
 
         <h3 class="ps-title">ScamShield 2.0: Multi-Channel Scam Intelligence</h3>
 
@@ -450,7 +477,7 @@
 
         <a href="scamshield.html" class="btn-launch btn-launch-ps1">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
-          <span>LAUNCH PS 1: SCAMSHIELD 2.0 DEMO (17 ACTS)</span>
+          <span>LAUNCH PS 1: SCAMSHIELD 2.0 (17 ACTS)</span>
         </a>
       </div>
 
@@ -489,7 +516,46 @@
 
         <a href="securecode.html" class="btn-launch btn-launch-ps2">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
-          <span>LAUNCH PS 2: SECURECODE DEMO (13 ACTS)</span>
+          <span>LAUNCH PS 2: SECURECODE (13 ACTS)</span>
+        </a>
+      </div>
+
+      <!-- PS 3 Card: SAT-SA (Beside PS 2) -->
+      <div class="ps-card ps-card-3">
+        <div class="ps-card-top-row">
+          <span class="ps-badge ps3-badge">PROBLEM STATEMENT 3</span>
+          <span class="ps-acts-pill">19 Scenes &bull; ~2:30 min</span>
+        </div>
+        <span class="ps-target-tag">FOR NATIONAL REGULATORS, EXAMINERS &amp; CSES</span>
+
+        <h3 class="ps-title">SAT-SA: Supervisory Analytics Tool for SOC</h3>
+
+        <!-- 3-Second Clear Summary -->
+        <div class="ps-simplified-explainer">
+          <div class="explainer-row">
+            <span class="explainer-icon">🚨</span>
+            <div class="explainer-text"><strong>The Problem:</strong> Critical Sector Entities (Energy, Finance, Transport) operate internal SOCs with reported &gt;95% SLAs, but supervisory audits rely on tiny manual samples (50 cases) that miss hidden execution gaps.</div>
+          </div>
+          <div class="explainer-row">
+            <span class="explainer-icon">💡</span>
+            <div class="explainer-text"><strong>The Solution:</strong> SAT-SA ingests raw operational logs inside air-gapped perimeters. It runs execution gap detection, negative space telemetry analysis, and cross-sector peer benchmarking without public cloud leakage.</div>
+          </div>
+          <div class="explainer-row">
+            <span class="explainer-icon">🎯</span>
+            <div class="explainer-text"><strong>Final Outcome:</strong> Unmasks deceptive instant-closure templates, flags high-risk anomalies (CSE-D: Risk 87), and prioritizes 100 high-risk evidence samples with explainable audit trails.</div>
+          </div>
+        </div>
+
+        <div class="features-pill-row">
+          <span class="feature-pill">19 Interactive Scenes</span>
+          <span class="feature-pill">Air-Gapped Local Architecture</span>
+          <span class="feature-pill">Negative Space Detection</span>
+          <span class="feature-pill">Sample Prioritization (100)</span>
+        </div>
+
+        <a href="index1.html" class="btn-launch btn-launch-ps3">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+          <span>LAUNCH PS 3: SAT-SA DEMO (19 ACTS)</span>
         </a>
       </div>
     </div>
@@ -503,6 +569,7 @@
             <th>Comparison Aspect</th>
             <th>Problem Statement 1: ScamShield 2.0</th>
             <th>Problem Statement 2: SecureCode</th>
+            <th>Problem Statement 3: SAT-SA</th>
           </tr>
         </thead>
         <tbody>
@@ -510,26 +577,31 @@
             <td><strong>Target Domain</strong></td>
             <td>Digital Fraud, Financial Cybercrime &amp; Scam Intelligence</td>
             <td>Application Security, Source Code Analysis &amp; DevSecOps</td>
+            <td>National SOC Oversight, Critical Infrastructure &amp; Regulatory Auditing</td>
           </tr>
           <tr>
             <td><strong>What It Ingests</strong></td>
-            <td>Digital messages (SMS, WhatsApp, Emails, Phone calls, URLs, UPI)</td>
+            <td>Citizen digital messages (SMS, WhatsApp, Emails, Phone calls, URLs, UPI)</td>
             <td>Source code files (Python, JavaScript, configs, package.json)</td>
+            <td>Operational SOC evidence (raw alerts, incident tickets, EDR/NetFlow logs)</td>
           </tr>
           <tr>
             <td><strong>Core AI Innovation</strong></td>
-            <td>Social-engineering NLP levers &amp; dynamic relationship graph network</td>
-            <td>AST taint analysis &amp; automated LLM code remediation</td>
+            <td>Social-engineering NLP levers &amp; dynamic relationship graph network (#SCM-2048)</td>
+            <td>AST taint analysis &amp; automated LLM code remediation diffs</td>
+            <td>Execution gap detection, negative space telemetry &amp; peer anomaly clustering</td>
           </tr>
           <tr>
             <td><strong>Key Breakthrough</strong></td>
             <td>Connects 4 separate victims into one coordinated syndicate (#SCM-2048)</td>
             <td>Shows exact line number (Line 42) and writes the verified patch</td>
+            <td>Unmasks false 95% SLAs, instant-closure templates &amp; blind spots air-gapped</td>
           </tr>
           <tr>
             <td><strong>Presentation Length</strong></td>
             <td>17 Interactive Continuous Scenes (~2:45 min)</td>
             <td>13 Interactive Continuous Scenes (~2:15 min)</td>
+            <td>19 Interactive Continuous Scenes (~2:30 min)</td>
           </tr>
         </tbody>
       </table>
@@ -538,7 +610,7 @@
 
   <!-- Footer -->
   <footer class="portal-footer">
-    <span>ScamShield 2.0 &amp; SecureCode &bull; Ready for Hackathon Presentation</span>
+    <span>ScamShield 2.0 &bull; SecureCode &bull; SAT-SA &mdash; Ready for Hackathon Presentation</span>
     <span>Use top HUD <code>[ 🔀 Switch PS ]</code> button to jump between presentations anytime</span>
   </footer>
 
@@ -553,6 +625,8 @@
         window.location.replace('scamshield.html');
       } else if (hash === '#ps2' || psParam === '2') {
         window.location.replace('securecode.html');
+      } else if (hash === '#ps3' || psParam === '3') {
+        window.location.replace('index1.html');
       }
     })();
   </script>

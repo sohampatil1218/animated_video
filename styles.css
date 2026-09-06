@@ -122,14 +122,25 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 0 24px;
+  position: relative;
   flex-shrink: 0;
   z-index: 30;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .brand-badge {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .brand-icon {
@@ -143,6 +154,7 @@ body {
   align-items: center;
   justify-content: center;
   color: var(--cyan);
+  flex-shrink: 0;
 }
 
 .brand-icon svg {
@@ -153,6 +165,8 @@ body {
 .brand-text {
   display: flex;
   flex-direction: column;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .brand-name {
@@ -175,14 +189,24 @@ body {
 }
 
 /* Scene Indicator Badge */
+.nav-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+  padding: 0 14px;
+}
+
 .scene-indicator {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border-color);
-  padding: 6px 16px;
+  padding: 5px 14px;
   border-radius: 100px;
+  white-space: nowrap;
 }
 
 .indicator-badge {
@@ -191,13 +215,14 @@ body {
   font-weight: 700;
   color: var(--cyan);
   letter-spacing: 0.05em;
+  white-space: nowrap;
 }
 
 .scene-title-display {
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   font-weight: 600;
   color: var(--text-primary);
-  max-width: 380px;
+  max-width: 250px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -215,13 +240,15 @@ body {
   border: 1px solid var(--border-color);
   color: var(--text-secondary);
   border-radius: 8px;
-  padding: 6px 12px;
-  font-size: 0.78rem;
+  padding: 6px 10px;
+  font-size: 0.76rem;
   font-weight: 500;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
   cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: all 0.2s ease;
 }
 
@@ -242,6 +269,8 @@ body {
   background: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 255, 255, 0.15);
   color: var(--text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .ps-portal-link:hover {
@@ -257,10 +286,34 @@ body {
   color: #fff;
   font-weight: 600;
   box-shadow: 0 0 10px var(--violet-glow);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .ps-switch-btn:hover {
   background: var(--violet);
+  color: #07090e;
+}
+
+.ps-switch-btn-cyan {
+  background: rgba(0, 240, 255, 0.12);
+  border: 1px solid var(--cyan);
+  box-shadow: 0 0 10px var(--cyan-glow);
+}
+
+.ps-switch-btn-cyan:hover {
+  background: var(--cyan);
+  color: #07090e;
+}
+
+.ps-switch-btn-emerald {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid var(--emerald);
+  box-shadow: 0 0 10px var(--emerald-glow);
+}
+
+.ps-switch-btn-emerald:hover {
+  background: var(--emerald);
   color: #07090e;
 }
 
@@ -272,6 +325,11 @@ body {
   font-size: 0.65rem;
   font-family: var(--font-mono);
   font-weight: 700;
+}
+
+.ps-switch-tag-emerald {
+  background: rgba(16, 185, 129, 0.25);
+  color: #6ee7b7;
 }
 
 .icon {
