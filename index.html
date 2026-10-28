@@ -494,11 +494,60 @@
               <div class="upload-action-center">
                 <button class="btn-cyber-primary" id="uploadProjectBtn">
                   <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                  <span>UPLOAD PROJECT</span>
+                  <span>UPLOAD PROJECT &bull; INITIATE SCAN</span>
                 </button>
                 <div class="upload-confirmation hidden" id="uploadConfirmedBadge">
                   <span class="check-icon">✓</span>
-                  <span class="confirm-text">Repository Uploaded &amp; Indexed Successfully</span>
+                  <span class="confirm-text">Repository Uploaded &amp; Indexed Successfully &mdash; Isolated Worker Spawned</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4 Coordinated Surfaces Explorer (Section 27 & 40 of Specification) -->
+            <div class="surfaces-deck glass-card">
+              <div class="surfaces-header">
+                <div class="surfaces-title-wrap">
+                  <span class="surfaces-title">4 COORDINATED PRODUCT SURFACES (DOCUMENT SPECIFICATION)</span>
+                  <span class="surfaces-subtitle">One Unified Connected Platform Synchronized via Backend Services</span>
+                </div>
+                <span class="surfaces-badge">Section 27 &bull; Architecture</span>
+              </div>
+              <div class="surfaces-tab-bar" id="scene3SurfacesTabs">
+                <button class="surface-tab active" data-surface="web">
+                  <span class="s-icon">🌐</span>
+                  <span>1. Web Dashboard</span>
+                </button>
+                <button class="surface-tab" data-surface="ide">
+                  <span class="s-icon">💻</span>
+                  <span>2. Browser IDE</span>
+                </button>
+                <button class="surface-tab" data-surface="vscode">
+                  <span class="s-icon">⚡</span>
+                  <span>3. VS Code Extension</span>
+                </button>
+                <button class="surface-tab" data-surface="cicd">
+                  <span class="s-icon">🔄</span>
+                  <span>4. CI/CD &amp; PR Gate</span>
+                </button>
+              </div>
+
+              <!-- Surface Dynamic Preview Display -->
+              <div class="surface-preview-container" id="surfacePreviewContent">
+                <div class="surface-preview-panel web-panel">
+                  <div class="surface-preview-head">
+                    <span class="sp-badge">WEB PLATFORM &bull; REPOSITORY &amp; GOVERNANCE PORTAL</span>
+                    <span class="sp-tag">Central Management</span>
+                  </div>
+                  <div class="surface-preview-body">
+                    <div class="sp-col">
+                      <div class="sp-feat-item"><strong>Repository Overview:</strong> Immutable commit snapshots (<code>rev #a7f9c2</code>), policy settings, scan history, and findings register.</div>
+                      <div class="sp-feat-item"><strong>Policy Configuration:</strong> Configurable rules with automatic <code>PASS</code> / <code>REVIEW</code> / <code>BLOCK</code> gate enforcement.</div>
+                    </div>
+                    <div class="sp-col">
+                      <div class="sp-feat-item"><strong>Team Governance &amp; RBAC:</strong> Granular permissions across Developers, Repository Admins, and Organization Admins.</div>
+                      <div class="sp-feat-item"><strong>Tamper-Resistant Audit Trail:</strong> Append-only log of scans, exceptions, member invites, and policy modifications.</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -511,7 +560,7 @@
               </div>
               <div class="strip-item">
                 <span class="strip-num">02</span>
-                <div><strong>Contextual Risk Engine</strong><br><small>Severity calculated from reachability</small></div>
+                <div><strong>Policy Gate Engine</strong><br><small>Automated PASS / REVIEW / BLOCK</small></div>
               </div>
               <div class="strip-item">
                 <span class="strip-num">03</span>
@@ -531,6 +580,45 @@
         </div>
 
         <div class="scene4-layout">
+          <!-- 6-Stage Scan Status Lifecycle (Section 32.1 of Specification) -->
+          <div class="scan-lifecycle-bar glass-panel">
+            <div class="lifecycle-title-row">
+              <span class="lc-title">SCAN STATUS LIFECYCLE (SECTION 32.1 SPECIFICATION)</span>
+              <span class="lc-worker-badge">Worker Pool: Isolated Container Sandbox</span>
+            </div>
+            <div class="lifecycle-steps" id="scanLifecycleSteps">
+              <div class="lc-step active" id="lc-step-1">
+                <span class="lc-num">1</span>
+                <span class="lc-label">CREATED</span>
+              </div>
+              <div class="lc-arrow">➔</div>
+              <div class="lc-step" id="lc-step-2">
+                <span class="lc-num">2</span>
+                <span class="lc-label">QUEUED</span>
+              </div>
+              <div class="lc-arrow">➔</div>
+              <div class="lc-step" id="lc-step-3">
+                <span class="lc-num">3</span>
+                <span class="lc-label">RUNNING</span>
+              </div>
+              <div class="lc-arrow">➔</div>
+              <div class="lc-step" id="lc-step-4">
+                <span class="lc-num">4</span>
+                <span class="lc-label">NORMALIZING</span>
+              </div>
+              <div class="lc-arrow">➔</div>
+              <div class="lc-step" id="lc-step-5">
+                <span class="lc-num">5</span>
+                <span class="lc-label">POLICY_EVAL</span>
+              </div>
+              <div class="lc-arrow">➔</div>
+              <div class="lc-step" id="lc-step-6">
+                <span class="lc-num">6</span>
+                <span class="lc-label">COMPLETED</span>
+              </div>
+            </div>
+          </div>
+
           <!-- Animated Pipeline Flow -->
           <div class="pipeline-bar glass-panel">
             <div class="pipe-node active-node" id="pipe-1">
@@ -545,17 +633,17 @@
             <div class="pipe-connector" id="conn-2"><div class="beam"></div></div>
             <div class="pipe-node" id="pipe-3">
               <div class="node-circle"><span class="pipe-icon">🔍</span></div>
-              <span class="node-label">Static Analysis</span>
+              <span class="node-label">SAST (AST/Taint)</span>
             </div>
             <div class="pipe-connector" id="conn-3"><div class="beam"></div></div>
             <div class="pipe-node" id="pipe-4">
               <div class="node-circle"><span class="pipe-icon">📦</span></div>
-              <span class="node-label">Dependency Analysis</span>
+              <span class="node-label">SCA (Dependencies)</span>
             </div>
             <div class="pipe-connector" id="conn-4"><div class="beam"></div></div>
             <div class="pipe-node" id="pipe-5">
               <div class="node-circle"><span class="pipe-icon">🔑</span></div>
-              <span class="node-label">Secret Detection</span>
+              <span class="node-label">Secrets &amp; IaC</span>
             </div>
           </div>
 
@@ -568,12 +656,12 @@
                 <span class="file-counter" id="filesScannedCounter">File 6 of 6</span>
               </div>
               <div class="file-list-preview" id="scanFileList">
-                <div class="scan-file-row done"><span class="f-icon">🐍</span> login.py <span class="f-status">Scanned ✓</span></div>
+                <div class="scan-file-row done"><span class="f-icon">🐍</span> login.py <span class="f-status">Scanned ✓ (SAST)</span></div>
                 <div class="scan-file-row active-scan"><span class="f-icon">🐍</span> database.py <span class="f-status">Inspecting AST Taint...</span></div>
-                <div class="scan-file-row"><span class="f-icon">📜</span> app.js <span class="f-status">Queued</span></div>
-                <div class="scan-file-row"><span class="f-icon">📜</span> auth.js <span class="f-status">Queued</span></div>
-                <div class="scan-file-row"><span class="f-icon">⚙️</span> config.js <span class="f-status">Queued</span></div>
-                <div class="scan-file-row"><span class="f-icon">📦</span> package.json <span class="f-status">Queued</span></div>
+                <div class="scan-file-row"><span class="f-icon">📜</span> app.js <span class="f-status">Queued (SAST)</span></div>
+                <div class="scan-file-row"><span class="f-icon">📜</span> auth.js <span class="f-status">Queued (SAST)</span></div>
+                <div class="scan-file-row"><span class="f-icon">⚙️</span> config.js <span class="f-status">Queued (Secrets)</span></div>
+                <div class="scan-file-row"><span class="f-icon">📦</span> package.json <span class="f-status">Queued (SCA)</span></div>
               </div>
               <div class="laser-scanner-line"></div>
             </div>
@@ -592,11 +680,23 @@
               </div>
 
               <div class="activity-ticker">
-                <div class="ticker-step" id="ticker-1"><span class="pulse-dot"></span> Analyzing Source Code...</div>
-                <div class="ticker-step" id="ticker-2"><span class="pulse-dot"></span> Analyzing Dependencies...</div>
-                <div class="ticker-step" id="ticker-3"><span class="pulse-dot"></span> Searching for Exposed Secrets...</div>
-                <div class="ticker-step" id="ticker-4"><span class="pulse-dot"></span> Analyzing Code Flow &amp; Call Graph...</div>
+                <div class="ticker-step" id="ticker-1"><span class="pulse-dot"></span> [SAST] Analyzing AST Syntax &amp; Interprocedural Call Graph...</div>
+                <div class="ticker-step" id="ticker-2"><span class="pulse-dot"></span> [SCA] Querying National Vulnerability Database for Third-Party CVEs...</div>
+                <div class="ticker-step" id="ticker-3"><span class="pulse-dot"></span> [Secrets] Redacting High-Entropy Cloud Credentials &amp; API Keys...</div>
+                <div class="ticker-step" id="ticker-4"><span class="pulse-dot"></span> [Policy] Normalizing Findings into SecureCode Schema...</div>
               </div>
+            </div>
+          </div>
+
+          <!-- Section 10.2 & 16: Isolated Worker Sandbox Guarantees Banner -->
+          <div class="sandbox-security-banner glass-panel">
+            <div class="banner-badge-sec"><span class="shield-mini">🛡️</span> CRITICAL DESIGN RULE &bull; ISOLATED SANDBOX EXECUTION (SECTION 10.2)</div>
+            <div class="banner-pills-row">
+              <span class="sec-pill">🔒 Zero Code Execution on Web Server</span>
+              <span class="sec-pill">📦 Read-Only Container Mounts</span>
+              <span class="sec-pill">⏱️ Strict CPU/Memory Quotas &amp; Timeouts</span>
+              <span class="sec-pill">🛡️ Path Traversal &amp; Zip-Slip Protection</span>
+              <span class="sec-pill">🔑 Automatic Secret Redaction</span>
             </div>
           </div>
         </div>
@@ -949,6 +1049,10 @@
                 <span class="anchor-dot"></span>
                 <span id="focusAnchorText">Anchor 1 of 3: <code>database.py:42:18</code> &bull; CWE-89 &bull; Source Sink Mapped</span>
               </div>
+              <div class="schema-spec-pill" id="findingSchemaPill">
+                <span class="schema-tag">NORMALIZED SCHEMA (SECTION 12.2)</span>
+                <span>id: <code>SEC-01</code> &bull; rule: <code>sast/python/sqli-format</code> &bull; conf: <code>HIGH</code> &bull; status: <code>OPEN</code> &bull; fp: <code>4f8b2e..</code></span>
+              </div>
             </div>
           </div>
         </div>
@@ -1162,6 +1266,17 @@
               <div class="bullet-item" id="riskBullet1"><span class="b-icon">🔴</span> <strong>Immediate Action Required:</strong> High likelihood of automated external exploitation within 24h.</div>
               <div class="bullet-item" id="riskBullet2"><span class="b-icon">🎯</span> <strong>Prioritization Index #1:</strong> Ranked highest among all 6 codebase findings.</div>
             </div>
+
+            <!-- Policy Gate Outcome (Section 9.2 & 28.4 of Specification) -->
+            <div class="policy-gate-card gate-blocked">
+              <div class="pg-header">
+                <span class="pg-badge-block">🚫 POLICY DECISION: BLOCK</span>
+                <span class="pg-rule-info">Rule: Zero-Critical-Tolerance</span>
+              </div>
+              <div class="pg-body">
+                <strong>Deployment &amp; PR Merge Blocked:</strong> Unauthenticated SQL Injection in <code>database.py:42</code> fails the repository gate. Requires verified remediation or authorized Org Admin exception before merge.
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -1172,6 +1287,12 @@
           <div class="scene-tag ai-tag">ACT VIII &bull; DEVELOPER-FRIENDLY AI COPILOT</div>
           <h1 class="scene-headline">AI-Powered Explanation: <span class="text-violet glow-violet">All Codebase Vulnerabilities</span></h1>
           <p class="scene-subline">No cryptographic jargon. SecureCode translates every identified vulnerability across the codebase into clear, actionable engineering insight.</p>
+        </div>
+
+        <!-- Section 12.4 & 16: AI Trust & Privacy Assurance Banner -->
+        <div class="ai-trust-banner glass-panel">
+          <span class="trust-icon">🛡️</span>
+          <span><strong>AI Trust &amp; Governance (Section 12.4):</strong> AI candidate patches and explanations require human validation. Findings are generated from deterministic local scanners; if cloud AI services are unreachable, original scanner outputs remain 100% accessible.</span>
         </div>
 
         <!-- Scene 8 Codebase Error Navigation Tabs -->
@@ -1533,6 +1654,17 @@
               <span class="truth-icon">💡</span>
               <span><strong>Verification Integrity:</strong> SecureCode verifies fixes against the newly re-uploaded project files, confirming Line 42 is safe before permitting production deployment.</span>
             </div>
+
+            <!-- Policy Gate Outcome: PASS (Section 9.2 & 28.4) -->
+            <div class="policy-gate-card gate-passed" style="margin-top:16px;">
+              <div class="pg-header">
+                <span class="pg-badge-pass">✅ POLICY DECISION: PASS</span>
+                <span class="pg-rule-info">Zero Blocking Flaws on Revision #b3f81e</span>
+              </div>
+              <div class="pg-body">
+                <strong>Gate Unlocked &amp; PR Cleared:</strong> Parameterized query in <code>database.py:42</code> verified. Zero Critical vulnerabilities detected. Pull Request check updated to green PASS. Production release authorized.
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -1615,8 +1747,27 @@
             </div>
           </div>
 
-          <!-- Complete 27-Finding Vulnerability Register Audit Table -->
-          <div class="findings-audit-table-panel glass-panel">
+          <!-- Scene 11 Interactive View Switcher Tabs -->
+          <div class="scene11-tab-bar">
+            <div class="scene11-tabs">
+              <button class="scene11-tab-btn active" id="btnScene11Register" data-view="register">
+                <span class="tab-icon">📋</span> Vulnerability Register (27 Findings)
+              </button>
+              <button class="scene11-tab-btn" id="btnScene11Policy" data-view="policy">
+                <span class="tab-icon">⚖️</span> Policy Gates &amp; RBAC Governance
+              </button>
+              <button class="scene11-tab-btn" id="btnScene11Split" data-view="split">
+                <span class="tab-icon">⊞</span> Split Overview
+              </button>
+            </div>
+            <div class="scene11-meta-pill">
+              <span class="live-dot pulse"></span> Continuous CI/CD Compliance Active
+            </div>
+          </div>
+
+          <!-- VIEW 1: Complete 27-Finding Vulnerability Register Audit Table -->
+          <div class="scene11-view-pane" id="scene11ViewRegister">
+            <div class="findings-audit-table-panel glass-panel">
             <div class="audit-table-header">
               <div class="audit-table-title">
                 <span class="audit-title-text">Complete Vulnerability Register (All 27 Findings Prioritized)</span>
@@ -1865,7 +2016,110 @@
             </div>
           </div>
         </div>
-      </section>
+
+        <!-- VIEW 2: Policy Engine, Exceptions & RBAC Governance Deck (Sections 9.2, 14, 35) -->
+        <div class="scene11-view-pane hidden" id="scene11ViewPolicy">
+          <div class="policy-governance-deck glass-panel">
+            <div class="gov-grid">
+              <!-- Column 1: Configured Policy Gate Thresholds -->
+              <div class="gov-card">
+                <div class="gov-head">
+                  <span class="gov-icon">⚖️</span>
+                  <h4>Configured Policy Rules (Section 9.2)</h4>
+                </div>
+                <div class="gov-rules-list">
+                  <div class="rule-item rule-block"><span>Critical Vulnerabilities</span><span class="rule-badge badge-block">BLOCK MERGE (0 Allowed)</span></div>
+                  <div class="rule-item rule-block"><span>High Vulnerabilities</span><span class="rule-badge badge-block">BLOCK MERGE (0 Allowed)</span></div>
+                  <div class="rule-item rule-review"><span>Medium / New Dependencies</span><span class="rule-badge badge-review">REQUIRE HUMAN REVIEW</span></div>
+                  <div class="rule-item rule-pass"><span>Low / Informational</span><span class="rule-badge badge-pass">ALLOW WITH AUDIT LOG</span></div>
+                </div>
+              </div>
+
+              <!-- Column 2: Exception Management & Expiry -->
+              <div class="gov-card">
+                <div class="gov-head">
+                  <span class="gov-icon">📝</span>
+                  <h4>Active Policy Exceptions (Section 12.3 &amp; 33)</h4>
+                </div>
+                <div class="gov-exception-box">
+                  <div class="exc-row">
+                    <span class="exc-id">SEC-05 (Internal SSRF)</span>
+                    <span class="exc-status badge-review">Approved Exception</span>
+                  </div>
+                  <p class="exc-reason">Reason: Internal VPC endpoint only. Gated behind network firewall. Verified low exposure.</p>
+                  <div class="exc-meta">Approved by: <code>secops-lead@company.com</code> &bull; Expiry: <code>28 Days Remaining</code></div>
+                </div>
+              </div>
+
+              <!-- Column 3: Team RBAC Permissions (Section 35) -->
+              <div class="gov-card">
+                <div class="gov-head">
+                  <span class="gov-icon">👥</span>
+                  <h4>Team RBAC Permissions (Section 35)</h4>
+                </div>
+                <div class="rbac-rows">
+                  <div class="rbac-row"><strong>Developer:</strong> <span>Trigger scans, view findings, review AI patches</span></div>
+                  <div class="rbac-row"><strong>Repo Admin:</strong> <span>Configure policy thresholds, link integrations</span></div>
+                  <div class="rbac-row"><strong>Org Admin:</strong> <span>Approve exceptions, manage SSO, inspect audit logs</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW 3: Split Overview (Both Side by Side) -->
+        <div class="scene11-view-pane hidden" id="scene11ViewSplit">
+          <div class="scene11-split-grid">
+            <!-- Left: Policy Rules & Exception Summary -->
+            <div class="split-left glass-panel">
+              <div class="split-head">
+                <span class="gov-icon">⚖️</span>
+                <h4>Policy Gates &amp; Exception Summary</h4>
+              </div>
+              <div class="gov-rules-list">
+                <div class="rule-item rule-block"><span>Critical (0 Tol.)</span><span class="rule-badge badge-block">BLOCK MERGE</span></div>
+                <div class="rule-item rule-block"><span>High (0 Tol.)</span><span class="rule-badge badge-block">BLOCK MERGE</span></div>
+                <div class="rule-item rule-review"><span>Medium</span><span class="rule-badge badge-review">REVIEW</span></div>
+                <div class="rule-item rule-pass"><span>Low</span><span class="rule-badge badge-pass">PASS</span></div>
+              </div>
+              <div class="split-exception-item">
+                <div class="exc-row"><span class="exc-id">SEC-05 SSRF</span><span class="badge-review">Active Exception</span></div>
+                <div class="exc-meta">Approved: <code>secops-lead</code> &bull; 28d left</div>
+              </div>
+              <div class="split-rbac-item">
+                <small class="text-muted">RBAC: Dev (Scan/Fix) &bull; RepoAdmin (Config) &bull; OrgAdmin (Approve/SSO)</small>
+              </div>
+            </div>
+
+            <!-- Right: Quick Register Top Findings -->
+            <div class="split-right glass-panel">
+              <div class="split-head">
+                <span class="gov-icon">📋</span>
+                <h4>Top Prioritized Findings &amp; Remediations</h4>
+                <span class="audit-badge">Score: 24/100</span>
+              </div>
+              <div class="audit-table-scroll split-table-scroll">
+                <table class="audit-table">
+                  <thead>
+                    <tr><th>ID</th><th>Finding</th><th>Loc</th><th>Sev</th><th>Status</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr class="audit-row row-resolved"><td><code>SEC-01</code></td><td><strong>SQL Injection</strong></td><td>database.py:42</td><td><span class="vuln-severity critical">CRIT</span></td><td><span class="status-pill resolved">RESOLVED ✓</span></td></tr>
+                    <tr class="audit-row row-resolved"><td><code>SEC-02</code></td><td><strong>Hardcoded Cloud Secret</strong></td><td>config.js:18</td><td><span class="vuln-severity critical">CRIT</span></td><td><span class="status-pill resolved">RESOLVED ✓</span></td></tr>
+                    <tr class="audit-row row-resolved"><td><code>SEC-03</code></td><td><strong>Remote Command Injection</strong></td><td>auth.js:64</td><td><span class="vuln-severity critical">CRIT</span></td><td><span class="status-pill resolved">RESOLVED ✓</span></td></tr>
+                    <tr class="audit-row"><td><code>SEC-04</code></td><td><strong>Insecure Deserialization</strong></td><td>login.py:88</td><td><span class="vuln-severity critical">CRIT</span></td><td><span class="status-pill active-monitored">MONITORED</span></td></tr>
+                    <tr class="audit-row"><td><code>SEC-05</code></td><td><strong>SSRF (Internal VPC)</strong></td><td>app.js:142</td><td><span class="vuln-severity critical">CRIT</span></td><td><span class="status-pill active-monitored">EXCEPTION</span></td></tr>
+                    <tr class="audit-row row-resolved"><td><code>SEC-06</code></td><td><strong>Stored XSS</strong></td><td>app.js:89</td><td><span class="vuln-severity high">HIGH</span></td><td><span class="status-pill resolved">RESOLVED ✓</span></td></tr>
+                    <tr class="audit-row"><td><code>SEC-07</code></td><td><strong>BOLA (User Data Access)</strong></td><td>database.py:118</td><td><span class="vuln-severity high">HIGH</span></td><td><span class="status-pill active-monitored">MONITORED</span></td></tr>
+                    <tr class="audit-row"><td><code>SEC-08</code></td><td><strong>JWT Algorithm Confusion</strong></td><td>auth.js:105</td><td><span class="vuln-severity high">HIGH</span></td><td><span class="status-pill active-monitored">MONITORED</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
       <!-- ================= SCENE 12: COMPLETE WORKFLOW ================= -->
       <section class="scene" id="scene-12" data-scene="12">
@@ -1900,6 +2154,70 @@
             <div class="wf-step-box glass-panel" id="wf-11"><span class="wf-num">11</span><h4>Fix Verification</h4><p>Taint Severance Proof</p></div>
             <div class="wf-arrow">➔</div>
             <div class="wf-step-box glass-panel" id="wf-12"><span class="wf-num">12</span><h4>Security Dashboard</h4><p>Executive Posture Score</p></div>
+          </div>
+
+          <!-- 8 Backend Core Services Architecture (Section 32 Specification) -->
+          <div class="services-arch-panel glass-panel">
+            <div class="arch-panel-header">
+              <span class="aph-title">8 BACKEND SERVICES &amp; EVENT FLOW ARCHITECTURE (SECTION 32 SPECIFICATION)</span>
+              <span class="aph-badge">Microservices Topology</span>
+            </div>
+            <div class="services-cards-grid">
+              <div class="svc-card">
+                <div class="svc-icon">🛡️</div>
+                <h5>1. Identity Service</h5>
+                <p>Authentication, device tokens, and RBAC permission checks.</p>
+              </div>
+              <div class="svc-card">
+                <div class="svc-icon">📂</div>
+                <h5>2. Repository Service</h5>
+                <p>Repository metadata, immutable revisions, and source integrations.</p>
+              </div>
+              <div class="svc-card">
+                <div class="svc-icon">⚡</div>
+                <h5>3. Scan Orchestrator</h5>
+                <p>Scan request lifecycle, Redis queue, and job scheduling.</p>
+              </div>
+              <div class="svc-card">
+                <div class="svc-icon">📦</div>
+                <h5>4. Sandboxed Workers</h5>
+                <p>Isolated containers with CPU/memory limits &amp; read-only mounts.</p>
+              </div>
+              <div class="svc-card">
+                <div class="svc-icon">🔌</div>
+                <h5>5. Scanner Adapters</h5>
+                <p>SAST, SCA, Secret &amp; IaC normalization to internal schema.</p>
+              </div>
+              <div class="svc-card">
+                <div class="svc-icon">⚖️</div>
+                <h5>6. Policy Engine</h5>
+                <p>Rule evaluation yielding PASS, REVIEW, or BLOCK outcomes.</p>
+              </div>
+              <div class="svc-card">
+                <div class="svc-icon">🔔</div>
+                <h5>7. Notification &amp; CI</h5>
+                <p>Webhook triggers, PR status checks, and VS Code live sync.</p>
+              </div>
+              <div class="svc-card">
+                <div class="svc-icon">📜</div>
+                <h5>8. Audit Service</h5>
+                <p>Tamper-resistant append-only security and compliance log.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 End-to-End Workflows (Section 28 Specification) -->
+          <div class="workflows-summary-strip glass-panel">
+            <div class="wf-strip-head">
+              <span class="wf-strip-tag">DEVELOPER WORKFLOWS (SECTION 28)</span>
+              <span>4 Real-World Operating Scenarios</span>
+            </div>
+            <div class="wf-strip-items">
+              <div class="wf-item"><strong>Workflow A (Web):</strong> Sign in &rarr; connect repo &rarr; launch scan &rarr; view dashboard &rarr; configure policy.</div>
+              <div class="wf-item"><strong>Workflow B (VS Code):</strong> In-editor command palette &rarr; local/cloud scan &rarr; inline squiggly &rarr; fix &rarr; rescan.</div>
+              <div class="wf-item"><strong>Workflow C (Browser IDE):</strong> Open repo &rarr; file tree &rarr; editor &rarr; Problems panel &rarr; jump to line 42 &rarr; live diff patch.</div>
+              <div class="wf-item"><strong>Workflow D (CI / PR Gate):</strong> Developer opens PR &rarr; webhook runs worker &rarr; policy blocks merge &rarr; fix verifies &rarr; PASS.</div>
+            </div>
           </div>
         </div>
       </section>
@@ -1938,6 +2256,14 @@
               <h3>Build More Secure.</h3>
               <p>Proactive posture verification ensures vulnerabilities are truly dead and defense is hardened end-to-end.</p>
             </div>
+          </div>
+
+          <!-- Product Definition Banner (Section 40) -->
+          <div class="product-definition-banner glass-panel">
+            <div class="pdb-badge">ONE CONNECTED DEVELOPER-SECURITY PLATFORM (SECTION 40)</div>
+            <p class="pdb-text">
+              SecureCode unifies <strong>Web Governance</strong>, <strong>Browser IDE</strong>, <strong>VS Code Extension</strong>, and <strong>Isolated Backend Scanning</strong> into a seamless developer experience &mdash; catching vulnerabilities earlier, explaining findings clearly, and shipping resilient software faster.
+            </p>
           </div>
 
           <!-- Grand Brand Finale Banner -->

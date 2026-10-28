@@ -65,16 +65,25 @@ Then navigate to: **`http://localhost:3000`** in your browser.
    - Developer overwhelmed by alert storm (SAST, DAST, SCA, Secrets) spinning up to 384+ unresolved alerts.
    - 5 core pain points: *Too Many Alerts*, *False Positives*, *Difficult Reports*, *Hard to Prioritize*, *Difficult to Understand*.
 
-3. **Act III — Introducing SecureCode (The Paradigm Shift)**
+3. **Act III — Introducing SecureCode (The Paradigm Shift & 4 Coordinated Surfaces)**
    - Hero cybersecurity card with glowing shield logo.
    - Repository ingestion widget (`enterprise/fintech-payment-service`, 142 files).
-   - Interactive `UPLOAD PROJECT` button & `Repository Uploaded ✓` confirmation.
+   - Interactive `UPLOAD PROJECT & INITIATE SCAN` button & `Repository Uploaded ✓` confirmation.
+   - **4 Coordinated Product Surfaces Explorer (Section 27 & 40 of Document Specification)**:
+     - **Surface 1: Web Dashboard & Governance Portal**: Repositories, commit revisions (`rev #a7f9c2`), policy settings, team RBAC, and audit log.
+     - **Surface 2: Focused Browser IDE**: File tree, code editor tabs, Problems/Security panel, jump to finding line, and live patch review.
+     - **Surface 3: VS Code Extension**: Command Palette actions (`SecureCode: Scan Workspace`), local quick scan vs cloud scan, inline diagnostics squigglies, and status bar indicator (`SecureCode: ⚠️ BLOCK`).
+     - **Surface 4: CI/CD & PR Gates**: GitHub/GitLab PR checks, signed webhooks, automated policy gate `🚫 BLOCK` on unmitigated critical flaws &rarr; `✅ PASS` after fix.
 
-4. **Act IV — Repository Analysis (Multidimensional Codeflow Pipeline)**
-   - Multi-stage pipeline: *Source Code* → *Preprocessing* → *Static Analysis* → *Dependency Analysis* → *Secret Detection*.
+4. **Act IV — Repository Analysis (Multidimensional Codeflow Pipeline & Scan Lifecycle)**
+   - **6-Stage Scan Status Lifecycle (Section 32.1)**:
+     `CREATED` &rarr; `QUEUED` &rarr; `RUNNING` &rarr; `NORMALIZING` &rarr; `POLICY_EVAL` &rarr; `COMPLETED`.
+   - Multi-stage pipeline: *Source Code* &rarr; *Preprocessing* &rarr; *SAST (AST/Taint)* &rarr; *SCA (Dependencies)* &rarr; *Secrets & IaC*.
    - Circular SVG progress ring reaching 100% with laser scanner sweeping across files.
+   - **Isolated Sandbox Execution Guarantees (Section 10.2 & 16)**:
+     Containerized worker execution, read-only container mounts, strict CPU/memory quotas & timeouts, zero code execution on web servers, path traversal & zip-slip protection, and automatic secret redaction.
 
-5. **Act V — Vulnerability Detection (Code-Aware Anchors & Multi-Finding Inspection)**
+5. **Act V — Vulnerability Detection (Code-Aware Anchors & Normalized Finding Schema)**
    - **Showcases 3 Core Security Vulnerabilities**:
      1. `database.py:42` — Critical • CWE-89: SQL Injection (Direct concatenation into database cursor)
      2. `config.js:18` — Critical • CWE-798: Hardcoded Cloud API Secret (AWS credentials committed to config)
@@ -82,8 +91,7 @@ Then navigate to: **`http://localhost:3000`** in your browser.
    - **Multi-Anchor View Switcher**:
      - `[ Single Anchor ]`: Deep-dive inspector showing exact line number gutters, targeted pulse rings, and line pin telemetry.
      - `[ All 3 Anchors ]`: Simultaneous stacked display showing all 3 critical security findings side-by-side with code snippets.
-   - **Top 3 Pinned Tabs**: Quick toggle between `database.py:42 (SQLi)`, `config.js:18 (Secret)`, and `app.js:89 (XSS)`.
-   - **Automated Sequential Demonstration**: During playback, automatically cycles through all 3 anchors (`t=1.5s`, `t=4.4s`, `t=7.2s`) with dynamic SVG laser tether repositioning and alert chimes.
+   - **Normalized Finding Schema Inspector (Section 12.2)**: Displays standardized schema attributes: `finding_id`, `rule_id`, `severity`, `confidence`, `file_path`, `lines`, `fingerprint`, and `status`.
    - **All 27 Security Findings Enumerated**: 5 Critical, 9 High, 10 Medium, 3 Low with severity filter tabs and interactive inspection across all 27 findings.
 
 6. **Act VI — Context-Aware Analysis (Data-Flow Taint Analysis)**
@@ -91,66 +99,53 @@ Then navigate to: **`http://localhost:3000`** in your browser.
      *User Input* (`req.query['id']`) → *Request Parameter* → *Application Function* → *SQL Query Concatenation* → *Database Sink*.
    - Explains why context differentiates genuine exploitability from dumb pattern matching.
 
-7. **Act VII — Contextual Risk Assessment (Dynamic Multi-Vector Convergence Engine)**
+7. **Act VII — Contextual Risk Assessment & Policy Gate (BLOCK)**
    - **6 Dynamic Evaluation Vectors**: Base CVSS Severity (9.8/10), Exploitability (95%), Unauthenticated User Input (90%), Critical Data Sensitivity (94%), Public Edge Exposure (88%), and Code Context / No WAF (85%).
    - **Dynamic SVG Convergence Tether**: Energy beam network projects from vector rows directly converging into the central score dial.
-   - **Interactive Recalculate Button**: `[ ⚡ Re-run Convergence ]` button allows instant re-triggering of the entire simulation.
-   - **Sequential Vector Charging**: Numerical values count up from 0 to target ratings with procedural audio feedback.
-   - **Radial SVG Progress Meter Gauge**: SVG circle gauge arcs around the perimeter from 0% to 91% in sync with the dial count-up (`0` to `91 / 100`).
-   - **Impact Climax**: Triggers animated radial shockwave expansion (`#dialShockwave`), glowing crimson aura, and slams in the `CRITICAL RISK` verdict badge with alert chime.
+   - **Impact Climax**: Triggers animated radial shockwave expansion (`#dialShockwave`), glowing crimson aura, and slams in the `CRITICAL RISK (91 / 100)` verdict badge.
+   - **Policy Gate Decision (Section 9.2 & 28.4)**: `🚫 POLICY DECISION: BLOCK` &mdash; unauthenticated SQL injection in `database.py:42` triggers zero-critical tolerance policy, halting production deployment and PR merge until verified patch or approved exception.
 
 8. **Act VIII — AI-Powered Explanation (All Identified Codebase Vulnerabilities)**
-   - **Comprehensive Coverage of All 6 Codebase Errors**:
-     1. `database.py:42` — SQL Injection (`CWE-89 Critical`)
-     2. `config.js:18` — Hardcoded Cloud API Secret (`CWE-798 Critical`)
-     3. `app.js:89` — Stored Cross-Site Scripting (`CWE-79 High`)
-     4. `auth.js:64` — Remote Command Injection (`CWE-78 Critical`)
-     5. `login.py:88` — Insecure Object Deserialization (`CWE-502 Critical`)
-     6. `package.json:27` — Vulnerable Dependency Axios (`CVE-2024-39338 Medium`)
-   - **Navigation & View Switchers**:
-     - **6 Top Tabs**: Clickable navigation bar with file icons, paths, and severity pills to inspect any error.
-     - **View Toggles**: Switch between `[ 🤖 Copilot Inspector ]` (deep-dive conversational breakdown) and `[ 🗂️ All 6 Errors Codebase Grid ]` (simultaneous side-by-side matrix).
-   - **5 Structured AI Explainer Cards per Vulnerability**:
-     - *Why is this dangerous?* (attack mechanics and payload examples).
-     - *Potential Impact* (exfiltration, RCE, session hijacking, cloud takeover).
-     - *Affected Code & Exact Target Line* (pinpointed file, function, and modification line).
-     - *Attack Context & Reachability* (endpoint visibility, authentication status).
-     - *Remediation Strategy* (framework-native code guidance and secure APIs).
-   - **Automated Playback**: Cycles through core codebase errors sequentially during playback with typewriter audio and status telemetry.
+   - Comprehensive coverage across all 6 codebase errors (`database.py:42 SQLi`, `config.js:18 Secret`, `app.js:89 XSS`, `auth.js:64 RCE`, `login.py:88 Deserialization`, `package.json:27 Axios CVE`).
+   - 5 structured breakdown cards per flaw (*Why is this dangerous?*, *Potential Impact*, *Affected Code*, *Attack Context*, *Remediation Strategy*).
+   - **AI Trust & Governance Notice (Section 12.4 & 16)**: AI candidate fixes are advisory and require human developer review; deterministic scanner findings remain 100% available offline if cloud AI is unreachable.
 
 9. **Act IX — AI Remediation (All 6 Codebase Fixes & Verified Patches)**
-   - **All 6 Codebase Fixes Supported**: Provides complete remediation diffs across every vulnerability in the codebase:
-     1. `database.py:42` (SQLi): Parameterized `%s` binding on branch `fix/database-sqli-line-42`
-     2. `config.js:18` (Cloud Secret): `process.env.AWS_SECRET_KEY` migration on branch `fix/config-secret-vault-line-18`
-     3. `app.js:89` (Stored XSS): `textContent` DOM binding on branch `fix/app-xss-sanitize-line-89`
-     4. `auth.js:64` (Command Injection): `execFile()` parameterized args array on branch `fix/auth-rce-execfile-line-64`
-     5. `login.py:88` (Pickle Deserialization): Signed PyJWT tokens on branch `fix/login-deserial-jwt-line-88`
-     6. `package.json:27` (Outdated Axios): Bump dependency to `^1.7.4` on branch `fix/package-axios-upgrade-line-27`
-   - **Dual Interactive Modes**:
-     - `[ 🔍 Single Diff Inspector ]`: Side-by-side split code viewer with dynamic gutters, target line callouts, exact scope, and individual branch commit action.
-     - `[ 🗂️ All 6 Fixes Codebase Matrix ]`: Executive matrix grid displaying micro-diff comparisons for all 6 vulnerabilities simultaneously, with batch `[ APPLY ALL 6 VERIFIED PATCHES ]` capability.
-   - **Automated Cycling Sequence**: Automatically demonstrates applying patches and transitions smoothly across files during presentation playback.
+   - Verified patch diffs with line gutters, target highlights, and branch patch generators across all 6 errors.
+   - Dual modes: `[ 🔍 Single Diff Inspector ]` and `[ 🗂️ All 6 Fixes Codebase Matrix ]` with batch apply button.
 
-10. **Act X — Re-Scan & Verification (Re-Upload Patched Code & Verify)**
-    - **Step 1: Upload Patched Project**: The developer uploads the modified repository containing the changes applied at `database.py:42`.
-      - Interactive/animated `UPLOAD PATCHED PROJECT` button.
-      - Confirmation: `Patched Repository Uploaded (Changes at Line 42 Received) ✓`.
-    - **Step 2: Run Verification Re-Scan**: SecureCode activates the re-scan on the newly uploaded codebase:
-      - `database.py:42 — SQL Injection → RESOLVED ✓ (Line 42 fix verified)`
-      - `config.js:18 — Hardcoded Secret → RESOLVED ✓ (Secret migrated to vault)`
-      - `app.js:89 — Cross-Site Scripting → STILL PRESENT ⚠️ (Line 89 still awaiting sanitizer)`
-    - Proves SecureCode verifies fixes on real uploaded code rather than blindly closing tickets.
+10. **Act X — Re-Scan & Verification (Re-Upload Patched Code & Policy PASS)**
+    - Re-uploads patched project files and executes re-scan.
+    - Proves `database.py:42` taint path severed (100% parameterized query verified).
+    - **Policy Gate Transition (Section 9.2 & 28.4)**: `✅ POLICY DECISION: PASS` &mdash; zero blocking flaws detected on revision `#b3f81e`, unlocking CI/CD gate for production release.
 
-11. **Act XI — Security Dashboard (Continuous Posture Governance)**
-    - Executive telemetry scorecard: Total Vulnerabilities (23, down from 27), Critical (2, down from 5), High (8, down from 9), Medium (10), Low (3), Risk Score dropped from 91 to 24 (Grade: EXCELLENT).
-    - Comparative Before & After metrics with "Security Posture Improved" badge.
-    - **Complete 27-Finding Vulnerability Register Table**: Filterable audit log with status pills for all 27 findings (4 Resolved, 23 Monitored), location coordinates, and CWE classifications.
+11. **Act XI — Security Dashboard & Policy Governance**
+    - Executive telemetry scorecard: Total Vulnerabilities (23, down from 27), Risk Score dropped from 91 to 24 (Grade: EXCELLENT).
+    - Comparative Before & After metrics.
+    - **Policy Engine & Governance Deck (Section 9.2, 14, 35)**:
+      - *Configured Policy Rules*: Critical [BLOCK], High [BLOCK], Medium [REVIEW], Low [MONITOR].
+      - *Exception Management*: Active time-bounded exception for `SEC-05 (Internal SSRF)` with 28-day expiry and SecOps lead approval.
+      - *Team RBAC Permissions*: Granular role permissions across Developer, Repo Admin, and Org Admin.
+    - Complete 27-Finding Vulnerability Register Table with search filters.
 
-12. **Act XII — Complete SecureCode Architecture Workflow**
-    - 12 interconnected stages in a unified visual matrix:
-      *Upload* → *Analyze* → *Detect* → *Context* → *Risk* → *Prioritize* → *AI Explain* → *Remediate* → *Fix* → *Re-Scan* → *Verify* → *Dashboard*.
+12. **Act XII — Complete Architecture Workflow & 8 Backend Services**
+    - **8 Backend Core Services Topology (Section 32)**:
+      1. *Identity Service*: Authentication, session tokens, and RBAC checks.
+      2. *Repository Service*: Repository metadata and immutable revision snapshots.
+      3. *Scan Orchestrator*: Request lifecycle and asynchronous worker queue.
+      4. *Sandboxed Workers*: Isolated container execution with strict quotas.
+      5. *Scanner Adapters*: SAST, SCA, Secret, and IaC tool normalization.
+      6. *Policy Engine*: Evaluation of PASS / REVIEW / BLOCK decision rules.
+      7. *Notification & CI*: PR checks, webhooks, and VS Code live sync.
+      8. *Audit Service*: Append-only tamper-resistant compliance audit trail.
+    - **4 Developer Workflows (Section 28)**:
+      - *Workflow A (Web)*: Repository creation, scan history, policy thresholds.
+      - *Workflow B (VS Code)*: Local quick scan, inline squigglies, Problems panel.
+      - *Workflow C (Browser IDE)*: Zero-setup cloud editor, jump to line, patch diffs.
+      - *Workflow D (CI / PR Gate)*: Automated PR check enforcement and merge blocking.
 
-13. **Finale — Project Vision (Build More Secure Software)**
+13. **Finale — Project Vision & Final Product Definition (Build More Secure Software)**
+    - **Product Definition (Section 40)**: One connected developer-security platform coordinating Web, Browser IDE, VS Code, and Backend Scanning into a single developer experience.
     - 4 guiding pillars: *Detect Earlier*, *Understand Better*, *Fix Faster*, *Build More Secure*.
     - Brand grand finale title card with Replay controls.
 

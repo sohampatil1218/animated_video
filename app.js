@@ -728,6 +728,87 @@
   }
 
   // --- SCENE 3 IMPLEMENTATION ---
+  const SURFACES_DATA = {
+    web: {
+      badge: 'WEB PLATFORM • REPOSITORY & GOVERNANCE PORTAL',
+      tag: 'Central Management',
+      col1: [
+        '<strong>Repository Overview:</strong> Immutable commit snapshots (<code>rev #a7f9c2</code>), policy settings, scan history, and findings register.',
+        '<strong>Policy Configuration:</strong> Configurable rules with automatic <code>PASS</code> / <code>REVIEW</code> / <code>BLOCK</code> gate enforcement.'
+      ],
+      col2: [
+        '<strong>Team Governance & RBAC:</strong> Granular permissions across Developers, Repository Admins, and Organization Admins.',
+        '<strong>Tamper-Resistant Audit Trail:</strong> Append-only log of scans, exceptions, member invites, and policy modifications.'
+      ]
+    },
+    ide: {
+      badge: 'BROWSER IDE • IN-CLOUD CODE EDITOR & DIAGNOSTICS',
+      tag: 'Zero Setup',
+      col1: [
+        '<strong>Live File Tree:</strong> Full exploration of <code>enterprise/fintech-payment-service</code> with syntax highlighting and line gutters.',
+        '<strong>Security Problems Panel:</strong> Bottom panel displaying active findings, CWE tags, and severity indicators.'
+      ],
+      col2: [
+        '<strong>Direct Jump-to-Line:</strong> Clicking any finding instantly focuses the editor on the exact line (e.g. Line 42).',
+        '<strong>Live Patch Review:</strong> Inspect side-by-side candidate fix diffs and trigger immediate in-editor rescans.'
+      ]
+    },
+    vscode: {
+      badge: 'VS CODE EXTENSION • IN-EDITOR SECURITY INTELLIGENCE',
+      tag: 'Developer Workflow',
+      col1: [
+        '<strong>Command Palette Integration:</strong> <code>SecureCode: Scan Workspace</code>, <code>SecureCode: Explain Finding</code>, and <code>SecureCode: Propose Fix</code>.',
+        '<strong>Local & Cloud Modes:</strong> Fast local pre-commit scan vs full containerized cloud deep scan.'
+      ],
+      col2: [
+        '<strong>Inline Red Squigglies:</strong> Native VS Code diagnostics directly on vulnerable code with lightbulb quick-fixes.',
+        '<strong>Status Bar Indicator:</strong> Real-time gate posture: <code>SecureCode: ⚠️ BLOCK (Policy Failed)</code>.'
+      ]
+    },
+    cicd: {
+      badge: 'CI/CD & PR GATES • AUTOMATED PULL REQUEST ENFORCEMENT',
+      tag: 'Release Protection',
+      col1: [
+        '<strong>Signed Webhook Ingestion:</strong> Automatically triggers sandboxed scan workers on branch push or pull request open.',
+        '<strong>GitHub/GitLab PR Checks:</strong> Posts clear inline review comments and status checks on PR #142.'
+      ],
+      col2: [
+        '<strong>Automated Merge Block:</strong> Rejects pull requests violating security policy: <code>🚫 BLOCK: 1 Critical SQLi</code>.',
+        '<strong>Instant Pass Upon Patch:</strong> Automatically re-evaluates the fixed commit and grants green <code>✅ PASS</code> status.'
+      ]
+    }
+  };
+
+  function renderSurfacePreview(surfaceKey) {
+    const data = SURFACES_DATA[surfaceKey] || SURFACES_DATA.web;
+    const container = document.getElementById('surfacePreviewContent');
+    const tabs = document.querySelectorAll('#scene3SurfacesTabs .surface-tab');
+
+    tabs.forEach(tab => {
+      if (tab.dataset.surface === surfaceKey) tab.classList.add('active');
+      else tab.classList.remove('active');
+    });
+
+    if (container) {
+      container.innerHTML = `
+        <div class="surface-preview-panel">
+          <div class="surface-preview-head">
+            <span class="sp-badge">${data.badge}</span>
+            <span class="sp-tag">${data.tag}</span>
+          </div>
+          <div class="surface-preview-body">
+            <div class="sp-col">
+              ${data.col1.map(item => `<div class="sp-feat-item">${item}</div>`).join('')}
+            </div>
+            <div class="sp-col">
+              ${data.col2.map(item => `<div class="sp-feat-item">${item}</div>`).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+  }
+
   function setupScene3() {
     const uploadBtn = document.getElementById('uploadProjectBtn');
     const confirmedBadge = document.getElementById('uploadConfirmedBadge');
@@ -739,13 +820,15 @@
       statusBadge.innerHTML = '<span class="status-dot"></span><span class="status-txt">Ready for Analysis</span>';
     }
 
-    // Auto click simulation after 2.5s
+    renderSurfacePreview('web');
+
+    // Auto click simulation after 2.0s
     sceneTimers.push(setTimeout(() => {
       if (uploadBtn) {
         uploadBtn.style.transform = 'scale(0.95)';
         playSynthBlip(880, 0.15);
       }
-    }, 2500 / state.speed));
+    }, 2000 / state.speed));
 
     sceneTimers.push(setTimeout(() => {
       if (uploadBtn) uploadBtn.classList.add('hidden');
@@ -756,7 +839,23 @@
       if (statusBadge) {
         statusBadge.innerHTML = '<span class="status-dot" style="background:#10b981;box-shadow:0 0 8px #10b981;"></span><span class="status-txt" style="color:#10b981;">Repository Uploaded ✓</span>';
       }
-    }, 3200 / state.speed));
+    }, 2700 / state.speed));
+
+    // Cycle through the other 3 surfaces during demonstration
+    sceneTimers.push(setTimeout(() => {
+      renderSurfacePreview('ide');
+      playSynthBlip(620, 0.05);
+    }, 4500 / state.speed));
+
+    sceneTimers.push(setTimeout(() => {
+      renderSurfacePreview('vscode');
+      playSynthBlip(660, 0.05);
+    }, 6500 / state.speed));
+
+    sceneTimers.push(setTimeout(() => {
+      renderSurfacePreview('cicd');
+      playSynthBlip(700, 0.05);
+    }, 8500 / state.speed));
   }
 
   // --- SCENE 4 IMPLEMENTATION ---
@@ -766,10 +865,15 @@
     const circle = document.getElementById('pipelineProgressCircle');
     const percentTxt = document.getElementById('scanPercentText');
     const tickers = document.querySelectorAll('.ticker-step');
+    const lcSteps = document.querySelectorAll('#scanLifecycleSteps .lc-step');
 
     // Reset pipeline elements
     pipeNodes.forEach(n => n.classList.remove('active-node'));
     tickers.forEach(t => t.classList.remove('active'));
+    lcSteps.forEach((s, idx) => {
+      s.classList.remove('active', 'done');
+      if (idx === 0) s.classList.add('active');
+    });
     if (circle) circle.style.strokeDashoffset = '427';
     if (percentTxt) percentTxt.textContent = '0%';
 
@@ -787,6 +891,28 @@
         circle.style.strokeDashoffset = offset;
       }
       if (percentTxt) percentTxt.textContent = `${pct}%`;
+
+      // 6-Stage Scan Status Lifecycle (Section 32.1)
+      if (lcSteps.length >= 6) {
+        if (pct < 18) {
+          lcSteps[0].classList.add('active');
+        } else if (pct < 38) {
+          lcSteps[0].classList.remove('active'); lcSteps[0].classList.add('done');
+          lcSteps[1].classList.add('active');
+        } else if (pct < 62) {
+          lcSteps[1].classList.remove('active'); lcSteps[1].classList.add('done');
+          lcSteps[2].classList.add('active');
+        } else if (pct < 80) {
+          lcSteps[2].classList.remove('active'); lcSteps[2].classList.add('done');
+          lcSteps[3].classList.add('active');
+        } else if (pct < 95) {
+          lcSteps[3].classList.remove('active'); lcSteps[3].classList.add('done');
+          lcSteps[4].classList.add('active');
+        } else {
+          lcSteps[4].classList.remove('active'); lcSteps[4].classList.add('done');
+          lcSteps[5].classList.add('done');
+        }
+      }
 
       // Illuminate pipeline nodes
       if (pct >= 10 && pipeNodes[0]) pipeNodes[0].classList.add('active-node');
@@ -1971,6 +2097,23 @@
 
   // --- SCENE 11 IMPLEMENTATION ---
   function setupScene11() {
+    // Reset to Register view by default
+    const btnReg = document.getElementById('btnScene11Register');
+    const btnPol = document.getElementById('btnScene11Policy');
+    const btnSpl = document.getElementById('btnScene11Split');
+    const vReg = document.getElementById('scene11ViewRegister');
+    const vPol = document.getElementById('scene11ViewPolicy');
+    const vSpl = document.getElementById('scene11ViewSplit');
+
+    if (btnReg && btnPol && btnSpl && vReg && vPol && vSpl) {
+      btnReg.classList.add('active');
+      btnPol.classList.remove('active');
+      btnSpl.classList.remove('active');
+      vReg.classList.remove('hidden');
+      vPol.classList.add('hidden');
+      vSpl.classList.add('hidden');
+    }
+
     const kpiCards = document.querySelectorAll('#scene-11 .kpi-card');
     kpiCards.forEach((card, idx) => {
       card.style.opacity = '0';
@@ -1980,18 +2123,29 @@
         card.style.opacity = '1';
         card.style.transform = 'translateY(0)';
         playSynthBlip(600 + idx * 80, 0.05);
-      }, (400 + idx * 220) / state.speed));
+      }, (400 + idx * 200) / state.speed));
     });
+
+    const compGrid = document.querySelector('#scene-11 .comparison-grid');
+    if (compGrid) {
+      compGrid.style.opacity = '0';
+      compGrid.style.transform = 'translateY(10px)';
+      sceneTimers.push(setTimeout(() => {
+        compGrid.style.transition = 'all 0.4s ease';
+        compGrid.style.opacity = '1';
+        compGrid.style.transform = 'translateY(0)';
+        playSynthBlip(800, 0.04);
+      }, 1200 / state.speed));
+    }
 
     const auditPanel = document.querySelector('#scene-11 .findings-audit-table-panel');
     if (auditPanel) {
       auditPanel.style.opacity = '0';
-      auditPanel.style.transform = 'translateY(15px)';
+      auditPanel.style.transform = 'translateY(12px)';
       sceneTimers.push(setTimeout(() => {
         auditPanel.style.transition = 'all 0.4s ease';
         auditPanel.style.opacity = '1';
         auditPanel.style.transform = 'translateY(0)';
-        playSuccessChord();
       }, 1600 / state.speed));
     }
 
@@ -2004,8 +2158,21 @@
         setTimeout(() => {
           row.style.background = 'rgba(16, 185, 129, 0.06)';
         }, 800);
-      }, (2200 + idx * 250) / state.speed));
+      }, (2000 + idx * 250) / state.speed));
     });
+
+    // Auto-reveal Policy view around 5.5s during presentation
+    sceneTimers.push(setTimeout(() => {
+      if (state.isPlaying && state.currentScene === 11) {
+        if (btnReg && btnPol && vReg && vPol) {
+          btnReg.classList.remove('active');
+          btnPol.classList.add('active');
+          vReg.classList.add('hidden');
+          vPol.classList.remove('hidden');
+          playSynthBlip(760, 0.04);
+        }
+      }
+    }, 5500 / state.speed));
 
     sceneTimers.push(setTimeout(() => {
       playSuccessChord();
@@ -2204,6 +2371,17 @@
         playSuccessChord();
       });
     }
+
+    // Scene 3 Surfaces Tabs Click (Section 27 & 40)
+    const surfaceTabs = document.querySelectorAll('#scene3SurfacesTabs .surface-tab');
+    surfaceTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        initAudio();
+        const surfaceKey = tab.dataset.surface;
+        renderSurfacePreview(surfaceKey);
+        playSynthBlip(640, 0.05);
+      });
+    });
 
     // Interactive Apply Fix Button in Scene 9
     const applyFixBtn = document.getElementById('applyFixBtn');
@@ -2479,6 +2657,54 @@
         scene9SingleView.classList.add('hidden');
         scene9GridView.classList.remove('hidden');
         playSynthBlip(680, 0.04);
+      });
+    }
+
+    // Scene 11 View Switcher Tabs
+    const btnScene11Register = document.getElementById('btnScene11Register');
+    const btnScene11Policy = document.getElementById('btnScene11Policy');
+    const btnScene11Split = document.getElementById('btnScene11Split');
+    const viewScene11Register = document.getElementById('scene11ViewRegister');
+    const viewScene11Policy = document.getElementById('scene11ViewPolicy');
+    const viewScene11Split = document.getElementById('scene11ViewSplit');
+
+    function switchScene11Tab(viewName) {
+      const tabBtns = [btnScene11Register, btnScene11Policy, btnScene11Split];
+      const views = [viewScene11Register, viewScene11Policy, viewScene11Split];
+      tabBtns.forEach(b => b && b.classList.remove('active'));
+      views.forEach(v => v && v.classList.add('hidden'));
+
+      if (viewName === 'register') {
+        if (btnScene11Register) btnScene11Register.classList.add('active');
+        if (viewScene11Register) viewScene11Register.classList.remove('hidden');
+      } else if (viewName === 'policy') {
+        if (btnScene11Policy) btnScene11Policy.classList.add('active');
+        if (viewScene11Policy) viewScene11Policy.classList.remove('hidden');
+      } else if (viewName === 'split') {
+        if (btnScene11Split) btnScene11Split.classList.add('active');
+        if (viewScene11Split) viewScene11Split.classList.remove('hidden');
+      }
+    }
+
+    if (btnScene11Register) {
+      btnScene11Register.addEventListener('click', () => {
+        initAudio();
+        switchScene11Tab('register');
+        playSynthBlip(600, 0.04);
+      });
+    }
+    if (btnScene11Policy) {
+      btnScene11Policy.addEventListener('click', () => {
+        initAudio();
+        switchScene11Tab('policy');
+        playSynthBlip(680, 0.04);
+      });
+    }
+    if (btnScene11Split) {
+      btnScene11Split.addEventListener('click', () => {
+        initAudio();
+        switchScene11Tab('split');
+        playSynthBlip(720, 0.04);
       });
     }
 
